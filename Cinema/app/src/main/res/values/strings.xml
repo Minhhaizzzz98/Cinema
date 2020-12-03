@@ -2,4 +2,19 @@
     <string name="app_name">Cinema</string>
     <string name="simple_text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</string>
 
+    <!-- menu item trên appbar-->
+    <string name="menu_item_search">Tìm kiếm</string>
+    <string name="menu_item_notification">Thông báo</string>
+    <string name="menu_item_account">Tài khoản</string>
+    <string name="action_settings">Cài đặt</string>
+    <string name="action_contact">Liên hệ</string>
+
+    <!-- bottom navigation item-->
+    <string name="bottom_navigation_trang_chu">Trang chủ</string>
+    <string name="bottom_navigation_lich_trinh">Lịch trình</string>
+    <string name="bottom_navigation_nhom">Nhóm</string>
+    <string name="bottom_navigation_dia_diem">Địa điểm</string>
+    <string name="bottom_navigation_bai_viet">Bài Viết</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

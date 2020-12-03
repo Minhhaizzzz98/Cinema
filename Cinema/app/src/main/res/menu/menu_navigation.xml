@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/navigation_trangchu"
+        android:title="Home"
+        app:showAsAction="always"
+        android:icon="@drawable/ic_home"
+        />
+
+    <item
+        android:id="@+id/navigation_rap"
+        android:title="Group"
+        app:showAsAction="always"
+        android:icon="@drawable/ic_group"
+        />
+
+    <item
+        android:id="@+id/navigation_dienanh"
+        android:title="Calendar"
+        app:showAsAction="always"
+        android:icon="@drawable/ic_calendar"
+        />
+
+    <item
+        android:id="@+id/navigation_taikhoan"
+        android:title="Place"
+        app:showAsAction="always"
+        android:icon="@drawable/ic_place"
+        />
+
+
+</menu>

@@ -1,135 +1,106 @@
 package com.example.cinema.ui;
 
-import android.app.ActivityOptions;
-import android.content.Intent;
 
 import android.os.Bundle;
-import android.widget.ImageView;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.Toast;
 
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-import androidx.viewpager.widget.ViewPager;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.example.cinema.R;
-import com.example.cinema.adapters.MovieAdapter;
-import com.example.cinema.adapters.MovieItemClickListener;
-import com.example.cinema.adapters.SliderPagerAdapter;
-import com.example.cinema.models.Movie;
-import com.example.cinema.models.Slide;
-import com.google.android.material.tabs.TabLayout;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Timer;
-import java.util.TimerTask;
 
-public class HomeActivity extends AppCompatActivity implements MovieItemClickListener {
 
-    private List<Slide> lstSlides ;
-    private ViewPager sliderpager;
-    private TabLayout indicator;
-    private RecyclerView MoviesRV ;
+public class HomeActivity extends AppCompatActivity {
+
+    private ActionBar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
-        sliderpager = findViewById(R.id.slider_pager) ;
-        indicator = findViewById(R.id.indicator);
-        MoviesRV = findViewById(R.id.Rv_movies);
+        toolbar= getSupportActionBar();
+        BottomNavigationView bottomNavigation= (BottomNavigationView) findViewById(R.id.bottom_navigation);
+        bottomNavigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
-        // prepare a list of slides ..
-        lstSlides = new ArrayList<>() ;
-        lstSlides.add(new Slide(R.drawable.slide1,"Slide Title \nmore text here"));
-        lstSlides.add(new Slide(R.drawable.slide2,"Slide Title \nmore text here"));
-        lstSlides.add(new Slide(R.drawable.slide1,"Slide Title \nmore text here"));
-        lstSlides.add(new Slide(R.drawable.slide2,"Slide Title \nmore text here"));
-        SliderPagerAdapter adapter = new SliderPagerAdapter(this,lstSlides);
-        sliderpager.setAdapter(adapter);
-        // setup timer
-        Timer timer = new Timer();
-        timer.scheduleAtFixedRate(new SliderTimer(),4000,6000);
-        indicator.setupWithViewPager(sliderpager,true);
-
-        // Recyclerview Setup
-        // ini data
-
-        List<Movie> lstMovies = new ArrayList<>();
-        lstMovies.add(new Movie("Moana",R.drawable.moana,R.drawable.spidercover));
-        lstMovies.add(new Movie("Black P",R.drawable.blackp,R.drawable.spidercover));
-        lstMovies.add(new Movie("The Martian",R.drawable.themartian));
-        lstMovies.add(new Movie("The Martian",R.drawable.themartian));
-        lstMovies.add(new Movie("The Martian",R.drawable.themartian));
-        lstMovies.add(new Movie("The Martian",R.drawable.themartian));
-
-        MovieAdapter movieAdapter = new MovieAdapter(this,lstMovies,this);
-        MoviesRV.setAdapter(movieAdapter);
-        MoviesRV.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL,false));
-
-
-
-
+        Fragment fragment= new TrangChuFragment();
+        loadFragment(fragment);
+        toolbar.setTitle(R.string.bottom_navigation_trang_chu);
 
     }
-
-
-
-    @Override
-    public void onPointerCaptureChanged(boolean hasCapture) {
-
-    }
-
-    @Override
-    public void onMovieClick(Movie movie, ImageView movieImageView) {
-        // here we send movie information to detail activity
-        // also we ll create the transition animation between the two activity
-
-        Intent intent = new Intent(this,MovieDetailActivity.class);
-        // send movie information to deatilActivity
-        intent.putExtra("title",movie.getTitle());
-        intent.putExtra("imgURL",movie.getThumbnail());
-        intent.putExtra("imgCover",movie.getCoverPhoto());
-        // lets crezte the animation
-        ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(HomeActivity.this,
-                movieImageView,"sharedName");
-
-        startActivity(intent,options.toBundle());
-
-
-
-        // i l make a simple test to see if the click works
-
-        Toast.makeText(this,"item clicked : " + movie.getTitle(),Toast.LENGTH_LONG).show();
-        // it works great
-    }
-
-    class SliderTimer extends TimerTask {
-
-
+    public BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener= new BottomNavigationView.OnNavigationItemSelectedListener(){
         @Override
-        public void run() {
-
-            HomeActivity.this.runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    if (sliderpager.getCurrentItem()<lstSlides.size()-1) {
-                        sliderpager.setCurrentItem(sliderpager.getCurrentItem()+1);
-                    }
-                    else
-                        sliderpager.setCurrentItem(0);
-                }
-            });
-
-
+        public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+            Fragment fragment;
+            switch (item.getItemId()){
+                case R.id.navigation_trangchu:
+                    toolbar.setTitle(R.string.bottom_navigation_trang_chu);
+                    fragment= new TrangChuFragment();
+                    loadFragment(fragment);
+                    return true;
+                case R.id.navigation_rap:
+                    toolbar.setTitle(R.string.bottom_navigation_lich_trinh);
+                    fragment= new TrangChuFragment();
+                    loadFragment(fragment);
+                    return true;
+                case R.id.navigation_dienanh:
+                    toolbar.setTitle(R.string.bottom_navigation_nhom);
+                    fragment= new TrangChuFragment();
+                    loadFragment(fragment);
+                    return true;
+                case R.id.navigation_taikhoan:
+                    fragment= new TrangChuFragment();
+                    loadFragment(fragment);
+                    toolbar.setTitle(R.string.bottom_navigation_dia_diem);
+                    return true;
+            }
+            return false;
         }
+    };
+    private void loadFragment(Fragment fragment) {
+        // load fragment
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        transaction.replace(R.id.frame_container, fragment);
+        transaction.addToBackStack(null);
+        transaction.commit();
+    }
+    // Khoi tao Option Menu
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_account, menu);
+        return super.onCreateOptionsMenu(menu);
     }
 
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+//            case R.id.search:
+//                return true;
+            case R.id.notification:
+                Toast.makeText(this, "Notification button selected", Toast.LENGTH_SHORT).show();
+                return true;
 
+            case R.id.settings:
+                Toast.makeText(this, "Settings selected", Toast.LENGTH_SHORT).show();
+                return true;
+            case R.id.contact:
+                Toast.makeText(this, "Contact selected", Toast.LENGTH_SHORT).show();
+                return true;
+            case android.R.id.home:
+                finish();
+                return true;
+        }
 
-
+        return super.onOptionsItemSelected(item);
+    }
 }
