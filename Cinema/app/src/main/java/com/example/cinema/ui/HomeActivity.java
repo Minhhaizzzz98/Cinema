@@ -1,6 +1,7 @@
 package com.example.cinema.ui;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -47,19 +48,19 @@ public class HomeActivity extends AppCompatActivity {
                     loadFragment(fragment);
                     return true;
                 case R.id.navigation_rap:
-                    toolbar.setTitle(R.string.bottom_navigation_lich_trinh);
+                    toolbar.setTitle(R.string.bottom_navigation_rap_phim);
                     fragment= new TrangChuFragment();
                     loadFragment(fragment);
                     return true;
                 case R.id.navigation_dienanh:
-                    toolbar.setTitle(R.string.bottom_navigation_nhom);
+                    toolbar.setTitle(R.string.bottom_navigation_bai_viet);
                     fragment= new TrangChuFragment();
                     loadFragment(fragment);
                     return true;
                 case R.id.navigation_taikhoan:
-                    fragment= new TrangChuFragment();
-                    loadFragment(fragment);
-                    toolbar.setTitle(R.string.bottom_navigation_dia_diem);
+                    Intent intent= new Intent(getApplicationContext(), Login.class);
+                    startActivity(intent);
+                    toolbar.setTitle(R.string.bottom_navigation_tai_khoan);
                     return true;
             }
             return false;

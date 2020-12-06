@@ -9,6 +9,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Cinema">
+        <activity android:name=".ui.ChonGheActivity"></activity>
         <activity android:name=".ui.HomeActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -16,8 +17,13 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ui.MovieDetailActivity"></activity>
-    </application>
+        <activity android:name=".ui.MovieDetailActivity" />
+        <activity android:name=".ui.DangKy" />
+        <activity android:name=".ui.ChinhSuaThongTin" />
+        <activity android:name=".ui.Login" />
+        <activity android:name=".ui.DatVeActivity">
 
+        </activity>
+    </application>
 
 </manifest>
