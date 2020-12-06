@@ -18,6 +18,7 @@ import android.widget.Toast;
 import com.example.cinema.R;
 import com.example.cinema.adapters.MovieAdapter;
 import com.example.cinema.adapters.MovieItemClickListener;
+import com.example.cinema.adapters.PhimViewPagerAdapter;
 import com.example.cinema.adapters.SliderPagerAdapter;
 import com.example.cinema.models.Movie;
 import com.example.cinema.models.Slide;
@@ -39,6 +40,9 @@ public class TrangChuFragment extends Fragment  implements MovieItemClickListene
     private ViewPager sliderpager;
     private TabLayout indicator;
     private RecyclerView MoviesRV ;
+    private  ViewPager moviePager;
+    private  TabLayout tabMovie;
+    PhimViewPagerAdapter phimViewPagerAdapter;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -88,7 +92,9 @@ public class TrangChuFragment extends Fragment  implements MovieItemClickListene
 
         sliderpager = rootView.findViewById(R.id.slider_pager) ;
         indicator = rootView.findViewById(R.id.indicator);
-        MoviesRV = rootView.findViewById(R.id.Rv_movies);
+        tabMovie=(TabLayout)rootView.findViewById(R.id.tabMovie);
+        moviePager=(ViewPager)rootView.findViewById(R.id.slider_movie);
+       // MoviesRV = rootView.findViewById(R.id.Rv_movies);
 
         // prepare a list of slides ..
         lstSlides = new ArrayList<>() ;
@@ -114,9 +120,13 @@ public class TrangChuFragment extends Fragment  implements MovieItemClickListene
         lstMovies.add(new Movie("The Martian",R.drawable.themartian));
         lstMovies.add(new Movie("The Martian",R.drawable.themartian));
 
-        MovieAdapter movieAdapter = new MovieAdapter(getActivity(),lstMovies,this);
-        MoviesRV.setAdapter(movieAdapter);
-        MoviesRV.setLayoutManager(new LinearLayoutManager(getActivity(),LinearLayoutManager.HORIZONTAL,false));
+//        MovieAdapter movieAdapter = new MovieAdapter(getActivity(),lstMovies,this);
+//        MoviesRV.setAdapter(movieAdapter);
+//        MoviesRV.setLayoutManager(new LinearLayoutManager(getActivity(),LinearLayoutManager.HORIZONTAL,false));
+        indicator.setupWithViewPager(sliderpager,true);
+        phimViewPagerAdapter=new PhimViewPagerAdapter(getActivity().getSupportFragmentManager());
+        moviePager.setAdapter(phimViewPagerAdapter);
+        tabMovie.setupWithViewPager(moviePager);
         return rootView;
     }
 
