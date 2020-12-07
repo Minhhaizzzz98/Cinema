@@ -4,30 +4,30 @@
 
     <item
         android:id="@+id/navigation_trangchu"
-        android:title="Home"
+        android:title="Trang chủ"
         app:showAsAction="always"
         android:icon="@drawable/ic_home"
         />
 
     <item
         android:id="@+id/navigation_rap"
-        android:title="Group"
+        android:title="Rạp phim"
         app:showAsAction="always"
         android:icon="@drawable/ic_group"
         />
 
     <item
         android:id="@+id/navigation_dienanh"
-        android:title="Calendar"
+        android:title="Bài viết"
         app:showAsAction="always"
         android:icon="@drawable/ic_calendar"
         />
 
     <item
         android:id="@+id/navigation_taikhoan"
-        android:title="Place"
+        android:title="Tài khoản"
         app:showAsAction="always"
-        android:icon="@drawable/ic_place"
+        android:icon="@drawable/ic_user"
         />
 
 

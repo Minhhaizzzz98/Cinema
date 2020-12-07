@@ -11,10 +11,47 @@
 
     <!-- bottom navigation item-->
     <string name="bottom_navigation_trang_chu">Trang chủ</string>
-    <string name="bottom_navigation_lich_trinh">Lịch trình</string>
-    <string name="bottom_navigation_nhom">Nhóm</string>
-    <string name="bottom_navigation_dia_diem">Địa điểm</string>
+    <string name="bottom_navigation_rap_phim">Rạp phim</string>
+    <string name="bottom_navigation_tai_khoan">Tài khoản</string>
     <string name="bottom_navigation_bai_viet">Bài Viết</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <!--    Tài khoản-->
+    <string name="title_activity_quen_mat_khau">Quên mật khẩu?</string>
+    <string name="quan_ly_tai_khoan">Tài khoản</string>
+    <string name="chinh_sua_tai_khoan">Chỉnh sửa tài khoản</string>
+    <string name="dang_ky">ĐĂNG KÝ</string>
+    <string name="dang_nhap">ĐĂNG NHẬP</string>
+    <string name="so_dien_thoai">Số điện thoại</string>
+    <string name="mat_khau">Mật khẩu</string>
+    <string name="xac_nhan_mat_khau">Xác nhận mật khẩu</string>
+    <string name="tao_tai_khoan_moi">Tạo tài khoản mới</string>
+    <string name="co_tai_khoan">Có tài khoản? Đăng nhập</string>
+
+    <!--    DAt ve-->
+    <string name="txtSelectDate">Select Date</string>
+    <string name="txtstartTime">Start-Time</string>
+    <string name="txtRunTime">Run-Time </string>
+    <string name="txtCleaningTime">Cleaning-Time</string>
+    <string name="txtCloseTime">Theatre-CloseTime</string>
+    <string name="btnSchedule">Schedule</string>
+    <string name="selectMovieGuest">Select a movie to Watch</string>
+    <string name="textViewDate">Select Date</string>
+    <string name="textViewDate1">dd/mm/yy</string>
+    <string name="spinnerDate">Schedule</string>
+    <string name="textViewTime">Select Time</string>
+    <string name="textViewTime1">00 : 00 : 00</string>
+    <string name="spinnerTime">Schedule</string>
+    <string name="btnPickDate">Pick Date</string>
+    <string name="goBack">Back to HomePage</string>
+    <string name="txtMovieScheduled">Movie Scheduled</string>
+    <string name="btnProceedToPay">Select Seats</string>
+    <string name="textViewTickets">Select Tickets</string>
+    <string name="pickSeatTitle">Pick Your Seats</string>
+    <string name="btnConfirmSeats">Confirm Seats and pay</string>
+    <string name="receiptTitle">Your Receipt</string>
+    <string name="printTicket">Print Ticket</string>
+    <string name="ticketTitle">Your Ticket</string>
+    <string name="btnbookAnother">Book another Movie</string>
 </resources>
