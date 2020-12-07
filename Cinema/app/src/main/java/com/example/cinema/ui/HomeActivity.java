@@ -49,7 +49,7 @@ public class HomeActivity extends AppCompatActivity {
                     return true;
                 case R.id.navigation_rap:
                     toolbar.setTitle(R.string.bottom_navigation_rap_phim);
-                    fragment= new TrangChuFragment();
+                    fragment= new rapchieu();
                     loadFragment(fragment);
                     return true;
                 case R.id.navigation_dienanh:
