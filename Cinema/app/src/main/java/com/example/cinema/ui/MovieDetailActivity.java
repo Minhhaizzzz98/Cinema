@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.animation.AnimationUtils;
+import android.webkit.WebChromeClient;
+import android.webkit.WebView;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -15,7 +17,8 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 public class MovieDetailActivity extends AppCompatActivity {
 
-    private ImageView MovieThumbnailImg,MovieCoverImg;
+    private ImageView MovieThumbnailImg;
+    private WebView MovieCoverTrailer;
     private TextView tv_title,tv_description;
     private FloatingActionButton play_fab;
 
@@ -26,28 +29,30 @@ public class MovieDetailActivity extends AppCompatActivity {
         // ini views
         iniViews();
 
-
-
-
     }
 
     void iniViews() {
-        play_fab = findViewById(R.id.play_fab);
+//        play_fab = findViewById(R.id.play_fab);
         String movieTitle = getIntent().getExtras().getString("title");
         int imageResourceId = getIntent().getExtras().getInt("imgURL");
-        int imagecover = getIntent().getExtras().getInt("imgCover");
+//        int imagecover = getIntent().getExtras().getInt("imgCover");
+        String trailer= getIntent().getExtras().getString("trailer");
         MovieThumbnailImg = findViewById(R.id.detail_movie_img);
         Glide.with(this).load(imageResourceId).into(MovieThumbnailImg);
         MovieThumbnailImg.setImageResource(imageResourceId);
-        MovieCoverImg = findViewById(R.id.detail_movie_cover);
-        Glide.with(this).load(imagecover).into(MovieCoverImg);
+        MovieCoverTrailer = findViewById(R.id.detail_movie_cover);
+        MovieCoverTrailer.getSettings().setJavaScriptEnabled(true);
+        MovieCoverTrailer.setWebChromeClient(new WebChromeClient());
+        MovieCoverTrailer.loadData(trailer, "text/html", "utf-8");
+
+//        Glide.with(this).load(imagecover).into(MovieCoverTrailer);
         tv_title = findViewById(R.id.detail_movie_title);
         tv_title.setText(movieTitle);
         getSupportActionBar().setTitle(movieTitle);
         tv_description = findViewById(R.id.detail_movie_desc);
         // setup animation
-        MovieCoverImg.setAnimation(AnimationUtils.loadAnimation(this,R.anim.scale_animation));
-        play_fab.setAnimation(AnimationUtils.loadAnimation(this,R.anim.scale_animation));
+//        MovieCoverTrailer.setAnimation(AnimationUtils.loadAnimation(this,R.anim.scale_animation));
+//        play_fab.setAnimation(AnimationUtils.loadAnimation(this,R.anim.scale_animation));
 
     }
 
