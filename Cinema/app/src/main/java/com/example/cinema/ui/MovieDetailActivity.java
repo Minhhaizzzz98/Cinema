@@ -13,6 +13,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.bumptech.glide.Glide;
 import com.example.cinema.R;
+import com.example.cinema.XemTrailer;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 public class MovieDetailActivity extends AppCompatActivity {
@@ -28,6 +29,14 @@ public class MovieDetailActivity extends AppCompatActivity {
         setContentView(R.layout.activity_movie_detail);
         // ini views
         iniViews();
+        play_fab=(FloatingActionButton)findViewById(R.id.play_fab);
+        play_fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(MovieDetailActivity.this, XemTrailer.class);
+                startActivity(intent);
+            }
+        });
 
     }
 
