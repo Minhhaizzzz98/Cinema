@@ -3,7 +3,6 @@ package com.example.cinema.ui;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.view.animation.AnimationUtils;
 import android.webkit.WebChromeClient;
 import android.webkit.WebView;
 import android.widget.ImageView;
@@ -41,10 +40,8 @@ public class MovieDetailActivity extends AppCompatActivity {
     }
 
     void iniViews() {
-//        play_fab = findViewById(R.id.play_fab);
         String movieTitle = getIntent().getExtras().getString("title");
         int imageResourceId = getIntent().getExtras().getInt("imgURL");
-//        int imagecover = getIntent().getExtras().getInt("imgCover");
         String trailer= getIntent().getExtras().getString("trailer");
         MovieThumbnailImg = findViewById(R.id.detail_movie_img);
         Glide.with(this).load(imageResourceId).into(MovieThumbnailImg);
@@ -54,20 +51,21 @@ public class MovieDetailActivity extends AppCompatActivity {
         MovieCoverTrailer.setWebChromeClient(new WebChromeClient());
         MovieCoverTrailer.loadData(trailer, "text/html", "utf-8");
 
-//        Glide.with(this).load(imagecover).into(MovieCoverTrailer);
         tv_title = findViewById(R.id.detail_movie_title);
         tv_title.setText(movieTitle);
         getSupportActionBar().setTitle(movieTitle);
         tv_description = findViewById(R.id.detail_movie_desc);
-        // setup animation
-//        MovieCoverTrailer.setAnimation(AnimationUtils.loadAnimation(this,R.anim.scale_animation));
-//        play_fab.setAnimation(AnimationUtils.loadAnimation(this,R.anim.scale_animation));
+
 
     }
 
 
     public void DatVe(View view) {
         Intent intent= new Intent(this, DatVeActivity.class);
+        intent.putExtra("title",getIntent().getExtras().getString("title"));
+//        intent.putExtra("imgURL",getIntent().getExtras().getString("imgURL"));
+//        intent.putExtra("imgCover",movie.getCoverPhoto());
+//        intent.putExtra("trailer", movie.getStreamingLink());
         startActivity(intent);
     }
 }

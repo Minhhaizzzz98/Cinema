@@ -21,25 +21,25 @@ import java.util.ArrayList;
 import java.util.Date;
 
 public class PaymentActivity extends AppCompatActivity {
-    SQLiteDatabase wdb;
+//    SQLiteDatabase wdb;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 //        wdb = databaseMovieDetailsClass.getWritable(this);
 //        // update movie Details table with booked seats after user confirms seats and pays
-//        super.onCreate(savedInstanceState);
-//        setContentView(R.layout.activity_payment);
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_payment);
 //
-//        Bundle bundle = getIntent().getExtras();
-//        final String movieTitle = bundle.getString("movieTitle");
+        Bundle bundle = getIntent().getExtras();
+        final String movieTitle = bundle.getString("movieTitle");
 //        final int movieId = bundle.getInt("movieId");
-//        final String movieStartTime = bundle.getString("movieStartTime");
-//        final int infants = bundle.getInt("infants");
-//        final int adults = bundle.getInt("adults");
-//        final int seniors = bundle.getInt("seniors");
-//        final String movieDate = bundle.getString("movieDate");
-//        String currentDateTimeString = DateFormat.getDateTimeInstance().format(new Date());
-//        // list of selected seats from previous page
-//        final ArrayList<Integer> myList = (ArrayList<Integer>) getIntent().getSerializableExtra("selectedSeatsList");
+        final String movieStartTime = bundle.getString("movieStartTime");
+        final int infants = bundle.getInt("infants");
+        final int adults = bundle.getInt("adults");
+        final int seniors = bundle.getInt("seniors");
+        final String movieDate = bundle.getString("movieDate");
+        String currentDateTimeString = DateFormat.getDateTimeInstance().format(new Date());
+        // list of selected seats from previous page
+        final ArrayList<Integer> myList = (ArrayList<Integer>) getIntent().getSerializableExtra("selectedSeatsList");
 //
 //        try {
 //            long newRowId = 0;
@@ -61,30 +61,30 @@ public class PaymentActivity extends AppCompatActivity {
 //
 //        // calculate total and tax and display on Receipt
 //
-//        Double infantPrice = 5.0;
-//        Double adultPrice = 10.0;
-//        Double seniorPrice = 7.0;
-//        DecimalFormat df2 = new DecimalFormat(".##");
-//
-//        Double totalPrice = infants * infantPrice + adults * adultPrice + seniors * seniorPrice;
-//        Double GST = Double.parseDouble(String.format("%.2f", totalPrice * 0.05f));
-//        Double finalAmount = totalPrice + GST;
-//        TextView tv = (TextView) (findViewById(R.id.receiptContent));
+        Double infantPrice = 5.0;
+        Double adultPrice = 10.0;
+        Double seniorPrice = 7.0;
+        DecimalFormat df2 = new DecimalFormat(".##");
+
+        Double totalPrice = infants * infantPrice + adults * adultPrice + seniors * seniorPrice;
+        Double GST = Double.parseDouble(String.format("%.2f", totalPrice * 0.05f));
+        Double finalAmount = totalPrice + GST;
+        TextView tv = (TextView) (findViewById(R.id.receiptContent));
 //
 //        // Build a HTML foramtted list showing  details of purchase
 //
-//        String receiptText =
-//                "    <b>MOVIE :</b>" + " " + movieTitle + "<br /><br />" +
-//                        "    <b>DATE of Show :</b>" + " " + movieDate + "<br /><br />" +
-//                        "    <b>Time of Show :</b>" + " " + movieStartTime + "<br /><br />" +
-//                        "    <b>Purchased on :</b>" + " " + currentDateTimeString + "<br /><br />" +
-//                        "   <b>TAXES (GST (5%)) :</b>" + " " + GST + " $" + "<br /><br />" +
-//                        "   <b>Your Total : </b>" + " " + finalAmount + " $" + "<br /><br />";
-//
-//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-//            tv.setText(Html.fromHtml(receiptText, Html.FROM_HTML_MODE_COMPACT));
-//        } else
-//            tv.setText(Html.fromHtml(receiptText));
+        String receiptText =
+                "    <b>MOVIE :</b>" + " " + movieTitle + "<br /><br />" +
+                        "    <b>DATE of Show :</b>" + " " + movieDate + "<br /><br />" +
+                        "    <b>Time of Show :</b>" + " " + movieStartTime + "<br /><br />" +
+                        "    <b>Purchased on :</b>" + " " + currentDateTimeString + "<br /><br />" +
+                        "   <b>TAXES (GST (5%)) :</b>" + " " + GST + " $" + "<br /><br />" +
+                        "   <b>Your Total : </b>" + " " + finalAmount + " $" + "<br /><br />";
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            tv.setText(Html.fromHtml(receiptText, Html.FROM_HTML_MODE_COMPACT));
+        } else
+            tv.setText(Html.fromHtml(receiptText));
 //
 //
 //        // Button to Go to print tickets Page

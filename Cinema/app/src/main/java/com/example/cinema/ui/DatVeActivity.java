@@ -20,7 +20,7 @@ public class DatVeActivity extends AppCompatActivity {
     NumberPicker numPicker2=null;
     NumberPicker numPicker3=null;
     TextView t1, tvDate;
-
+    static int seniors=0, adults=0, infants=0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,33 +42,33 @@ public class DatVeActivity extends AppCompatActivity {
 
         });
 
-//        numPicker1.setOnValueChangedListener(new NumberPicker.OnValueChangeListener()
-//        {
-//            @Override
-//            public void onValueChange(NumberPicker picker, int oldVal,
-//                                      int newVal)
-//            {
-//                infants=newVal;
-//
-//
-//            }
-//        });
-//        numPicker2.setOnValueChangedListener(new NumberPicker.OnValueChangeListener()
-//        {
-//            public void onValueChange(NumberPicker picker, int oldVal,
-//                                      int newVal)
-//            {
-//                adults=newVal;
-//            }
-//        });
-//        numPicker3.setOnValueChangedListener(new NumberPicker.OnValueChangeListener()
-//        {
-//            public void onValueChange(NumberPicker picker, int oldVal,
-//                                      int newVal)
-//            {
-//                seniors=newVal;
-//            }
-//        });
+        numPicker1.setOnValueChangedListener(new NumberPicker.OnValueChangeListener()
+        {
+            @Override
+            public void onValueChange(NumberPicker picker, int oldVal,
+                                      int newVal)
+            {
+                infants=newVal;
+
+
+            }
+        });
+        numPicker2.setOnValueChangedListener(new NumberPicker.OnValueChangeListener()
+        {
+            public void onValueChange(NumberPicker picker, int oldVal,
+                                      int newVal)
+            {
+                adults=newVal;
+            }
+        });
+        numPicker3.setOnValueChangedListener(new NumberPicker.OnValueChangeListener()
+        {
+            public void onValueChange(NumberPicker picker, int oldVal,
+                                      int newVal)
+            {
+                seniors=newVal;
+            }
+        });
 
         numPicker1.setMaxValue(38);
         numPicker1.setMinValue(0);
@@ -99,7 +99,13 @@ public class DatVeActivity extends AppCompatActivity {
     }
 
     public void DatVe(View view) {
-        Intent intent= new Intent(this, ChonGheActivity.class);
+        Intent intent= new Intent(getApplicationContext(), ChonGheActivity.class);
+//        intent.putExtra("totalTickets", infants+seniors+adults);
+        intent.putExtra("title", getIntent().getExtras().getString("title"));
+        intent.putExtra("date", tvDate.getText().toString());
+        intent.putExtra("infants", infants);
+        intent.putExtra("adults", adults);
+        intent.putExtra("seniors", seniors);
         startActivity(intent);
     }
 }
