@@ -21,4 +21,13 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView" />
 
+    <TextView
+        android:id="@+id/tvMore"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/cyan"
+        android:layout_gravity="center_horizontal|bottom"
+        android:text="More"
+        android:layout_marginBottom="70dp"/>
+
 </FrameLayout>

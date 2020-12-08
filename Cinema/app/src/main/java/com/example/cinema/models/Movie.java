@@ -10,13 +10,17 @@ public class Movie {
     private String streamingLink;
     private int coverPhoto;
 
-
     public Movie(String title, int thumbnail, int coverPhoto) {
         this.title = title;
         this.thumbnail = thumbnail;
         this.coverPhoto = coverPhoto;
     }
 
+    public Movie(String title, int thumbnail, String streamingLink){
+        this.title = title;
+        this.thumbnail = thumbnail;
+        this.streamingLink = streamingLink;
+    }
     public Movie(String title, int thumbnail) {
         this.title = title;
         this.thumbnail = thumbnail;
@@ -88,4 +92,5 @@ public class Movie {
     public void setStreamingLink(String streamingLink) {
         this.streamingLink = streamingLink;
     }
+
 }

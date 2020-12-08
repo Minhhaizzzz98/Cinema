@@ -5,6 +5,8 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.WebChromeClient;
+import android.webkit.WebView;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -49,7 +51,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MyViewHolder
 
         myViewHolder.TvTitle.setText(mData.get(i).getTitle());
         myViewHolder.ImgMovie.setImageResource(mData.get(i).getThumbnail());
-
+//        myViewHolder.Trailer.loadData(mData.get(i).getStreamingLink(), "text/html", "utf-8");
 
     }
 
@@ -63,14 +65,17 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MyViewHolder
 
         private TextView TvTitle;
         private ImageView ImgMovie;
-
+        private WebView Trailer;
 
         public MyViewHolder(@NonNull View itemView) {
 
             super(itemView);
             TvTitle = itemView.findViewById(R.id.item_movie_title);
             ImgMovie = itemView.findViewById(R.id.item_movie_img);
-
+//            Trailer= itemView.findViewById(R.id.detail_movie_cover);
+//
+//            Trailer.getSettings().setJavaScriptEnabled(true);
+//            Trailer.setWebChromeClient(new WebChromeClient());
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
