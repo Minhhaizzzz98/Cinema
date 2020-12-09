@@ -28,12 +28,11 @@
         android:layout_height="111dp"
         android:layout_gravity="bottom"
         android:layout_weight="0.88"
-
         android:fontFamily="sans-serif"
         android:paddingBottom="30dp"
         android:paddingTop="30dp"
         android:textAlignment="center"
-        android:textColor="@android:color/white"
+        android:textColor="@android:color/black"
         android:textSize="18sp"
         android:textStyle="bold" />
 
