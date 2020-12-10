@@ -54,7 +54,7 @@ public class HomeActivity extends AppCompatActivity {
                     return true;
                 case R.id.navigation_dienanh:
                     toolbar.setTitle(R.string.bottom_navigation_bai_viet);
-                    fragment= new TrangChuFragment();
+                    fragment= new DienAnhFragment();
                     loadFragment(fragment);
                     return true;
                 case R.id.navigation_taikhoan:
