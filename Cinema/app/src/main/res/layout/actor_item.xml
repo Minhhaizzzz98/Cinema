@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:card_view="http://schemas.android.com/tools"
+    android:layout_marginLeft="5sp"
+    android:layout_marginTop="5sp"
+    android:layout_marginRight="5sp"
+    app:cardElevation="4dp"
+    card_view:cardElevation="2dp"
+    card_view:cardBackgroundColor="@android:color/white"
+    card_view:cardUseCompatPadding="true"
+    android:layout_marginBottom="5sp">
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <ImageView
+            android:id="@+id/iv_actor"
+            android:paddingLeft="8dp"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:src="@drawable/slide1">
+        </ImageView>
+        <LinearLayout
+            android:paddingLeft="8dp"
+            android:layout_width="match_parent"
+            android:layout_gravity="center_vertical"
+            android:orientation="vertical"
+            android:layout_height="wrap_content">
+            <TextView
+                android:textStyle="bold"
+                android:textSize="20dp"
+                android:layout_marginTop="8dp"
+                android:layout_width="match_parent"
+                android:id="@+id/tv_actor_name"
+                android:text="title"
+                android:layout_height="match_parent">
+            </TextView>
+            <TextView
+                android:textSize="20dp"
+                android:layout_marginTop="8dp"
+                android:layout_width="match_parent"
+                android:id="@+id/tv_actor_content"
+                android:text="title"
+                android:layout_height="match_parent">
+            </TextView>
+            <Button
+                android:id="@+id/btn_actor"
+                android:textColor="@color/duskYellow"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:text="xem thêm" />
+
+        </LinearLayout>
+    </LinearLayout>
+
+</androidx.cardview.widget.CardView>
