@@ -2,6 +2,8 @@ package com.example.cinema.adapters;
 
 import android.content.Context;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -50,7 +52,10 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MyViewHolder
 
 
         myViewHolder.TvTitle.setText(mData.get(i).getTitle());
-        myViewHolder.ImgMovie.setImageResource(mData.get(i).getThumbnail());
+       // myViewHolder.ImgMovie.setImageResource(mData.get(i).getThumbnail());
+        byte[] hinhanh=mData.get(i).getImage();
+        Bitmap bitmap= BitmapFactory.decodeByteArray(hinhanh,0,hinhanh.length);
+        myViewHolder.ImgMovie.setImageBitmap(bitmap);
 //        myViewHolder.Trailer.loadData(mData.get(i).getStreamingLink(), "text/html", "utf-8");
 
     }

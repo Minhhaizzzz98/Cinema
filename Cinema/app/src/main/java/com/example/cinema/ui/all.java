@@ -2,6 +2,8 @@ package com.example.cinema.ui;
 
 import android.app.ActivityOptions;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -16,10 +18,12 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.example.cinema.R;
+import com.example.cinema.adapters.DatabaseHandler;
 import com.example.cinema.adapters.MovieAdapter;
 import com.example.cinema.adapters.MovieItemClickListener;
 import com.example.cinema.models.Movie;
 
+import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -62,7 +66,14 @@ public class all extends Fragment  implements MovieItemClickListener {
         fragment.setArguments(args);
         return fragment;
     }
-
+    private  byte[] doiSangByte(Bitmap bm)
+    {
+        Bitmap b = Bitmap.createScaledBitmap(bm, 120, 120, false);
+        ByteArrayOutputStream byteArrayOutputStream=new ByteArrayOutputStream();
+        b.compress(Bitmap.CompressFormat.PNG,100,byteArrayOutputStream);
+        byte[] icon1=byteArrayOutputStream.toByteArray();
+        return  icon1;
+    }
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -70,13 +81,43 @@ public class all extends Fragment  implements MovieItemClickListener {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+        DatabaseHandler databaseHandler=new DatabaseHandler(getActivity());
+        if(databaseHandler.getNotesCount()<5)
+        {
+            Bitmap icon = BitmapFactory.decodeResource(getResources(),R.drawable.slide1);
+            Bitmap icon1 = BitmapFactory.decodeResource(getResources(),R.drawable.slide2);
+            Bitmap icon2 = BitmapFactory.decodeResource(getResources(),R.drawable.slide1);
+            Bitmap icon3 = BitmapFactory.decodeResource(getResources(),R.drawable.slide2);
+            Bitmap icon4 = BitmapFactory.decodeResource(getResources(),R.drawable.slide1);
+            byte[] iconb1=doiSangByte(icon);
+            byte[] iconb2=doiSangByte(icon1);
+            byte[] iconb3=doiSangByte(icon2);
+            byte[] iconb4=doiSangByte(icon3);
+            byte[] iconb5=doiSangByte(icon4);
+
+//            Bitmap icon2 = BitmapFactory.decodeResource(getResources(),R.drawable.slide2);
+//            Bitmap b = Bitmap.createScaledBitmap(icon, 120, 120, false);
+//            ByteArrayOutputStream byteArrayOutputStream=new ByteArrayOutputStream();
+//            b.compress(Bitmap.CompressFormat.PNG,100,byteArrayOutputStream);
+//            byte[] icon1=byteArrayOutputStream.toByteArray();
+//
+            databaseHandler.addMovie("Slide Title \nmore text here",iconb1);
+            databaseHandler.addMovie("Slide Title \nmore text here",iconb2);
+            databaseHandler.addMovie("Slide Title \nmore text here",iconb3);
+            databaseHandler.addMovie("Slide Title \nmore text here",iconb4);
+            databaseHandler.addMovie("Slide Title \nmore text here",iconb5);
+
+        }
+
         lstMovies = new ArrayList<>();
-        lstMovies.add(new Movie("Moana",R.drawable.moana,R.drawable.spidercover));
-        lstMovies.add(new Movie("Black P",R.drawable.blackp,R.drawable.spidercover));
-        lstMovies.add(new Movie("The Martian",R.drawable.themartian));
-        lstMovies.add(new Movie("The Martian",R.drawable.themartian));
-        lstMovies.add(new Movie("The Martian",R.drawable.themartian));
-        lstMovies.add(new Movie("The Martian",R.drawable.themartian));
+//        lstMovies.add(new Movie("Moana",R.drawable.moana,R.drawable.spidercover));
+//        lstMovies.add(new Movie("Black P",R.drawable.blackp,R.drawable.spidercover));
+//        lstMovies.add(new Movie("The Martian",R.drawable.themartian));
+//        lstMovies.add(new Movie("The Martian",R.drawable.themartian));
+//        lstMovies.add(new Movie("The Martian",R.drawable.themartian));
+//        lstMovies.add(new Movie("The Martian",R.drawable.themartian));
+        lstMovies = new ArrayList<>();
+        lstMovies.addAll(databaseHandler.getAllStudents());
     }
 
     @Override

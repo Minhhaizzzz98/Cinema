@@ -9,7 +9,20 @@ public class Movie {
     private String rating;
     private String streamingLink;
     private int coverPhoto;
+    public byte[] getImage() {
+        return image;
+    }
 
+    public void setImage(byte[] image) {
+        this.image = image;
+    }
+
+    byte[] image;
+    public Movie(String title,byte[] image)
+    {
+        this.title=title;
+        this.image=image;
+    }
     public Movie(String title, int thumbnail, int coverPhoto) {
         this.title = title;
         this.thumbnail = thumbnail;
