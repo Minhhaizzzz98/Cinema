@@ -36,6 +36,7 @@ public class HomeActivity extends AppCompatActivity {
         loadFragment(fragment);
         toolbar.setTitle(R.string.bottom_navigation_trang_chu);
 
+
     }
     public BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener= new BottomNavigationView.OnNavigationItemSelectedListener(){
         @Override

@@ -4,6 +4,7 @@ import android.app.ActivityOptions;
 import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -39,7 +40,8 @@ public class TrangChuFragment extends Fragment  implements MovieItemClickListene
     private List<Slide> lstSlides ;
     private ViewPager sliderpager;
     private TabLayout indicator;
-    private RecyclerView MoviesRV ;
+    private RecyclerView rvDang;
+    private  RecyclerView rvSap;
     private  ViewPager moviePager;
     private  TabLayout tabMovie;
     PhimViewPagerAdapter phimViewPagerAdapter;
@@ -85,15 +87,22 @@ public class TrangChuFragment extends Fragment  implements MovieItemClickListene
     }
 
     @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        setHasOptionsMenu(true);
+    }
+
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View rootView= inflater.inflate(R.layout.fragment_trang_chu, container, false);
 
         sliderpager = rootView.findViewById(R.id.slider_pager) ;
+        rvDang=(RecyclerView)rootView.findViewById(R.id.rvDangChieu);
+        rvSap=(RecyclerView)rootView.findViewById(R.id.rvSapChieu);
         indicator = rootView.findViewById(R.id.indicator);
-        tabMovie=(TabLayout)rootView.findViewById(R.id.tabMovie);
-        moviePager=(ViewPager)rootView.findViewById(R.id.slider_movie);
+
        // MoviesRV = rootView.findViewById(R.id.Rv_movies);
 
         // prepare a list of slides ..
@@ -113,20 +122,21 @@ public class TrangChuFragment extends Fragment  implements MovieItemClickListene
         // ini data
 
         List<Movie> lstMovies = new ArrayList<>();
-        lstMovies.add(new Movie("Moana",R.drawable.moana,"<iframe width=\"100%\" height=\"100%\" src=\"https://www.youtube.com/embed/CwfoyVa980U\" frameborder=\"0\" allowfullscreen></iframe>"));
-        lstMovies.add(new Movie("Black P",R.drawable.blackp,R.drawable.spidercover));
-        lstMovies.add(new Movie("The Martian",R.drawable.themartian, "<iframe width=\"100%\" height=\"100%\" src=\"https://www.youtube.com/embed/CwfoyVa980U\" frameborder=\"0\" allowfullscreen></iframe>"));
-        lstMovies.add(new Movie("The Martian",R.drawable.themartian, "<iframe width=\"100%\" height=\"100%\" src=\"https://www.youtube.com/embed/CwfoyVa980U\" frameborder=\"0\" allowfullscreen></iframe>"));
-        lstMovies.add(new Movie("The Martian",R.drawable.themartian, "<iframe width=\"100%\" height=\"100%\" src=\"https://www.youtube.com/embed/CwfoyVa980U\" frameborder=\"0\" allowfullscreen></iframe>"));
-        lstMovies.add(new Movie("The Martian",R.drawable.themartian, "<iframe width=\"100%\" height=\"100%\" src=\"https://www.youtube.com/embed/CwfoyVa980U\" frameborder=\"0\" allowfullscreen></iframe>"));
+        lstMovies.add(new Movie("Moana",R.drawable.moana,"<iframe width=\"100%\" height=\"100%\" src=\"https://www.youtube.com/embed/CwfoyVa980U\" frameborder=\"0\" allowfullscreen></iframe>","Hành Động"));
+        lstMovies.add(new Movie("Black P",R.drawable.blackp,"<iframe width=\"100%\" height=\"100%\" src=\"https://www.youtube.com/embed/CwfoyVa980U\" frameborder=\"0\" allowfullscreen></iframe>","Hành Động"));
+        lstMovies.add(new Movie("The Martian",R.drawable.themartian, "<iframe width=\"100%\" height=\"100%\" src=\"https://www.youtube.com/embed/CwfoyVa980U\" frameborder=\"0\" allowfullscreen></iframe>","Hành Động"));
+        lstMovies.add(new Movie("The Martian",R.drawable.themartian, "<iframe width=\"100%\" height=\"100%\" src=\"https://www.youtube.com/embed/CwfoyVa980U\" frameborder=\"0\" allowfullscreen></iframe>","Hành Động"));
+        lstMovies.add(new Movie("The Martian",R.drawable.themartian, "<iframe width=\"100%\" height=\"100%\" src=\"https://www.youtube.com/embed/CwfoyVa980U\" frameborder=\"0\" allowfullscreen></iframe>","Hành Động"));
+        lstMovies.add(new Movie("The Martian",R.drawable.themartian, "<iframe width=\"100%\" height=\"100%\" src=\"https://www.youtube.com/embed/CwfoyVa980U\" frameborder=\"0\" allowfullscreen></iframe>","Hành Động"));
 
-//        MovieAdapter movieAdapter = new MovieAdapter(getActivity(),lstMovies,this);
-//        MoviesRV.setAdapter(movieAdapter);
-//        MoviesRV.setLayoutManager(new LinearLayoutManager(getActivity(),LinearLayoutManager.HORIZONTAL,false));
-        indicator.setupWithViewPager(sliderpager,true);
-        phimViewPagerAdapter=new PhimViewPagerAdapter(getActivity().getSupportFragmentManager());
-        moviePager.setAdapter(phimViewPagerAdapter);
-        tabMovie.setupWithViewPager(moviePager);
+        MovieAdapter movieAdapter = new MovieAdapter(getActivity(),lstMovies,this);
+       rvSap.setAdapter(movieAdapter);
+        rvSap.setLayoutManager(new LinearLayoutManager(getActivity(),LinearLayoutManager.HORIZONTAL,false));
+        rvDang.setAdapter(movieAdapter);
+        rvDang.setLayoutManager(new LinearLayoutManager(getActivity(),LinearLayoutManager.HORIZONTAL,false));
+
+
+
         return rootView;
     }
 
