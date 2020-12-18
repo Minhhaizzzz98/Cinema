@@ -8,6 +8,16 @@ public class Movie {
     private String studio;
     private String rating;
     private String streamingLink;
+    private String loaiPhim;
+
+    public String getLoaiPhim() {
+        return loaiPhim;
+    }
+
+    public void setLoaiPhim(String loaiPhim) {
+        this.loaiPhim = loaiPhim;
+    }
+
     private int coverPhoto;
 
     public Movie(String title, int thumbnail, int coverPhoto) {
@@ -16,10 +26,11 @@ public class Movie {
         this.coverPhoto = coverPhoto;
     }
 
-    public Movie(String title, int thumbnail, String streamingLink){
+    public Movie(String title, int thumbnail, String streamingLink,String loai){
         this.title = title;
         this.thumbnail = thumbnail;
         this.streamingLink = streamingLink;
+        this.loaiPhim=loai;
     }
     public Movie(String title, int thumbnail) {
         this.title = title;
