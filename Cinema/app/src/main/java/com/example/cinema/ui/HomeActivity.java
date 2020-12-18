@@ -78,7 +78,7 @@ public class HomeActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_account, menu);
+        getMenuInflater().inflate(R.menu.menu_layout, menu);
         return super.onCreateOptionsMenu(menu);
     }
 
@@ -91,7 +91,10 @@ public class HomeActivity extends AppCompatActivity {
             case R.id.notification:
                 Toast.makeText(this, "Notification button selected", Toast.LENGTH_SHORT).show();
                 return true;
-
+            case R.id.account:
+                Intent intent= new Intent(this, Login.class);
+                startActivity(intent);
+                return true;
             case R.id.settings:
                 Toast.makeText(this, "Settings selected", Toast.LENGTH_SHORT).show();
                 return true;

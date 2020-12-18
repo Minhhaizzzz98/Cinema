@@ -40,11 +40,11 @@ public class TrangChuFragment extends Fragment  implements MovieItemClickListene
     private List<Slide> lstSlides ;
     private ViewPager sliderpager;
     private TabLayout indicator;
+
     private RecyclerView rvDang;
     private  RecyclerView rvSap;
-    private  ViewPager moviePager;
-    private  TabLayout tabMovie;
-    PhimViewPagerAdapter phimViewPagerAdapter;
+
+    
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -122,6 +122,13 @@ public class TrangChuFragment extends Fragment  implements MovieItemClickListene
         // ini data
 
         List<Movie> lstMovies = new ArrayList<>();
+
+        
+        indicator.setupWithViewPager(sliderpager,true);
+        phimViewPagerAdapter=new PhimViewPagerAdapter(getActivity().getSupportFragmentManager());
+        moviePager.setAdapter(phimViewPagerAdapter);
+        tabMovie.setupWithViewPager(moviePager);
+
         lstMovies.add(new Movie("Moana",R.drawable.moana,"<iframe width=\"100%\" height=\"100%\" src=\"https://www.youtube.com/embed/CwfoyVa980U\" frameborder=\"0\" allowfullscreen></iframe>","Hành Động"));
         lstMovies.add(new Movie("Black P",R.drawable.blackp,"<iframe width=\"100%\" height=\"100%\" src=\"https://www.youtube.com/embed/CwfoyVa980U\" frameborder=\"0\" allowfullscreen></iframe>","Hành Động"));
         lstMovies.add(new Movie("The Martian",R.drawable.themartian, "<iframe width=\"100%\" height=\"100%\" src=\"https://www.youtube.com/embed/CwfoyVa980U\" frameborder=\"0\" allowfullscreen></iframe>","Hành Động"));
@@ -134,9 +141,6 @@ public class TrangChuFragment extends Fragment  implements MovieItemClickListene
         rvSap.setLayoutManager(new LinearLayoutManager(getActivity(),LinearLayoutManager.HORIZONTAL,false));
         rvDang.setAdapter(movieAdapter);
         rvDang.setLayoutManager(new LinearLayoutManager(getActivity(),LinearLayoutManager.HORIZONTAL,false));
-
-
-
         return rootView;
     }
 
