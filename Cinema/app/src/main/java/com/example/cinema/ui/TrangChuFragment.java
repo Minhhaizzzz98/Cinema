@@ -39,7 +39,6 @@ public class TrangChuFragment extends Fragment  implements MovieItemClickListene
     private List<Slide> lstSlides ;
     private ViewPager sliderpager;
     private TabLayout indicator;
-    private RecyclerView MoviesRV ;
     private  ViewPager moviePager;
     private  TabLayout tabMovie;
     PhimViewPagerAdapter phimViewPagerAdapter;
@@ -120,9 +119,6 @@ public class TrangChuFragment extends Fragment  implements MovieItemClickListene
         lstMovies.add(new Movie("The Martian",R.drawable.themartian, "<iframe width=\"100%\" height=\"100%\" src=\"https://www.youtube.com/embed/CwfoyVa980U\" frameborder=\"0\" allowfullscreen></iframe>"));
         lstMovies.add(new Movie("The Martian",R.drawable.themartian, "<iframe width=\"100%\" height=\"100%\" src=\"https://www.youtube.com/embed/CwfoyVa980U\" frameborder=\"0\" allowfullscreen></iframe>"));
 
-//        MovieAdapter movieAdapter = new MovieAdapter(getActivity(),lstMovies,this);
-//        MoviesRV.setAdapter(movieAdapter);
-//        MoviesRV.setLayoutManager(new LinearLayoutManager(getActivity(),LinearLayoutManager.HORIZONTAL,false));
         indicator.setupWithViewPager(sliderpager,true);
         phimViewPagerAdapter=new PhimViewPagerAdapter(getActivity().getSupportFragmentManager());
         moviePager.setAdapter(phimViewPagerAdapter);
