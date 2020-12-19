@@ -1,18 +1,66 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
-    android:layout_height="match_parent">
-
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp"
+    android:orientation="vertical"
+    android:layout_gravity="center"
+    android:gravity="center_vertical"
+    android:background="@color/white">
     <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
-
+        android:layout_width="200dp"
+        android:layout_height="150dp"
+        android:src="@drawable/spidercover"
+        android:layout_toRightOf="@+id/linear"
+        android:layout_gravity="center">
     </ImageView>
-    <TextView
-        android:id="@+id/tvTenDangNhap"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="Trang ca nhan">
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_gravity="center">
+        <TextView
+            android:id="@+id/tvTenDangNhap"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="nguyenanh0429" />
+        <TextView
+            android:id="@+id/tvHoTen"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Nguyễn Minh Anh"
+            android:layout_below="@+id/tvTenDangNhap"
+            android:layout_alignParentRight="true"/>
+        <TextView
+            android:id="@+id/tvPhone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="0864337731" />
+        <TextView
+            android:id="@+id/tvNgaySinh"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="04/10/2000" />
+        <TextView
+            android:id="@+id/tvEmail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="0306181197@caothang.edu.vn"/>
+        <TextView
+            android:id="@+id/tvDiaChi"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="phường Thới An, quận 12, TPHCM" />
+        <TextView
+            android:id="@+id/tvPassword"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="*********" />
+    </LinearLayout>
 
-    </TextView>
+
+
+
+
 </LinearLayout>

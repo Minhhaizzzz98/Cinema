@@ -56,7 +56,7 @@ public class CardFragment extends Fragment {
                 rootView= inflater.inflate(R.layout.layout_trang_ca_nhan, container, false);
                 break;
             case 1:
-                rootView= inflater.inflate(R.layout.layout_trang_ca_nhan, container, false);
+                rootView= inflater.inflate(R.layout.layout_thong_tin_giao_dich, container, false);
                 break;
         }
         return rootView;

@@ -1,6 +1,7 @@
 package com.example.cinema.ui;
 
 import android.app.ActivityOptions;
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -125,9 +126,9 @@ public class TrangChuFragment extends Fragment  implements MovieItemClickListene
 
         
         indicator.setupWithViewPager(sliderpager,true);
-        phimViewPagerAdapter=new PhimViewPagerAdapter(getActivity().getSupportFragmentManager());
-        moviePager.setAdapter(phimViewPagerAdapter);
-        tabMovie.setupWithViewPager(moviePager);
+//        PhimViewPagerAdapter phimViewPagerAdapter = new PhimViewPagerAdapter(getActivity().getSupportFragmentManager());
+//        moviePager.setAdapter(phimViewPagerAdapter);
+//        tabMovie.setupWithViewPager(moviePager);
 
         lstMovies.add(new Movie("Moana",R.drawable.moana,"<iframe width=\"100%\" height=\"100%\" src=\"https://www.youtube.com/embed/CwfoyVa980U\" frameborder=\"0\" allowfullscreen></iframe>","Hành Động"));
         lstMovies.add(new Movie("Black P",R.drawable.blackp,"<iframe width=\"100%\" height=\"100%\" src=\"https://www.youtube.com/embed/CwfoyVa980U\" frameborder=\"0\" allowfullscreen></iframe>","Hành Động"));
