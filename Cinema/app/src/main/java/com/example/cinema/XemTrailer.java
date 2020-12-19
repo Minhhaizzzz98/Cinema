@@ -21,7 +21,7 @@ public class XemTrailer extends AppCompatActivity {
         youTubePlayerView.addYouTubePlayerListener(new AbstractYouTubePlayerListener() {
             @Override
             public void onReady(@NonNull YouTubePlayer youTubePlayer) {
-                String videoId = "Fmd7RGr2-IA";
+                String videoId = "0HYP3BjoDkU";
                 youTubePlayer.loadVideo(videoId, 0);
             }
         });

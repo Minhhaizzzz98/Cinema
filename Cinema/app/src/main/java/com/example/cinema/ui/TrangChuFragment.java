@@ -5,7 +5,10 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
@@ -13,6 +16,7 @@ import androidx.viewpager.widget.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -21,6 +25,7 @@ import com.example.cinema.adapters.MovieAdapter;
 import com.example.cinema.adapters.MovieItemClickListener;
 import com.example.cinema.adapters.PhimViewPagerAdapter;
 import com.example.cinema.adapters.SliderPagerAdapter;
+import com.example.cinema.fragment_phim_all;
 import com.example.cinema.models.Movie;
 import com.example.cinema.models.Slide;
 import com.google.android.material.tabs.TabLayout;
@@ -40,11 +45,18 @@ public class TrangChuFragment extends Fragment  implements MovieItemClickListene
     private List<Slide> lstSlides ;
     private ViewPager sliderpager;
     private TabLayout indicator;
-
+    private Button btnXemThem1;
+    private  Button btnXemThem2;
     private RecyclerView rvDang;
     private  RecyclerView rvSap;
-
-    
+    private ActionBar toolbar;
+    private void loadFragment(Fragment fragment) {
+        // load fragment
+        FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+        transaction.replace(R.id.frame_container, fragment);
+        transaction.addToBackStack(null);
+        transaction.commit();
+    }
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -97,7 +109,7 @@ public class TrangChuFragment extends Fragment  implements MovieItemClickListene
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View rootView= inflater.inflate(R.layout.fragment_trang_chu, container, false);
-
+        toolbar=((AppCompatActivity) getActivity()).getSupportActionBar();
         sliderpager = rootView.findViewById(R.id.slider_pager) ;
         rvDang=(RecyclerView)rootView.findViewById(R.id.rvDangChieu);
         rvSap=(RecyclerView)rootView.findViewById(R.id.rvSapChieu);
@@ -125,9 +137,7 @@ public class TrangChuFragment extends Fragment  implements MovieItemClickListene
 
         
         indicator.setupWithViewPager(sliderpager,true);
-        phimViewPagerAdapter=new PhimViewPagerAdapter(getActivity().getSupportFragmentManager());
-        moviePager.setAdapter(phimViewPagerAdapter);
-        tabMovie.setupWithViewPager(moviePager);
+
 
         lstMovies.add(new Movie("Moana",R.drawable.moana,"<iframe width=\"100%\" height=\"100%\" src=\"https://www.youtube.com/embed/CwfoyVa980U\" frameborder=\"0\" allowfullscreen></iframe>","Hành Động"));
         lstMovies.add(new Movie("Black P",R.drawable.blackp,"<iframe width=\"100%\" height=\"100%\" src=\"https://www.youtube.com/embed/CwfoyVa980U\" frameborder=\"0\" allowfullscreen></iframe>","Hành Động"));
@@ -141,6 +151,26 @@ public class TrangChuFragment extends Fragment  implements MovieItemClickListene
         rvSap.setLayoutManager(new LinearLayoutManager(getActivity(),LinearLayoutManager.HORIZONTAL,false));
         rvDang.setAdapter(movieAdapter);
         rvDang.setLayoutManager(new LinearLayoutManager(getActivity(),LinearLayoutManager.HORIZONTAL,false));
+        btnXemThem1=(Button)rootView.findViewById(R.id.btnAllPhim);
+        btnXemThem2=(Button)rootView.findViewById(R.id.btnAllPhimMoi);
+        btnXemThem1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                toolbar.setTitle(R.string.bottom_navigation_phim);
+                Fragment fragment;
+                fragment= new fragment_phim_all();
+                loadFragment(fragment);
+            }
+        });
+        btnXemThem2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                toolbar.setTitle(R.string.bottom_navigation_phim);
+                Fragment fragment;
+                fragment= new fragment_phim_all();
+                loadFragment(fragment);
+            }
+        });
         return rootView;
     }
 
