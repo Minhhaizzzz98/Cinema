@@ -11,6 +11,7 @@
 
     <!-- bottom navigation item-->
     <string name="bottom_navigation_trang_chu">Trang chủ</string>
+    <string name="bottom_navigation_phim">Phim</string>
     <string name="bottom_navigation_rap_phim">Rạp phim</string>
     <string name="bottom_navigation_tai_khoan">Tài khoản</string>
     <string name="bottom_navigation_bai_viet">Điện ảnh</string>
