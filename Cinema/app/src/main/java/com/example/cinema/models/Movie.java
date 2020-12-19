@@ -8,34 +8,18 @@ public class Movie {
     private String studio;
     private String rating;
     private String streamingLink;
-<<<<<<< HEAD
     private int coverPhoto;
 
-=======
-    private String loaiPhim;
-
-    public String getLoaiPhim() {
-        return loaiPhim;
-    }
-
-    public void setLoaiPhim(String loaiPhim) {
-        this.loaiPhim = loaiPhim;
-    }
-
-    private int coverPhoto;
-
->>>>>>> 7e4789ce2cdf8b1180ac7eab2ad5f6244a6795f8
     public Movie(String title, int thumbnail, int coverPhoto) {
         this.title = title;
         this.thumbnail = thumbnail;
         this.coverPhoto = coverPhoto;
     }
 
-    public Movie(String title, int thumbnail, String streamingLink,String loai){
+    public Movie(String title, int thumbnail, String streamingLink){
         this.title = title;
         this.thumbnail = thumbnail;
         this.streamingLink = streamingLink;
-        this.loaiPhim=loai;
     }
     public Movie(String title, int thumbnail) {
         this.title = title;

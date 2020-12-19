@@ -14,8 +14,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Cinema">
-        <activity android:name=".ui.QuanLyThongTin"></activity>
-        <activity android:name=".XemTrailer" />
+        <activity android:name=".XemTrailer"></activity>
         <activity android:name=".ui.ChonGheActivity" />
         <activity android:name=".ui.HomeActivity">
             <intent-filter>
@@ -28,8 +27,8 @@
         <activity android:name=".ui.DangKy" />
         <activity android:name=".ui.ChinhSuaThongTin" />
         <activity android:name=".ui.Login" />
-        <activity android:name=".ui.DatVeActivity" />
-        <activity android:name=".ui.PaymentActivity" />
+        <activity android:name=".ui.DatVeActivity"></activity>
+        <activity android:name=".ui.PaymentActivity"></activity>
     </application>
 
 </manifest>
