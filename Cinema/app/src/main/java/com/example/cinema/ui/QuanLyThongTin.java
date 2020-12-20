@@ -40,7 +40,10 @@ public class QuanLyThongTin extends AppCompatActivity {
                         tab.setText("THÔNG TIN CÁ NHÂN");
                         break;
                     case 1:
-                        tab.setText("GIAO DỊCH");
+                        tab.setText("THỐNG KÊ GIAO DỊCH");
+                        break;
+                    case 2:
+                        tab.setText("LỊCH SỬ GIAO DỊCH");
                         break;
                 }
             }
