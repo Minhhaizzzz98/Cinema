@@ -3,15 +3,18 @@ package com.example.cinema.ui;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.SearchView;
 
 import com.example.cinema.R;
-import com.example.cinema.adapters.ListViewAdapter;
+import com.example.cinema.adapters.SearchAdapter;
 import com.example.cinema.models.Movie;
 
 import java.util.ArrayList;
@@ -23,8 +26,8 @@ import java.util.ArrayList;
  */
 public class SearchFragment extends Fragment implements SearchView.OnQueryTextListener{
 
-    ListView list;
-    ListViewAdapter adapter;
+    RecyclerView list;
+    SearchAdapter adapter;
     SearchView editsearch;
     String[] animalNameList;
     ArrayList<Movie> arraylist = new ArrayList<Movie>();
@@ -82,16 +85,18 @@ public class SearchFragment extends Fragment implements SearchView.OnQueryTextLi
                 "Cow","Donkey","Monkey"};
 
         // Locate the ListView in listview_main.xml
-        list = (ListView)view.findViewById(R.id.listview);
+        list = view.findViewById(R.id.listview);
 
         for (int i = 0; i < animalNameList.length; i++) {
-            Movie animalNames = new Movie(animalNameList[i],"",1,"","","");
+            Movie animalNames = new Movie(animalNameList[i],"Mô tả nội dung phim",R.drawable.mov2,"","","");
             // Binds all strings into an array
             arraylist.add(animalNames);
         }
 
+        list.hasFixedSize();
+        list.setLayoutManager(new LinearLayoutManager(getContext()));
         // Pass results to ListViewAdapter Class
-        adapter = new ListViewAdapter(getContext(), arraylist);
+        adapter = new SearchAdapter(arraylist, getContext());
 
         // Binds the Adapter to the ListView
         list.setAdapter(adapter);
