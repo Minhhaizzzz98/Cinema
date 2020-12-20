@@ -10,14 +10,18 @@
         android:id="@+id/tab_dienanh"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        tools:ignore="MissingConstraints">
+        android:background="@android:color/white"/>
 
-    </com.google.android.material.tabs.TabLayout>
-    <androidx.viewpager.widget.ViewPager
-        android:id="@+id/vpg_dienanh"
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center">
+        android:layout_height="match_parent">
 
-    </androidx.viewpager.widget.ViewPager>
+        <androidx.viewpager2.widget.ViewPager2
+            android:id="@+id/vpg_dienanh"
+            android:layout_width="match_parent"
+            android:layout_height="fill_parent"
+            android:layout_weight="1" />
+
+
+    </FrameLayout>
 </LinearLayout>
