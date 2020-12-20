@@ -85,11 +85,18 @@ public class HomeActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+        Fragment fragment;
+
         switch (item.getItemId()) {
-//            case R.id.search:
-//                return true;
+            case R.id.search:
+                toolbar.setTitle("Tìm kiếm");
+                fragment= new SearchFragment();
+                loadFragment(fragment);
+                return true;
             case R.id.notification:
-                Toast.makeText(this, "Notification button selected", Toast.LENGTH_SHORT).show();
+                toolbar.setTitle("Thông báo");
+                fragment= new NotificationFragment();
+                loadFragment(fragment);
                 return true;
             case R.id.account:
                 Intent intent= new Intent(this, Login.class);
