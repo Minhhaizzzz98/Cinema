@@ -9,6 +9,7 @@ import android.widget.ImageView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -85,7 +86,7 @@ public class CardPhimFragment extends Fragment implements MovieItemClickListener
         }
         MovieAdapter movieAdapter = new MovieAdapter(getContext(),lstMovies,this::onMovieClick);
         rvArticles.setAdapter(movieAdapter);
-        rvArticles.setLayoutManager(linearLayoutManager);
+        rvArticles.setLayoutManager(new GridLayoutManager(getContext(),2));
         rvArticles.setHasFixedSize(true);
     }
 
