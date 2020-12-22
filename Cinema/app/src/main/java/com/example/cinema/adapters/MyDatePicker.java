@@ -9,7 +9,7 @@ import android.util.Log;
 import android.widget.DatePicker;
 import android.widget.TextView;
 
-import com.example.cinema.R;
+import androidx.fragment.app.Fragment;
 
 import java.util.Calendar;
 
@@ -59,5 +59,8 @@ public class MyDatePicker extends DialogFragment
         tv.setText(s);
 
         Log.d("MyDatePicker","onDateSet,  " + s); // just to trace when it is called
+    }
+
+    public static class CardChiTietFragment  extends Fragment {
     }
 }
