@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item android:id="@+id/theo_nam"
+        app:showAsAction="never"
+        android:title="Theo năm"
+        />
+    <item android:id="@+id/theo_thang"
+        app:showAsAction="never"
+        android:title="Theo tháng"
+        />
+
+</menu>
