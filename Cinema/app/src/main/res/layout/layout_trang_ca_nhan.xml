@@ -24,39 +24,46 @@
             android:id="@+id/tvTenDangNhap"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textSize="20dp"
             android:text="nguyenanh0429" />
         <TextView
             android:id="@+id/tvHoTen"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Nguyễn Minh Anh"
+            android:textSize="20dp"
             android:layout_below="@+id/tvTenDangNhap"
             android:layout_alignParentRight="true"/>
         <TextView
             android:id="@+id/tvPhone"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="0864337731" />
+            android:textSize="20dp"
+            android:text="Số điện thoại: 0864337731" />
         <TextView
             android:id="@+id/tvNgaySinh"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="04/10/2000" />
+            android:textSize="20dp"
+            android:text="Ngày sinh: 04/10/2000" />
         <TextView
             android:id="@+id/tvEmail"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="0306181197@caothang.edu.vn"/>
+            android:textSize="20dp"
+            android:text="Email: 0306181197@caothang.edu.vn"/>
         <TextView
             android:id="@+id/tvDiaChi"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="phường Thới An, quận 12, TPHCM" />
+            android:textSize="20dp"
+            android:text="Địa chỉ: quận 12, TPHCM" />
         <TextView
             android:id="@+id/tvPassword"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="*********" />
+            android:textSize="20dp"
+            android:text="Mật khẩu:*********" />
     </LinearLayout>
 
 

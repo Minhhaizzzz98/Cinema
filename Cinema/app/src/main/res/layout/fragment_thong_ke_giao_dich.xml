@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.ThongKeGiaoDichFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+        <RelativeLayout
+            android:id="@+id/firstRelative"
+            android:layout_width="wrap_content"
+            android:layout_height="130dp"
+            android:layout_gravity="center_horizontal"
+            android:background="@color/lime">
+            <TextView
+                android:id="@+id/tvTieuDe"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="20dp"
+                android:text="TỔNG TIỀN GIAO DỊCH: "
+                android:gravity="center_horizontal"
+                android:textColor="@color/white"
+                android:textSize="20dp"/>
+
+            <TextView
+                android:id="@+id/tvTongTien"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tvTieuDe"
+                android:layout_centerInParent="true"
+                android:layout_marginTop="20dp"
+                android:gravity="center_horizontal"
+                android:text="5.000.000 đ "
+                android:textColor="@color/white"
+                android:textSize="35dp"/>
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/secondRelative"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="16dp">
+
+            <TextView
+                android:id="@+id/tvLoc"
+                android:layout_width="71dp"
+                android:layout_height="22dp"
+                android:gravity="center_vertical"
+                android:text="Lọc theo: "
+                android:textSize="16dp" />
+
+            <ImageButton
+                android:id="@+id/imgbtnLoc"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:src="@drawable/ic_baseline_more_vert_24"
+                android:layout_toRightOf="@+id/tvLoc"/>
+
+            <TextView
+                android:id="@+id/thoigian"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Thời gian"
+                android:layout_marginTop="10dp"
+                android:layout_below="@+id/tvLoc"/>
+
+            <TextView
+                android:id="@+id/tiengiaodich"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Số tiền"
+                android:layout_marginLeft="95dp"
+                android:layout_marginTop="10dp"
+                android:layout_toRightOf="@+id/thoigian"
+                android:layout_below="@+id/tvLoc"/>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerViewThongKeGD"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@+id/thoigian"/>
+
+        </RelativeLayout>
+    </LinearLayout>
+
+</FrameLayout>
