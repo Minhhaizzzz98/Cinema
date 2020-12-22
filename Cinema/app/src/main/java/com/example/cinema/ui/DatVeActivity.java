@@ -4,6 +4,8 @@ import android.app.Activity;
 import android.app.DialogFragment;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.NumberPicker;
@@ -25,6 +27,12 @@ public class DatVeActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dat_ve);
+
+        // Tao nut Back
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setHomeButtonEnabled(true);
+        getSupportActionBar().setTitle("Đặt vé");
+
         t1 = (TextView) findViewById(R.id.textViewTime1);
         tvDate = (TextView) findViewById(R.id.textViewDate1);
         numPicker1 = (NumberPicker) findViewById(R.id.numberPicker1);
@@ -107,5 +115,20 @@ public class DatVeActivity extends AppCompatActivity {
         intent.putExtra("adults", adults);
         intent.putExtra("seniors", seniors);
         startActivity(intent);
+    }
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        return super.onCreateOptionsMenu(menu);
+    }
+    // Xu ly tung item trong Context Menu
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                finish();
+                return true;
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 }

@@ -6,6 +6,8 @@ import android.database.sqlite.SQLiteException;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.Html;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -28,7 +30,12 @@ public class PaymentActivity extends AppCompatActivity {
 //        // update movie Details table with booked seats after user confirms seats and pays
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_payment);
-//
+
+        // Tao nut Back
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setHomeButtonEnabled(true);
+        getSupportActionBar().setTitle("Xác nhận");
+
         Bundle bundle = getIntent().getExtras();
         final String movieTitle = bundle.getString("movieTitle");
 //        final int movieId = bundle.getInt("movieId");
@@ -110,5 +117,20 @@ public class PaymentActivity extends AppCompatActivity {
 //
 //        });
 
+    }
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        return super.onCreateOptionsMenu(menu);
+    }
+    // Xu ly tung item trong Context Menu
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                finish();
+                return true;
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 }
