@@ -21,6 +21,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.example.cinema.ChiTietPhim;
 import com.example.cinema.R;
 import com.example.cinema.adapters.MovieAdapter;
 import com.example.cinema.adapters.MovieItemClickListener;
@@ -180,21 +181,24 @@ public class TrangChuFragment extends Fragment  implements MovieItemClickListene
         // here we send movie information to detail activity
         // also we ll create the transition animation between the two activity
 
-        Intent intent = new Intent(getContext(), MovieDetailActivity.class);
-        // send movie information to deatilActivity
-        intent.putExtra("title",movie.getTitle());
-        intent.putExtra("imgURL",movie.getThumbnail());
-        intent.putExtra("imgCover",movie.getCoverPhoto());
-        intent.putExtra("trailer", movie.getStreamingLink());
-        // lets crezte the animation
-        ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(getActivity(),
-                movieImageView,"sharedName");
 
-        startActivity(intent,options.toBundle());
-
-
-        Toast.makeText(getActivity(),"item clicked : " + movie.getTitle(),Toast.LENGTH_LONG).show();
+//        Intent intent = new Intent(getContext(), MovieDetailActivity.class);
+//        // send movie information to deatilActivity
+//        intent.putExtra("title",movie.getTitle());
+//        intent.putExtra("imgURL",movie.getThumbnail());
+//        intent.putExtra("imgCover",movie.getCoverPhoto());
+//        intent.putExtra("trailer", movie.getStreamingLink());
+//        // lets crezte the animation
+//        ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(getActivity(),
+//                movieImageView,"sharedName");
+//
+//        startActivity(intent,options.toBundle());
+//
+//
+//        Toast.makeText(getActivity(),"item clicked : " + movie.getTitle(),Toast.LENGTH_LONG).show();
         // it works great
+        Intent intent=new Intent(getContext(), ChiTietPhim.class);
+        startActivity(intent);
     }
 
     class SliderTimer extends TimerTask {

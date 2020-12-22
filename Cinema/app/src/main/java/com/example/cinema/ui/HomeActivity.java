@@ -1,7 +1,12 @@
 package com.example.cinema.ui;
 
 
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -11,6 +16,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.NotificationCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
@@ -22,12 +28,14 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 public class HomeActivity extends AppCompatActivity {
 
     private ActionBar toolbar;
+    private static final int MY_NOTIFICATION_ID = 12345;
+    private static final int MY_REQUEST_CODE = 100;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
-
+        createNotificationChannel();
         toolbar= getSupportActionBar();
         BottomNavigationView bottomNavigation= (BottomNavigationView) findViewById(R.id.bottom_navigation);
         bottomNavigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
@@ -97,6 +105,7 @@ public class HomeActivity extends AppCompatActivity {
                 toolbar.setTitle("Thông báo");
                 fragment= new NotificationFragment();
                 loadFragment(fragment);
+                notibtn();
                 return true;
             case R.id.account:
                 Intent intent= new Intent(this, Login.class);
@@ -115,4 +124,40 @@ public class HomeActivity extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
+
+    public void createNotificationChannel(){
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            // Create the NotificationChannel
+            String name = "Vphuot";
+            String descriptionText = "Thong bao vphuot";
+            int importance = NotificationManager.IMPORTANCE_DEFAULT;
+            NotificationChannel mChannel =new NotificationChannel("Channel-001", name, importance);
+            mChannel.setDescription(descriptionText);
+            // Register the channel with the system; you can't change the importance
+            // or other notification behaviors after this
+            NotificationManager notificationManager = getSystemService(NotificationManager.class);
+            notificationManager.createNotificationChannel(mChannel);
+        }
+    }
+    public void notibtn() {
+        String title = "ok";
+
+        Intent intent = new Intent(this, HomeActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        intent.putExtra("title", title);
+
+        PendingIntent pendingIntent = PendingIntent.getActivity(this, MY_REQUEST_CODE, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(this,"channel-001")
+                .setSmallIcon(R.mipmap.ic_launcher)
+                .setTicker("This is a ticker")
+                .setContentTitle("this is title")
+                .setContentText("this is content text ... ")
+                .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+                .setContentIntent(pendingIntent)
+                .setAutoCancel(true);
+
+        NotificationManager notificationService= (NotificationManager)this.getSystemService(Context.NOTIFICATION_SERVICE);
+        notificationService.notify(MY_NOTIFICATION_ID, builder.build());
+    }
+
 }

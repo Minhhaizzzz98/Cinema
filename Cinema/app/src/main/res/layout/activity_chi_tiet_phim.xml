@@ -1,14 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_gravity="center_horizontal"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".fragment_phim_all">
+    tools:context=".ChiTietPhim"
+    android:orientation="vertical">
     <com.google.android.material.tabs.TabLayout
-        android:id="@+id/tabs"
+        android:id="@+id/tabChiTiet"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:tabMode="fixed"
@@ -16,12 +15,9 @@
         app:tabIndicatorColor="@color/colorPrimaryDark"
         android:background="@android:color/white"/>
     <androidx.viewpager2.widget.ViewPager2
-        android:id="@+id/view_pager"
+        android:id="@+id/vpChiTiet"
         android:paddingLeft="23dp"
         android:layout_width="match_parent"
         android:layout_height="fill_parent"
-        android:layout_marginHorizontal="@dimen/cast_expanded_controller_margin_between_status_text_and_seek_bar"
-        android:layout_gravity="center_horizontal"
         android:layout_weight="1" />
-
 </LinearLayout>
