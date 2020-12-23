@@ -37,10 +37,10 @@ public class CardChiTietFragment  extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         switch (getArguments().getInt(ARG_COUNT)){
             case 0:
-                rootView= inflater.inflate(R.layout.chi_tiet_thongtin, container, false);
+                rootView= inflater.inflate(R.layout.chitiet_datve, container, false);
                 break;
             case 1:
-                rootView= inflater.inflate(R.layout.chitiet_datve, container, false);
+                rootView= inflater.inflate(R.layout.activity_chi_tiet_phim, container, false);
                 break;
             case 2:
                 rootView= inflater.inflate(R.layout.chitiet_tintuc, container, false);
