@@ -6,6 +6,7 @@ import androidx.viewpager.widget.ViewPager;
 import androidx.viewpager2.widget.ViewPager2;
 
 import android.os.Bundle;
+
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.ViewGroup;
@@ -24,10 +25,12 @@ public class ChiTietPhim extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chi_tiet_phim);
 
+
         // Tao nut Back
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
         getSupportActionBar().setTitle("Chi tiết phim");
+
 
         tabLayout=(TabLayout)findViewById(R.id.tabChiTiet);
         viewPager=(ViewPager2)findViewById(R.id.vpChiTiet);
@@ -78,6 +81,7 @@ public class ChiTietPhim extends AppCompatActivity {
         ViewPagerChiTietAdapter adapter = new  ViewPagerChiTietAdapter(this);
         return adapter;
     }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         return super.onCreateOptionsMenu(menu);
@@ -93,4 +97,5 @@ public class ChiTietPhim extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
+
 }
