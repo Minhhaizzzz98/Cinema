@@ -66,11 +66,6 @@ public class HomeActivity extends AppCompatActivity {
                     fragment= new DienAnhFragment();
                     loadFragment(fragment);
                     return true;
-                case R.id.navigation_taikhoan:
-                    Intent intent= new Intent(getApplicationContext(), Login.class);
-                    startActivity(intent);
-                    toolbar.setTitle(R.string.bottom_navigation_tai_khoan);
-                    return true;
             }
             return false;
         }

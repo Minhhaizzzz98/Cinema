@@ -6,7 +6,11 @@ import androidx.viewpager.widget.ViewPager;
 import androidx.viewpager2.widget.ViewPager2;
 
 import android.os.Bundle;
+
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.example.cinema.adapters.ViewPagerAdapter;
 import com.example.cinema.adapters.ViewPagerChiTietAdapter;
@@ -20,6 +24,14 @@ public class ChiTietPhim extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chi_tiet_phim);
+
+
+        // Tao nut Back
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setHomeButtonEnabled(true);
+        getSupportActionBar().setTitle("Chi tiết phim");
+
+
         tabLayout=(TabLayout)findViewById(R.id.tabChiTiet);
         viewPager=(ViewPager2)findViewById(R.id.vpChiTiet);
         viewPager.setAdapter(createCardAdapter());
@@ -69,4 +81,21 @@ public class ChiTietPhim extends AppCompatActivity {
         ViewPagerChiTietAdapter adapter = new  ViewPagerChiTietAdapter(this);
         return adapter;
     }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        return super.onCreateOptionsMenu(menu);
+    }
+    // Xu ly tung item trong Context Menu
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                finish();
+                return true;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
 }

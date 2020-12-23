@@ -20,15 +20,8 @@
         android:id="@+id/navigation_dienanh"
         android:title="Bài viết"
         app:showAsAction="always"
-        android:icon="@drawable/ic_calendar"
-        />
+        android:icon="@drawable/ic_calendar" />
 
-    <item
-        android:id="@+id/navigation_taikhoan"
-        android:title="Tài khoản"
-        app:showAsAction="always"
-        android:icon="@drawable/ic_user"
-        />
 
 
 </menu>

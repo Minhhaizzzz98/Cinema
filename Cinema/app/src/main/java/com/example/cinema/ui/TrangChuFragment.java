@@ -121,10 +121,10 @@ public class TrangChuFragment extends Fragment  implements MovieItemClickListene
 
         // prepare a list of slides ..
         lstSlides = new ArrayList<>() ;
-        lstSlides.add(new Slide(R.drawable.slide1,"Slide Title \nmore text here"));
-        lstSlides.add(new Slide(R.drawable.slide2,"Slide Title \nmore text here"));
-        lstSlides.add(new Slide(R.drawable.slide1,"Slide Title \nmore text here"));
-        lstSlides.add(new Slide(R.drawable.slide2,"Slide Title \nmore text here"));
+        lstSlides.add(new Slide(R.drawable.slide1,"WOLVERINE \nDirected by James Mangold"));
+        lstSlides.add(new Slide(R.drawable.slide2,"SHERLOCK HOMES \nDirected by Guy Ritchie"));
+        lstSlides.add(new Slide(R.drawable.slide1,"WOLVERINE \nDirected by James Mangold"));
+        lstSlides.add(new Slide(R.drawable.slide2,"SHERLOCK HOMES \nDirected by Guy Ritchie"));
         SliderPagerAdapter adapter = new SliderPagerAdapter(getContext(),lstSlides);
         sliderpager.setAdapter(adapter);
         // setup timer

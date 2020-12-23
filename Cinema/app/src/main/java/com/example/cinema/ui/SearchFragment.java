@@ -70,6 +70,7 @@ public class SearchFragment extends Fragment implements SearchView.OnQueryTextLi
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+
     }
 
     @Override
