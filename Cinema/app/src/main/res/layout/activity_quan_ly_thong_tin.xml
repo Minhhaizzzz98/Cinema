@@ -34,7 +34,7 @@
             android:id="@+id/btnChinhSua"
             android:text="Chỉnh sửa"
             android:textColor="@color/white"
-            android:onClick="logout"
+            android:onClick="ChinhSua"
             android:layout_marginBottom="20dp"
             android:layout_gravity="center"/>
         <Button
@@ -44,7 +44,7 @@
             android:id="@+id/button2"
             android:text="Đăng xuất"
             android:textColor="@color/white"
-            android:onClick="ChinhSua"
+            android:onClick="logout"
             android:layout_marginBottom="20dp"
             android:layout_marginLeft="20dp"
             android:layout_gravity="center"
