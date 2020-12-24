@@ -142,7 +142,7 @@ public class TrangChuFragment extends Fragment  implements MovieItemClickListene
 
 
         lstMovies.add(new Movie("Moana",R.drawable.moana,"<iframe width=\"100%\" height=\"100%\" src=\"https://www.youtube.com/embed/CwfoyVa980U\" frameborder=\"0\" allowfullscreen></iframe>","Hành Động"));
-        lstMovies.add(new Movie("Black P",R.drawable.blackp,"<iframe width=\"100%\" height=\"100%\" src=\"https://www.youtube.com/embed/CwfoyVa980U\" frameborder=\"0\" allowfullscreen></iframe>","Hành Động"));
+        lstMovies.add(new Movie("Black Panther",R.drawable.blackp,"<iframe width=\"100%\" height=\"100%\" src=\"https://www.youtube.com/embed/CwfoyVa980U\" frameborder=\"0\" allowfullscreen></iframe>","Hành Động"));
         lstMovies.add(new Movie("The Martian",R.drawable.themartian, "<iframe width=\"100%\" height=\"100%\" src=\"https://www.youtube.com/embed/CwfoyVa980U\" frameborder=\"0\" allowfullscreen></iframe>","Hành Động"));
         lstMovies.add(new Movie("The Martian",R.drawable.themartian, "<iframe width=\"100%\" height=\"100%\" src=\"https://www.youtube.com/embed/CwfoyVa980U\" frameborder=\"0\" allowfullscreen></iframe>","Hành Động"));
         lstMovies.add(new Movie("The Martian",R.drawable.themartian, "<iframe width=\"100%\" height=\"100%\" src=\"https://www.youtube.com/embed/CwfoyVa980U\" frameborder=\"0\" allowfullscreen></iframe>","Hành Động"));
@@ -196,9 +196,18 @@ public class TrangChuFragment extends Fragment  implements MovieItemClickListene
 //
 //
 //        Toast.makeText(getActivity(),"item clicked : " + movie.getTitle(),Toast.LENGTH_LONG).show();
-        // it works great
+
         Intent intent=new Intent(getContext(), ChiTietPhim.class);
-        startActivity(intent);
+        intent.putExtra("title",movie.getTitle());
+        intent.putExtra("imgURL",movie.getThumbnail());
+        intent.putExtra("imgCover",movie.getCoverPhoto());
+        intent.putExtra("trailer", movie.getStreamingLink());
+        // create the animation
+        ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(getActivity(),
+                movieImageView,"sharedName");
+
+        startActivity(intent,options.toBundle());
+//        startActivity(intent);
     }
 
     class SliderTimer extends TimerTask {
