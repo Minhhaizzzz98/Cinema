@@ -55,4 +55,15 @@
     <string name="printTicket">Print Ticket</string>
     <string name="ticketTitle">Your Ticket</string>
     <string name="btnbookAnother">Book another Movie</string>
+    <!--    Dia diem-->
+    <string-array name="diadiem_array">
+        <item>TP.HCM</item>
+        <item>Hà Nội</item>
+        <item>Bình Thuận</item>
+    </string-array>
+    <string-array name="rap_array">
+        <item>Cinema Tân Bình</item>
+        <item>Cinema Củ Chi</item>
+        <item>Cinema Bình Thuận</item>
+    </string-array>
 </resources>
