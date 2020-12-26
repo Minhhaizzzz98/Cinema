@@ -14,6 +14,7 @@ import android.os.Bundle;
 
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.WebChromeClient;
@@ -80,52 +81,42 @@ public class ChiTietPhim extends AppCompatActivity {
                 }
             }
         }).attach();
-        tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
-            @RequiresApi(api = Build.VERSION_CODES.O)
-            @Override
-            public void onTabSelected(TabLayout.Tab tab) {
-                switch(tab.getPosition()) {
-                    case 0:
-                    {
-                        // ini views
-                        iniViews();
-                        play_fab=(FloatingActionButton)findViewById(R.id.play_fab);
-                        play_fab.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                Intent intent=new Intent(ChiTietPhim.this, XemTrailer.class);
-                                startActivity(intent);
-                            }
-                        });
-                        break;
-                    }
-                    case 1:
-                    {
-//                        ViewGroup.LayoutParams params = constraintLayout.getLayoutParams();
-//                        params.height = 0;
-//                        constraintLayout.setLayoutParams(params);
+//        tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+//            @RequiresApi(api = Build.VERSION_CODES.O)
+//            @Override
+//            public void onTabSelected(TabLayout.Tab tab) {
+//                switch(tab.getPosition()) {
+//                    case 0:
+//                    {
+//                        // ini views
+//
 //                        break;
-                    }
-                    case 2:
-                    {
-//                        ViewGroup.LayoutParams params = constraintLayout.getLayoutParams();
-//                        params.height = 0;
-//                        constraintLayout.setLayoutParams(params);
-                        break;
-                    }
-                }
-            }
+//                    }
+//                    case 1:
+//                    {
+//
+//                        break;
+//                    }
+//                    case 2:
+//                    {
+////                        ViewGroup.LayoutParams params = constraintLayout.getLayoutParams();
+////                        params.height = 0;
+////                        constraintLayout.setLayoutParams(params);
+//                        break;
+//                    }
+//                }
+//            }
 
-            @Override
-            public void onTabUnselected(TabLayout.Tab tab) {
-
-            }
-
-            @Override
-            public void onTabReselected(TabLayout.Tab tab) {
-
-            }
-        });
+//            @Override
+//            public void onTabUnselected(TabLayout.Tab tab) {
+//
+//            }
+//
+//            @Override
+//            public void onTabReselected(TabLayout.Tab tab) {
+//
+//            }
+//        });
     }
     private ViewPagerChiTietAdapter createCardAdapter() {
         ViewPagerChiTietAdapter adapter = new  ViewPagerChiTietAdapter(this);
