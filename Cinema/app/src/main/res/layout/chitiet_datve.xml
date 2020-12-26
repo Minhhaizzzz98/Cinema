@@ -1,18 +1,77 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:orientation="vertical"
     android:layout_height="match_parent">
+    <LinearLayout
 
-    <Button
-        android:id="@+id/button3"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="151dp"
-        android:layout_marginTop="75dp"
-        android:text="Button"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-</androidx.constraintlayout.widget.ConstraintLayout>
+        android:orientation="horizontal"
+        android:weightSum="2"
+        android:layout_height="wrap_content">
+        <Spinner
+            android:id="@+id/diadiem_spinner"
+            android:layout_width="match_parent"
+            android:layout_weight="1"
+            android:layout_height="wrap_content" />
+        <Spinner
+            android:id="@+id/rap_spinner"
+            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_lich"
+        android:layout_width="match_parent"
+        android:layout_height="100dp">
+
+    </androidx.recyclerview.widget.RecyclerView>
+    <TextView
+        android:id="@+id/txtNgayChieu"
+        android:textSize="15dp"
+        android:layout_width="match_parent"
+        android:text="Thứ sáu,tháng 12 2020"
+        android:textColor="#000"
+        android:gravity="center_horizontal"
+        android:layout_height="wrap_content">
+    </TextView>
+    <LinearLayout
+        android:paddingTop="8dp"
+        android:orientation="vertical"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+        <TextView
+            android:layout_width="match_parent"
+            android:textSize="15dp"
+            android:text="Cinema Bình Thạnh"
+            android:textColor="@color/black"
+            android:layout_height="wrap_content">
+        </TextView>
+        <TextView
+            android:layout_width="match_parent"
+            android:text="Chọn lịch chiếu"
+            android:textColor="@color/black"
+            android:layout_height="wrap_content">
+
+        </TextView>
+        <androidx.recyclerview.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:id="@+id/rv_giochieu"
+            android:layout_height="wrap_content">
+
+        </androidx.recyclerview.widget.RecyclerView>
+    </LinearLayout>
+    <Button
+        android:id="@+id/btnDatNgay"
+        android:text="Đặt ngay"
+        android:textColor="@color/white"
+        android:background="@color/colorPrimary"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+    </Button>
+
+</LinearLayout>

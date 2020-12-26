@@ -15,6 +15,7 @@
     <color name="gray">#CCCCCC</color>
     <color name="darkGray">#999999</color>
     <color name="duskYellow">#FFCC01</color>
+    <color name="colorDefault">#CCCCCC</color>
     <color name="cyan">#00FFFF</color>
     <color name="lime">#009900</color>
 </resources>
