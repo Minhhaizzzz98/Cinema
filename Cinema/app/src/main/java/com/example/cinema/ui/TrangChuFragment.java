@@ -181,22 +181,6 @@ public class TrangChuFragment extends Fragment  implements MovieItemClickListene
         // here we send movie information to detail activity
         // also we ll create the transition animation between the two activity
 
-
-//        Intent intent = new Intent(getContext(), MovieDetailActivity.class);
-//        // send movie information to deatilActivity
-//        intent.putExtra("title",movie.getTitle());
-//        intent.putExtra("imgURL",movie.getThumbnail());
-//        intent.putExtra("imgCover",movie.getCoverPhoto());
-//        intent.putExtra("trailer", movie.getStreamingLink());
-//        // lets crezte the animation
-//        ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(getActivity(),
-//                movieImageView,"sharedName");
-//
-//        startActivity(intent,options.toBundle());
-//
-//
-//        Toast.makeText(getActivity(),"item clicked : " + movie.getTitle(),Toast.LENGTH_LONG).show();
-
         Intent intent=new Intent(getContext(), ChiTietPhim.class);
         intent.putExtra("title",movie.getTitle());
         intent.putExtra("imgURL",movie.getThumbnail());
@@ -207,7 +191,6 @@ public class TrangChuFragment extends Fragment  implements MovieItemClickListene
                 movieImageView,"sharedName");
 
         startActivity(intent,options.toBundle());
-//        startActivity(intent);
     }
 
     class SliderTimer extends TimerTask {
