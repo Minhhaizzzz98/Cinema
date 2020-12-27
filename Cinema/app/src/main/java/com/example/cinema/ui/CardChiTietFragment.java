@@ -4,8 +4,10 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -14,14 +16,27 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonArrayRequest;
+import com.android.volley.toolbox.Volley;
 import com.example.cinema.R;
 import com.example.cinema.adapters.ActorAdapter;
 import com.example.cinema.adapters.DienVien_DaoDienAdapter;
 import com.example.cinema.adapters.GioChieuAdapter;
 import com.example.cinema.adapters.LichChieuAdapter;
 import com.example.cinema.adapters.MovieItemClickListener;
+import com.example.cinema.adapters.RapAdapter;
+import com.example.cinema.adapters.SpinnerRapAdapter;
 import com.example.cinema.models.Actor;
+import com.example.cinema.models.DataHelperConnnect;
 import com.example.cinema.models.Lich;
+import com.example.cinema.models.Rap;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -33,7 +48,7 @@ public class CardChiTietFragment  extends Fragment {
     View rootView;
     private MovieItemClickListener movieItemClickListener;
     RecyclerView rvDienVien, rvDaoDien;
-
+    LinkedList<Rap> lstRap;
     LinkedList<Actor> actorlist= new LinkedList<Actor>();
     LinkedList<Actor> directorlist= new LinkedList<Actor>();
 
@@ -52,6 +67,8 @@ public class CardChiTietFragment  extends Fragment {
         if(getArguments()!=null){
             counter= getArguments().getInt(ARG_COUNT);
         }
+        lstRap=new LinkedList<>();
+        //createListRap();
     }
     @Nullable
     @Override
@@ -59,17 +76,20 @@ public class CardChiTietFragment  extends Fragment {
         switch (getArguments().getInt(ARG_COUNT)){
             case 0:
                 rootView= inflater.inflate(R.layout.chitiet_datve, container, false);
+                SpinnerRapAdapter spinnerRapAdapter=new SpinnerRapAdapter(getContext(),android.R.layout.simple_spinner_item,lstRap);
                 Spinner spinner = (Spinner)rootView.findViewById(R.id.diadiem_spinner);
                 Spinner spinnerRap=(Spinner)rootView.findViewById(R.id.rap_spinner);
                 RecyclerView rvGio=(RecyclerView)rootView.findViewById(R.id.rv_giochieu);
                 // Create an ArrayAdapter using the string array and a default spinner layout
                 loadSpinDiaDiem(spinner,R.array.diadiem_array);
-                loadSpinDiaDiem(spinnerRap,R.array.rap_array);
+                //loadSpinDiaDiem(spinnerRap,R.array.rap_array);
+                //spinnerRap.setAdapter(spinnerRapAdapter);
                 RecyclerView rvLich=(RecyclerView)rootView.findViewById(R.id.rv_lich);
                 LichChieuAdapter lichChieuAdapter=new LichChieuAdapter(getContext(),createLich(),movieItemClickListener);
                 rvLich.setLayoutManager(new LinearLayoutManager(getContext(),LinearLayoutManager.HORIZONTAL,false));
                 rvLich.setAdapter(lichChieuAdapter);
                 createAdapterGio(rvGio,createGio());
+                  viewdata(spinnerRapAdapter,spinnerRap);
                 break;
             case 1:
                 rootView= inflater.inflate(R.layout.chi_tiet_thongtin, container, false);
@@ -144,5 +164,60 @@ public class CardChiTietFragment  extends Fragment {
         GioChieuAdapter gioChieuAdapter=new GioChieuAdapter(lst,getContext());
         rv.setLayoutManager(new GridLayoutManager(getContext(),4));
         rv.setAdapter(gioChieuAdapter);
+    }
+    private void createListRap()
+    {
+        lstRap=new LinkedList<>();
+        lstRap.add(new Rap(1,"Cinema Tân Bình 1"));
+        lstRap.add(new Rap(2,"Cinema Tân Bình 2"));
+        lstRap.add(new Rap(3,"Cinema Tân Bình 3"));
+        lstRap.add(new Rap(4,"Cinema Tân Bình 4"));
+        lstRap.add(new Rap(5,"Cinema Tân Bình 5"));
+
+    }
+    public void viewdata(SpinnerRapAdapter adapter,Spinner spinner) {
+        String url= "http://"+ DataHelperConnnect.ipConnect+"/lara_cinema/CenimaProject/public/api/Rap";
+        JsonArrayRequest jsonArrayRequest= new JsonArrayRequest(url, new Response.Listener<JSONArray>() {
+            @Override
+            public void onResponse(JSONArray response) {
+
+                for(int i=0; i<response.length(); i++){
+                    try {
+                        JSONObject jsonObject= response.getJSONObject(i);
+                        Rap rap= new Rap();
+                        rap.setId(jsonObject.getInt("id"));
+                        rap.setName(jsonObject.getString("TenRap"));
+
+                        lstRap.add(rap);
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+
+                }
+                spinner.setAdapter(adapter);
+                spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+
+                    @Override
+                    public void onItemSelected(AdapterView<?> adapterView, View view,
+                                               int position, long id) {
+                        // Here you get the current item (a User object) that is selected by its position
+                        Rap user = adapter.getItem(position);
+                        // Here you can do the action you want to...
+                        Toast.makeText(getContext(), "ID: " + user.getId() + "\nName: " + user.getName(),
+                                Toast.LENGTH_SHORT).show();
+                    }
+                    @Override
+                    public void onNothingSelected(AdapterView<?> adapter) {  }
+                });
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(getContext(), error.toString(), Toast.LENGTH_SHORT).show();
+            }
+        });
+        RequestQueue requestQueue= Volley.newRequestQueue(getContext());
+        requestQueue.add(jsonArrayRequest);
     }
 }

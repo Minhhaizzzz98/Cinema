@@ -20,6 +20,7 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.cinema.R;
 import com.example.cinema.adapters.RapAdapter;
+import com.example.cinema.models.DataHelperConnnect;
 import com.example.cinema.models.Rap;
 import com.squareup.moshi.JsonAdapter;
 import com.squareup.moshi.Moshi;
@@ -112,7 +113,7 @@ public class rapchieu extends Fragment {
     }
 
     public void viewdata() {
-        String url= "http://192.168.1.105/lara_cinema/CenimaProject/public/api/Rap";
+        String url= "http://"+ DataHelperConnnect.ipConnect+"/lara_cinema/CenimaProject/public/api/Rap";
         JsonArrayRequest jsonArrayRequest= new JsonArrayRequest(url, new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray response) {
