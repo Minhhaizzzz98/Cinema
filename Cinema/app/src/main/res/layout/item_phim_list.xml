@@ -5,7 +5,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="140dp"
     android:layout_height="wrap_content"
-    android:layout_marginLeft="8dp"
     android:clickable="true"
     android:focusable="true"
     android:orientation="vertical"
@@ -41,4 +40,18 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/item_movie_title"
         android:text="Loai" />
+    <RatingBar
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/ratingBar"
+        style="?android:attr/ratingBarStyleSmall"
+        android:scaleX="1"
+        android:rating="5"
+        android:scaleY="1"
+        android:layout_below="@id/item_loai"
+        android:transformPivotX="0dp"
+        android:transformPivotY="0dp"
+        android:numStars="5"
+        android:theme="@style/MyRatingBar"
+      />
 </RelativeLayout>
