@@ -7,6 +7,19 @@ public class Rap {
     String DiaChi;
     String SDT;
 
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public Rap(int id, String tenRap) {
+        this.id = id;
+        TenRap = tenRap;
+    }
+
     public int getImg() {
         return img;
     }
