@@ -1,5 +1,7 @@
 package com.example.cinema;
 
+import android.app.ActivityOptions;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,6 +15,7 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.cinema.adapters.AdapterListPhim;
 import com.example.cinema.adapters.MovieAdapter;
 import com.example.cinema.adapters.MovieItemClickListener;
 import com.example.cinema.models.Movie;
@@ -64,8 +67,7 @@ public class CardPhimFragment extends Fragment implements MovieItemClickListener
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         rvArticles= view.findViewById(R.id.rv_article);
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
-        linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+
 
 
 
@@ -84,7 +86,7 @@ public class CardPhimFragment extends Fragment implements MovieItemClickListener
             lstMovies.add(new Movie("The Martian",R.drawable.themartian, "<iframe width=\"100%\" height=\"100%\" src=\"https://www.youtube.com/embed/CwfoyVa980U\" frameborder=\"0\" allowfullscreen></iframe>","Hành Động"));
             lstMovies.add(new Movie("The Martian",R.drawable.themartian, "<iframe width=\"100%\" height=\"100%\" src=\"https://www.youtube.com/embed/CwfoyVa980U\" frameborder=\"0\" allowfullscreen></iframe>","Hành Động"));
         }
-        MovieAdapter movieAdapter = new MovieAdapter(getContext(),lstMovies,this::onMovieClick);
+        AdapterListPhim movieAdapter = new AdapterListPhim(getContext(),lstMovies,this::onMovieClick);
         rvArticles.setAdapter(movieAdapter);
         rvArticles.setLayoutManager(new GridLayoutManager(getContext(),2));
         rvArticles.setHasFixedSize(true);
@@ -92,6 +94,15 @@ public class CardPhimFragment extends Fragment implements MovieItemClickListener
 
     @Override
     public void onMovieClick(Movie movie, ImageView movieImageView) {
+        Intent intent=new Intent(getContext(), ChiTietPhim.class);
+        intent.putExtra("title",movie.getTitle());
+        intent.putExtra("imgURL",movie.getThumbnail());
+        intent.putExtra("imgCover",movie.getCoverPhoto());
+        intent.putExtra("trailer", movie.getStreamingLink());
+        // create the animation
+        ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(getActivity(),
+                movieImageView,"sharedName");
 
+        startActivity(intent,options.toBundle());
     }
 }
