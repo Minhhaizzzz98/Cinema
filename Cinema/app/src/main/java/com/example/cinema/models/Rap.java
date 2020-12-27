@@ -1,10 +1,11 @@
 package com.example.cinema.models;
 
 public class Rap {
+    int id;
     int img;
-    String name;
-    String address;
-    String phone;
+    String TenRap;
+    String DiaChi;
+    String SDT;
 
     public int getImg() {
         return img;
@@ -15,36 +16,36 @@ public class Rap {
     }
 
     public String getName() {
-        return name;
+        return TenRap;
     }
 
     public void setName(String name) {
-        this.name = name;
+        this.TenRap = name;
     }
 
     public String getAddress() {
-        return address;
+        return DiaChi;
     }
 
     public void setAddress(String address) {
-        this.address = address;
+        this.DiaChi = address;
     }
 
     public String getPhone() {
-        return phone;
+        return SDT;
     }
 
     public void setPhone(String phone) {
-        this.phone = phone;
+        this.SDT = phone;
     }
 
     public Rap() {
     }
 
-    public Rap(int img, String name, String address, String phone) {
-        this.img = img;
-        this.name = name;
-        this.address = address;
-        this.phone = phone;
+    public Rap(String name, String address, String phone) {
+
+        this.TenRap = name;
+        this.DiaChi = address;
+        this.SDT = phone;
     }
 }
