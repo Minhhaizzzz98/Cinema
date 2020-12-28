@@ -42,10 +42,12 @@ dependencies {
     implementation 'com.github.bumptech.glide:glide:4.6.1'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.6.1'
     implementation 'com.github.PierfrancescoSoffritti.AndroidYouTubePlayer:chromecast-sender:10.0.5'
-
+    implementation 'com.squareup.picasso:picasso:2.71828'
     implementation 'com.android.volley:volley:1.1.1'
 
     implementation 'de.hdodenhof:circleimageview:3.0.1'
     compile 'com.squareup.okhttp3:okhttp:3.4.1'
     compile 'com.squareup.moshi:moshi:1.2.0'
+
+
 }
