@@ -14,6 +14,8 @@ import com.bumptech.glide.Glide;
 import com.example.cinema.R;
 import com.example.cinema.XemTrailer;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.squareup.picasso.NetworkPolicy;
+import com.squareup.picasso.Picasso;
 
 public class MovieDetailActivity extends AppCompatActivity {
 
@@ -41,11 +43,12 @@ public class MovieDetailActivity extends AppCompatActivity {
 
     void iniViews() {
         String movieTitle = getIntent().getExtras().getString("title");
-        int imageResourceId = getIntent().getExtras().getInt("imgURL");
+        String imageResourceId = getIntent().getExtras().getString("imgURL");
         String trailer= getIntent().getExtras().getString("trailer");
         MovieThumbnailImg = findViewById(R.id.detail_movie_img);
-        Glide.with(this).load(imageResourceId).into(MovieThumbnailImg);
-        MovieThumbnailImg.setImageResource(imageResourceId);
+        Picasso.get().load(imageResourceId).networkPolicy(NetworkPolicy.OFFLINE).into(MovieThumbnailImg);
+      //  Glide.with(this).load(imageResourceId).networkPolicy(NetworkPolicy.OFFLINE).into(MovieThumbnailImg);
+       // MovieThumbnailImg.setImageResource(imageResourceId);
         MovieCoverTrailer = findViewById(R.id.detail_movie_cover);
         MovieCoverTrailer.getSettings().setJavaScriptEnabled(true);
         MovieCoverTrailer.setWebChromeClient(new WebChromeClient());

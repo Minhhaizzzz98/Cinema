@@ -1,14 +1,50 @@
 package com.example.cinema.models;
 
 public class Movie {
+    private  int id;
+
+    public int getId() {
+        return id;
+    }
+
+    public String getTuoi() {
+        return tuoi;
+    }
 
     private String title;
+
+    public Movie() {
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public void setTuoi(String tuoi) {
+        this.tuoi = tuoi;
+    }
+
     private String description;
     private int thumbnail;
     private String studio;
     private String rating;
     private String streamingLink;
     private String loaiPhim;
+    private String hinhanh;
+
+    public String getHinhanh() {
+        return hinhanh;
+    }
+
+    public void setHinhanh(String hinhanh) {
+        this.hinhanh = hinhanh;
+    }
+
+    private String tuoi;
+
+    public Movie(String tuoi) {
+        this.tuoi = tuoi;
+    }
 
     public String getLoaiPhim() {
         return loaiPhim;

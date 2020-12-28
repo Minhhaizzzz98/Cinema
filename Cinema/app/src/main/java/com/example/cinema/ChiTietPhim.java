@@ -30,6 +30,8 @@ import com.example.cinema.ui.MovieDetailActivity;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
+import com.squareup.picasso.NetworkPolicy;
+import com.squareup.picasso.Picasso;
 
 public class ChiTietPhim extends AppCompatActivity {
     TabLayout tabLayout;
@@ -140,11 +142,11 @@ public class ChiTietPhim extends AppCompatActivity {
     }
     void iniViews() {
         String movieTitle = getIntent().getExtras().getString("title");
-        int imageResourceId = getIntent().getExtras().getInt("imgURL");
+        String imageResourceId = getIntent().getExtras().getString("imgURL");
         String trailer= getIntent().getExtras().getString("trailer");
         MovieThumbnailImg = findViewById(R.id.detail_movie_img);
-        Glide.with(this).load(imageResourceId).into(MovieThumbnailImg);
-        MovieThumbnailImg.setImageResource(imageResourceId);
+       // Glide.with(this).load(imageResourceId).into(MovieThumbnailImg);
+        Picasso.get().load(imageResourceId).networkPolicy(NetworkPolicy.OFFLINE).into(MovieThumbnailImg);
         MovieCoverTrailer = findViewById(R.id.detail_movie_cover);
         MovieCoverTrailer.getSettings().setJavaScriptEnabled(true);
         MovieCoverTrailer.setWebChromeClient(new WebChromeClient());
