@@ -13,17 +13,39 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonArrayRequest;
+import com.android.volley.toolbox.Volley;
 import com.example.cinema.R;
+import com.example.cinema.adapters.RapAdapter;
+import com.example.cinema.models.DataHelperConnnect;
+import com.example.cinema.models.KhachHang;
+import com.example.cinema.models.Rap;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.LinkedList;
 
 public class Login extends AppCompatActivity {
     EditText editPhone, editPass;
     Button btnDangNhap;
     Intent in;
 
+    LinkedList<KhachHang> lstKH= new LinkedList<>();
+    KhachHang khachHang= new KhachHang();
+
     private static final String KEY_IS_LOGGED_IN = "isLoggedIn";
     public static final String MyPREFERENCES = "MyPrefs" ;
     public static final String Phone = "phoneKey";
     public static final String Password = "passwordKey";
+    public static final String DiaChi = "address";
+    public static final String Email = "email";
+    public static final String Hoten = "fullName";
+    public static final String TenTK = "username";
     SharedPreferences sharedpreferences;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,18 +66,43 @@ public class Login extends AppCompatActivity {
         btnDangNhap.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                boolean flag= false;
                 String phone  = editPhone.getText().toString();
                 String pass  = editPass.getText().toString();
 
-                SharedPreferences.Editor editor = sharedpreferences.edit();
+                layDanhSachKH();
+                for(int i= 0; i< lstKH.size(); i++){
+                    if(lstKH.get(i).getSDT().equals(phone) && lstKH.get(i).getPassword().equals(pass)){
+                        flag=true;
+                        khachHang= lstKH.get(i);
+                        SharedPreferences.Editor editor = sharedpreferences.edit();
 
-                editor.putString(Phone, phone);
-                editor.putString(Password, pass);
-                editor.putBoolean(KEY_IS_LOGGED_IN, true);
-                editor.commit();
+                        editor.putString(Phone, phone);
+                        editor.putString(Password, pass);
+                        editor.putString(DiaChi, lstKH.get(i).getDiaChi());
+                        editor.putString(Email, lstKH.get(i).getEmail());
+                        editor.putString(Hoten, lstKH.get(i).getHoTen());
+                        editor.putString(TenTK, lstKH.get(i).getTenTK());
+                        editor.putBoolean(KEY_IS_LOGGED_IN, true);
+                        editor.commit();
 
-                in = new Intent(Login.this, QuanLyThongTin.class);
-                startActivity(in);
+                        break;
+                    }
+                }
+                if(flag){
+                    in = new Intent(Login.this, QuanLyThongTin.class);
+                    Bundle bundle= new Bundle();
+                    bundle.putString("HOTEN", khachHang.getHoTen());
+                    bundle.putString("TENTK", khachHang.getTenTK());
+                    bundle.putString("DIACHI", khachHang.getDiaChi());
+                    bundle.putString("SDT", khachHang.getSDT());
+                    bundle.putString("EMAIL", khachHang.getEmail());
+                    bundle.putString("PASSWORD", khachHang.getPassword());
+
+                    in.putExtras(bundle);
+                    startActivity(in);
+                }
+                else Toast.makeText(getApplicationContext(), "Đăng nhập thất bại!", Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -74,6 +121,41 @@ public class Login extends AppCompatActivity {
     }
     public boolean isLoggedIn() {
         return sharedpreferences.getBoolean(KEY_IS_LOGGED_IN, false);//false is the default value in case there's nothing found with the key
+    }
+
+    public void layDanhSachKH() {
+        String url= "http://"+ DataHelperConnnect.ipConnect+"/lara_cinema/CenimaProject/public/api/KhachHang";
+        JsonArrayRequest jsonArrayRequest= new JsonArrayRequest(url, new Response.Listener<JSONArray>() {
+            @Override
+            public void onResponse(JSONArray response) {
+                for(int i=0; i<response.length(); i++){
+                    try {
+                        JSONObject jsonObject= response.getJSONObject(i);
+                        KhachHang kh= new KhachHang();
+                        kh.setSDT(jsonObject.getString("SDT"));
+                        kh.setPassword(jsonObject.getString("password"));
+                        kh.setId(jsonObject.getInt("id"));
+                        kh.setHoTen(jsonObject.getString("HoTen"));
+                        kh.setTenTK(jsonObject.getString("TenTK"));
+                        kh.setEmail(jsonObject.getString("Email"));
+                        kh.setDiaChi(jsonObject.getString("DiaChi"));
+
+                        lstKH.add(kh);
+
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(getApplicationContext(), error.toString(), Toast.LENGTH_SHORT).show();
+            }
+        });
+        RequestQueue requestQueue= Volley.newRequestQueue(getApplicationContext());
+        requestQueue.add(jsonArrayRequest);
     }
 
     public void chuyendangky(View view) {

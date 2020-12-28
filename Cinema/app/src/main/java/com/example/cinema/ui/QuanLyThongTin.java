@@ -15,6 +15,7 @@ import android.widget.Button;
 
 import com.example.cinema.R;
 import com.example.cinema.adapters.ViewPagerAdapter;
+import com.example.cinema.models.KhachHang;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
 
@@ -81,6 +82,9 @@ public class QuanLyThongTin extends AppCompatActivity {
         SharedPreferences.Editor editor = sharedpreferences.edit();
         editor.clear();
         editor.commit();
+
+        Intent in= new Intent(this, Login.class);
+        startActivity(in);
     }
 
     public void close(View view){
@@ -91,4 +95,5 @@ public class QuanLyThongTin extends AppCompatActivity {
         Intent intent= new Intent(this, ChinhSuaThongTin.class);
         startActivity(intent);
     }
+
 }
