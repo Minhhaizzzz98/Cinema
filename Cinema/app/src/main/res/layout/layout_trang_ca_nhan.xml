@@ -1,73 +1,152 @@
-<?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
     android:padding="16dp"
-    android:orientation="vertical"
-    android:layout_gravity="center"
     android:gravity="center_vertical"
-    android:background="@color/white">
-    <ImageView
-        android:layout_width="200dp"
-        android:layout_height="150dp"
-        android:src="@drawable/spidercover"
-        android:layout_toRightOf="@+id/linear"
-        android:layout_gravity="center">
-    </ImageView>
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_gravity="center">
+    android:layout_gravity="center"
+    android:layout_column="2">
+
+    <TableRow
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent">
+
+        <ImageView
+            android:layout_width="200dp"
+            android:layout_height="150dp"
+            android:src="@drawable/spidercover"
+            android:layout_toRightOf="@+id/linear"
+            android:layout_column="2" />
+    </TableRow>
+    <TableRow
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:gravity="center">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="20dp"
+            android:text="Họ Tên"
+            android:layout_column="1" />
+
         <TextView
             android:id="@+id/tvTenDangNhap"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="20dp"
-            android:text="nguyenanh0429" />
+            android:text="Minh anh"
+            android:layout_column="2" />
+
+    </TableRow>
+
+    <TableRow
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:gravity="center">
+
         <TextView
-            android:id="@+id/tvHoTen"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Nguyễn Minh Anh"
             android:textSize="20dp"
-            android:layout_below="@+id/tvTenDangNhap"
-            android:layout_alignParentRight="true"/>
+            android:text="SDT"
+            android:layout_column="1" />
+
         <TextView
             android:id="@+id/tvPhone"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="20dp"
-            android:text="Số điện thoại: 0864337731" />
+            android:text="Minh anh"
+            android:layout_column="2" />
+
+    </TableRow>
+
+    <TableRow
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:gravity="center">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="20dp"
+            android:text="Ngày Sinh "
+            android:layout_column="1" />
+
         <TextView
             android:id="@+id/tvNgaySinh"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="20dp"
-            android:text="Ngày sinh: 04/10/2000" />
+            android:text="01/01/2000"
+            android:layout_column="2" />
+
+    </TableRow>
+
+    <TableRow
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:gravity="center">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="20dp"
+            android:text="Email"
+            android:layout_column="1" />
+
         <TextView
             android:id="@+id/tvEmail"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="20dp"
-            android:text="Email: 0306181197@caothang.edu.vn"/>
+            android:text="Minh anh"
+            android:layout_column="2" />
+
+    </TableRow>
+    <TableRow
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:gravity="center">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="20dp"
+            android:text="Địa Chỉ "
+            android:layout_column="1" />
+
         <TextView
             android:id="@+id/tvDiaChi"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="20dp"
-            android:text="Địa chỉ: quận 12, TPHCM" />
+            android:text="Minh anh"
+            android:layout_column="2" />
+
+    </TableRow>
+    <TableRow
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:gravity="center">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="20dp"
+            android:text="Mật Khẩu "
+            android:layout_column="1" />
+
         <TextView
             android:id="@+id/tvPassword"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="20dp"
-            android:text="Mật khẩu:*********" />
-    </LinearLayout>
+            android:text="Minh anh"
+            android:inputType="textPassword"
+            android:layout_column="2" />
+
+    </TableRow>
 
 
-
-
-
-</LinearLayout>
+</TableLayout>

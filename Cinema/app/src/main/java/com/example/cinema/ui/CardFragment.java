@@ -1,14 +1,15 @@
 package com.example.cinema.ui;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.PopupMenu;
-import android.widget.Toast;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -20,24 +21,16 @@ import com.example.cinema.R;
 import com.example.cinema.adapters.LichSuGiaoDichAdapter;
 import com.example.cinema.adapters.ThongKeGiaoDichAdapter;
 import com.example.cinema.models.GiaoDich;
-//import com.example.vphuot.Model.Article;
-//import com.squareup.moshi.JsonAdapter;
-//import com.squareup.moshi.Moshi;
-//import com.squareup.moshi.Types;
+import com.example.cinema.models.KhachHang;
 
-import java.io.IOException;
-import java.lang.reflect.Type;
-import java.util.ArrayList;
 import java.util.LinkedList;
-import java.util.List;
-//
-//import okhttp3.Call;
-//import okhttp3.Callback;
-//import okhttp3.OkHttpClient;
-//import okhttp3.Request;
-//import okhttp3.Response;
 
-public class CardFragment extends Fragment {
+import javax.crypto.KeyAgreement;
+
+
+public class CardFragment extends Fragment{
+    KhachHang khachHang= new KhachHang();
+
     ImageButton imageButton;
     RecyclerView recyclerViewGiaoDich;
     LinkedList<GiaoDich> lstGiaoDich= new LinkedList<>();
@@ -46,6 +39,7 @@ public class CardFragment extends Fragment {
     LinkedList<GiaoDich> lstThongKeGDTheoThang= new LinkedList<>();
     private static final String ARG_COUNT = "param1";
     private static Integer counter;
+
     View rootView;
 
     public CardFragment(){
@@ -59,13 +53,34 @@ public class CardFragment extends Fragment {
         return fragment;
     }
 
+
     // gắn layout khác nhau vào nội dung của từng tab -> trả ra view
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+//        khachHang.setHoTen(this.getArguments().getString("HOTEN"));
+//        khachHang.setTenTK(this.getArguments().getString("TENTK"));
+//        khachHang.setDiaChi(this.getArguments().getString("DIACHI"));
+//        khachHang.setSDT(this.getArguments().getString("SDT"));
+//        khachHang.setEmail(this.getArguments().getString("EMAIL"));
+//        khachHang.setPassword(this.getArguments().getString("PASSWORD"));
         switch (getArguments().getInt(ARG_COUNT)){
             case 0:
                 rootView= inflater.inflate(R.layout.layout_trang_ca_nhan, container, false);
+                if((khachHang=layDataTuSharePre())!=null){
+                    TextView tvTenDangNhap= rootView.findViewById(R.id.tvTenDangNhap);
+                    TextView tvPhone= rootView.findViewById(R.id.tvPhone);
+                    TextView tvEmail= rootView.findViewById(R.id.tvEmail);
+                    TextView tvDiaChi= rootView.findViewById(R.id.tvDiaChi);
+                    TextView tvPassword= rootView.findViewById(R.id.tvPassword);
+
+                    tvTenDangNhap.setText(khachHang.getTenTK());
+                    tvPhone.setText(khachHang.getSDT());
+                    tvEmail.setText(khachHang.getEmail());
+                    tvDiaChi.setText(khachHang.getDiaChi());
+                    tvPassword.setText(khachHang.getPassword());
+                }
+
                 break;
             case 1:
                 rootView= inflater.inflate(R.layout.fragment_thong_ke_giao_dich, container, false);
@@ -174,6 +189,7 @@ public class CardFragment extends Fragment {
         if(getArguments()!=null){
             counter= getArguments().getInt(ARG_COUNT);
         }
+
     }
 
 
@@ -185,48 +201,18 @@ public class CardFragment extends Fragment {
 
     }
 
-//    public void viewdata() {
-//
-//        // Khởi tạo OkHttpClient để lấy dữ liệu.
-//        OkHttpClient client = new OkHttpClient();
-//
-//        // Khởi tạo Moshi adapter để biến đổi json sang model java (ở đây là User)
-//        Moshi moshi = new Moshi.Builder().build();
-//        Type articleType = Types.newParameterizedType(List.class, Article.class);
-//        final JsonAdapter<List<Article>> jsonAdapter = moshi.adapter(articleType);
-//
-//        // Tạo request lên server.
-//        Request request = new Request.Builder()
-//                .url("http://192.168.100.55/WebApiPhuot/public/api/BaiViet")
-//                .build();
-//
-//        // Thực thi request.
-//        client.newCall(request).enqueue(new Callback() {
-//            @Override
-//            public void onFailure(Call call, IOException e) {
-//                Log.e("Error", "Network Error");
-//            }
-//
-//            @Override
-//            public void onResponse(Call call, Response response) throws IOException {
-//
-//                // Lấy thông tin JSON trả về. Bạn có thể log lại biến json này để xem nó như thế nào.
-//                String json = response.body().string();
-//                final List<Article> list = jsonAdapter.fromJson(json);
-//
-//                // Cho hiển thị lên RecyclerView.
-//               getActivity().runOnUiThread(new Runnable() {
-//                    @Override
-//                    public void run() {
-//                        rvArticles.setAdapter(new ArticleAdapter(list, getActivity()));
-//                    }
-//                });
-//
-//            }
-//
-//
-//
-//
-//        });
-//    }
+    public KhachHang layDataTuSharePre() {
+        KhachHang kh= new KhachHang();
+        SharedPreferences sharedPreferences = getActivity().getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
+        if(sharedPreferences.getBoolean("isLoggedIn", false)){
+            kh.setSDT(sharedPreferences.getString("phoneKey", null));
+            kh.setPassword(sharedPreferences.getString("passwordKey", null));
+            kh.setDiaChi(sharedPreferences.getString("address", null));
+            kh.setEmail(sharedPreferences.getString("email", null));
+            kh.setHoTen(sharedPreferences.getString("fullName", null));
+            kh.setTenTK(sharedPreferences.getString("username", null));
+
+        }
+        return kh;
+    }
 }
