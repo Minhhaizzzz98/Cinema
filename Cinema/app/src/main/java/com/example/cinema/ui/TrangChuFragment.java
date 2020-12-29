@@ -261,7 +261,7 @@ public class TrangChuFragment extends Fragment  implements MovieItemClickListene
                         startActivity(intent,options.toBundle());
                     }
                 });
-                movieAdapter.notifyDataSetChanged();
+
                 rvSap.setAdapter(movieAdapter);
                 rvSap.setLayoutManager(new LinearLayoutManager(getActivity(),LinearLayoutManager.HORIZONTAL,false));
                 rvDang.setAdapter(movieAdapter);

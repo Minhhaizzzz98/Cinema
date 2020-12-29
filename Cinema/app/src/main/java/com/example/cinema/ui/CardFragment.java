@@ -74,7 +74,7 @@ public class CardFragment extends Fragment{
                     TextView tvDiaChi= rootView.findViewById(R.id.tvDiaChi);
                     TextView tvPassword= rootView.findViewById(R.id.tvPassword);
 
-                    tvTenDangNhap.setText(khachHang.getTenTK());
+                    tvTenDangNhap.setText(khachHang.getHoTen());
                     tvPhone.setText(khachHang.getSDT());
                     tvEmail.setText(khachHang.getEmail());
                     tvDiaChi.setText(khachHang.getDiaChi());

@@ -59,7 +59,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MyViewHolder
         //myViewHolder.ImgMovie.setImageResource(mData.get(i).getThumbnail());
         myViewHolder.Loai.setText(mData.get(i).getLoaiPhim());
         setScaleAnimation(myViewHolder.itemView);
-        Picasso.get().load(mData.get(i).getHinhanh()).networkPolicy(NetworkPolicy.OFFLINE).into(myViewHolder.ImgMovie);
+        Picasso.get().load(mData.get(i).getHinhanh()).placeholder(R.drawable.slide1).networkPolicy(NetworkPolicy.OFFLINE).into(myViewHolder.ImgMovie);
 //        setAnimation(myViewHolder.itemView,i);
 //        myViewHolder.Trailer.loadData(mData.get(i).getStreamingLink(), "text/html", "utf-8");
 
