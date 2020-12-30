@@ -1,8 +1,11 @@
 package com.example.cinema.models;
 
+import android.widget.DatePicker;
+
 public class KhachHang {
     int id;
-    String HoTen, TenTK, password, DiaChi, SDT, Email;
+    String HoTen, NgaySinh, password, DiaChi, SDT, Email;
+
 
     public KhachHang(String SDT, String password) {
         this.password = password;
@@ -28,12 +31,12 @@ public class KhachHang {
         HoTen = hoTen;
     }
 
-    public String getTenTK() {
-        return TenTK;
+    public String getNgaySinh() {
+        return NgaySinh;
     }
 
-    public void setTenTK(String tenTK) {
-        TenTK = tenTK;
+    public void setNgaySinh(String tenTK) {
+        NgaySinh = tenTK;
     }
 
     public String getPassword() {

@@ -47,7 +47,7 @@ public class Login extends AppCompatActivity {
     public static final String DiaChi = "address";
     public static final String Email = "email";
     public static final String Hoten = "fullName";
-    public static final String TenTK = "username";
+    public static final String NgaySinh = "birthday";
 
     SharedPreferences sharedpreferences;
     @Override
@@ -156,7 +156,7 @@ public class Login extends AppCompatActivity {
                         khachHang.setPassword(jsonObject.getString("password"));
                         khachHang.setId(jsonObject.getInt("id"));
                         khachHang.setHoTen(jsonObject.getString("HoTen"));
-                        khachHang.setTenTK(jsonObject.getString("TenTK"));
+                        khachHang.setNgaySinh(jsonObject.getString("NgaySinh"));
                         khachHang.setEmail(jsonObject.getString("Email"));
                         khachHang.setDiaChi(jsonObject.getString("DiaChi"));
 
@@ -168,7 +168,7 @@ public class Login extends AppCompatActivity {
                             editor.putString(DiaChi, khachHang.getDiaChi());
                             editor.putString(Email, khachHang.getEmail());
                             editor.putString(Hoten, khachHang.getHoTen());
-                            editor.putString(TenTK, khachHang.getTenTK());
+                            editor.putString(NgaySinh, khachHang.getNgaySinh());
                             editor.putBoolean(KEY_IS_LOGGED_IN, true);
                             editor.commit();
 

@@ -73,12 +73,14 @@ public class CardFragment extends Fragment{
                     TextView tvEmail= rootView.findViewById(R.id.tvEmail);
                     TextView tvDiaChi= rootView.findViewById(R.id.tvDiaChi);
                     TextView tvPassword= rootView.findViewById(R.id.tvPassword);
+                    TextView tvNgaySinh= rootView.findViewById(R.id.tvNgaySinh);
 
                     tvTenDangNhap.setText(khachHang.getHoTen());
                     tvPhone.setText(khachHang.getSDT());
                     tvEmail.setText(khachHang.getEmail());
                     tvDiaChi.setText(khachHang.getDiaChi());
                     tvPassword.setText(khachHang.getPassword());
+                    tvNgaySinh.setText(khachHang.getNgaySinh());
                 }
 
                 break;
@@ -210,7 +212,7 @@ public class CardFragment extends Fragment{
             kh.setDiaChi(sharedPreferences.getString("address", null));
             kh.setEmail(sharedPreferences.getString("email", null));
             kh.setHoTen(sharedPreferences.getString("fullName", null));
-            kh.setTenTK(sharedPreferences.getString("username", null));
+            kh.setNgaySinh(sharedPreferences.getString("birthday", null));
 
         }
         return kh;
