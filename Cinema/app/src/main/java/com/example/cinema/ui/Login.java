@@ -35,7 +35,7 @@ import java.io.UnsupportedEncodingException;
 import java.util.LinkedList;
 
 public class Login extends AppCompatActivity {
-    EditText editPhone, editPass;
+    EditText editEmail, editPass;
     Button btnDangNhap;
     Intent in;
 
@@ -61,7 +61,7 @@ public class Login extends AppCompatActivity {
         getSupportActionBar().setTitle("Đăng nhập");
 
         // Khởi tạo các View
-        editPhone= findViewById(R.id.txtsdt);
+        editEmail= findViewById(R.id.editEmail);
         editPass= findViewById(R.id.txtmatkhau);
         btnDangNhap= findViewById(R.id.btnDangNhap);
         sharedpreferences = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
@@ -69,7 +69,7 @@ public class Login extends AppCompatActivity {
         btnDangNhap.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String phone  = editPhone.getText().toString();
+                String phone  = editEmail.getText().toString();
                 String pass  = editPass.getText().toString();
 
                 layDataKhachHangDN(phone, pass);
@@ -128,10 +128,10 @@ public class Login extends AppCompatActivity {
 //        requestQueue.add(jsonArrayRequest);
 //    }
 
-    public void layDataKhachHangDN(String phone, String pass){
+    public void layDataKhachHangDN(String email, String pass){
         JSONObject jsonObject= new JSONObject();
         try {
-            jsonObject.put("sdt", phone);
+            jsonObject.put("email", email);
             jsonObject.put("mk", pass);
         } catch (JSONException e) {
             e.printStackTrace();

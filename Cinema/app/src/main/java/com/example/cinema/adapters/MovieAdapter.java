@@ -67,7 +67,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MyViewHolder
     private int lastPosition = -1;
     @Override
     public int getItemCount() {
-        return mData.size();
+        return 5;
     }
     private void setAnimation(View viewToAnimate, int position)
     {
