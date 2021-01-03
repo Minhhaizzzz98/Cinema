@@ -109,10 +109,38 @@
                 android:id="@+id/editEmail"
                 android:layout_width="250dp"
                 android:layout_height="50dp"
+                android:layout_column="2"
                 android:layout_marginTop="5dp"
                 android:inputType="text"
-                android:textSize="20dp"
-                android:layout_column="2"/>
+                android:textSize="20dp" />
+
+
+        </TableRow>
+
+        <TableRow
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:gravity="center">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="16dp"
+                android:text="Ngày sinh"
+                android:layout_column="1" />
+
+            <TextView
+                android:id="@+id/date"
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:hint="Select Date..."
+                android:padding="15dp"
+                android:textColor="#897"
+                android:textColorHint="#090"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
 
         </TableRow>
         <TableRow

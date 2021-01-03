@@ -69,7 +69,7 @@
             android:layout_marginTop="10dp"
             android:layout_width="match_parent"
             android:orientation="vertical"
-            android:layout_height="210dp">
+            android:layout_height="400dp">
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rvDangChieu"
                 android:layout_width="match_parent"
@@ -110,7 +110,7 @@
         <LinearLayout
             android:layout_marginTop="10dp"
             android:layout_width="match_parent"
-            android:layout_height="210dp">
+            android:layout_height="400dp">
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rvSapChieu"
                 android:layout_width="match_parent"
