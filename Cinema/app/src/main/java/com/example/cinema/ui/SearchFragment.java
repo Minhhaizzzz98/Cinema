@@ -1,23 +1,43 @@
 package com.example.cinema.ui;
 
+import android.app.ActivityOptions;
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.SearchView;
+import android.widget.Toast;
 
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonArrayRequest;
+import com.android.volley.toolbox.Volley;
+import com.example.cinema.ChiTietPhim;
 import com.example.cinema.R;
+import com.example.cinema.adapters.AdapterListPhim;
+import com.example.cinema.adapters.MovieAdapter;
+import com.example.cinema.adapters.MovieItemClickListener;
 import com.example.cinema.adapters.SearchAdapter;
+import com.example.cinema.models.DataHelperConnnect;
 import com.example.cinema.models.Movie;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -27,10 +47,12 @@ import java.util.ArrayList;
 public class SearchFragment extends Fragment implements SearchView.OnQueryTextListener{
 
     RecyclerView list;
-    SearchAdapter adapter;
+    AdapterListPhim adapter;
     SearchView editsearch;
-    String[] animalNameList;
-    ArrayList<Movie> arraylist = new ArrayList<Movie>();
+//    String[] animalNameList;
+//    ArrayList<Movie> arraylist = new ArrayList<Movie>();
+    private List<Movie> lstMovies;
+    MovieItemClickListener movieItemClickListener;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -79,28 +101,9 @@ public class SearchFragment extends Fragment implements SearchView.OnQueryTextLi
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_search, container, false);
 
-        animalNameList = new String[]{"Lion", "Tiger", "Dog",
-                "Cat", "Tortoise", "Rat", "Elephant", "Fox",
-                "Cow","Donkey","Monkey","Lion", "Tiger", "Dog",
-                "Cat", "Tortoise", "Rat", "Elephant", "Fox",
-                "Cow","Donkey","Monkey"};
-
         // Locate the ListView in listview_main.xml
         list = view.findViewById(R.id.listview);
-
-        for (int i = 0; i < animalNameList.length; i++) {
-            Movie animalNames = new Movie(animalNameList[i],"Mô tả nội dung phim",R.drawable.mov2,"","","");
-            // Binds all strings into an array
-            arraylist.add(animalNames);
-        }
-
-        list.hasFixedSize();
-        list.setLayoutManager(new LinearLayoutManager(getContext()));
-        // Pass results to ListViewAdapter Class
-        adapter = new SearchAdapter(arraylist, getContext());
-
-        // Binds the Adapter to the ListView
-        list.setAdapter(adapter);
+        viewDataPhim();
 
         // Locate the EditText in listview_main.xml
         editsearch = (SearchView) view.findViewById(R.id.search);
@@ -109,9 +112,9 @@ public class SearchFragment extends Fragment implements SearchView.OnQueryTextLi
         return view;
     }
 
+
     @Override
     public boolean onQueryTextSubmit(String query) {
-
         return false;
     }
 
@@ -120,5 +123,68 @@ public class SearchFragment extends Fragment implements SearchView.OnQueryTextLi
         String text = newText;
         adapter.filter(text);
         return false;
+    }
+
+    public void viewDataPhim() {
+        lstMovies=new ArrayList<>();
+        String url= "http://"+ DataHelperConnnect.ipConnect+"/lara_cinema/CenimaProject/public/api/Phim";
+        JsonArrayRequest jsonArrayRequest= new JsonArrayRequest(url, new Response.Listener<JSONArray>() {
+            @Override
+            public void onResponse(JSONArray response) {
+
+                for(int i=0; i<response.length(); i++){
+                    try {
+                        JSONObject jsonObject= response.getJSONObject(i);
+                        Movie movie=new Movie();
+                        //
+                        movie.setId(jsonObject.getInt("id"));
+                        //
+                        movie.setDescription("Mô Tả 1");
+                        String temp=jsonObject.get("Trailer").toString().substring(32);
+                        String []teapArr=temp.split("&");
+                        //
+                        movie.setStreamingLink(teapArr[0]);
+                        String hinh="http://"+ DataHelperConnnect.ipConnect+"/lara_cinema/CenimaProject/public/data/"+jsonObject.getString("HinhAnh");
+                        //
+                        movie.setHinhanh(hinh);
+                        //
+                        movie.setTitle(jsonObject.getString("TenPhim"));
+
+                        JSONObject jsonObject1=jsonObject.getJSONObject("theloais");
+                        movie.setLoaiPhim(jsonObject1.getString("TenLoaiPhim"));
+                        lstMovies.add(movie);
+
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                    adapter = new AdapterListPhim(getContext(),lstMovies,this::onMovieClick);
+                    list.setAdapter(adapter);
+                    list.setLayoutManager(new GridLayoutManager(getContext(),2));
+                    list.setHasFixedSize(true);
+
+                }
+            }
+
+            private void onMovieClick(Movie movie, ImageView imageView) {
+                Intent intent=new Intent(getContext(), ChiTietPhim.class);
+                intent.putExtra("title",movie.getTitle());
+                intent.putExtra("imgURL",movie.getThumbnail());
+                intent.putExtra("imgCover",movie.getCoverPhoto());
+                intent.putExtra("trailer", movie.getStreamingLink());
+                // create the animation
+                ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(getActivity(),
+                        imageView,"sharedName");
+
+                startActivity(intent,options.toBundle());
+            }
+
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(getContext(), error.toString(), Toast.LENGTH_SHORT).show();
+            }
+        });
+        RequestQueue requestQueue= Volley.newRequestQueue(getContext());
+        requestQueue.add(jsonArrayRequest);
     }
 }
