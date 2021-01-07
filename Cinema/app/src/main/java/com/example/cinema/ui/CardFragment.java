@@ -2,35 +2,55 @@ package com.example.cinema.ui;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
 import android.widget.PopupMenu;
+import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.ListAdapter;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonArrayRequest;
+import com.android.volley.toolbox.Volley;
 import com.example.cinema.R;
 import com.example.cinema.adapters.LichSuGiaoDichAdapter;
+import com.example.cinema.adapters.SpinnerQuanAdapter;
+import com.example.cinema.adapters.SpinnerRapAdapter;
 import com.example.cinema.adapters.ThongKeGiaoDichAdapter;
+import com.example.cinema.models.DataHelperConnnect;
 import com.example.cinema.models.GiaoDich;
 import com.example.cinema.models.KhachHang;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
 import java.util.LinkedList;
+import java.util.List;
 
 import javax.crypto.KeyAgreement;
 
 
-public class CardFragment extends Fragment{
+public class CardFragment extends Fragment implements AdapterView.OnItemSelectedListener{
     KhachHang khachHang= new KhachHang();
-
+    LinkedList<String> arrTinh = new LinkedList<>();
     ImageButton imageButton;
     RecyclerView recyclerViewGiaoDich;
     LinkedList<GiaoDich> lstGiaoDich= new LinkedList<>();
@@ -71,16 +91,18 @@ public class CardFragment extends Fragment{
                     TextView tvTenDangNhap= rootView.findViewById(R.id.tvTenDangNhap);
                     TextView tvPhone= rootView.findViewById(R.id.tvPhone);
                     TextView tvEmail= rootView.findViewById(R.id.tvEmail);
-                    TextView tvDiaChi= rootView.findViewById(R.id.tvDiaChi);
+//                    TextView tvTinh= rootView.findViewById(R.id.tvTinh);
                     TextView tvPassword= rootView.findViewById(R.id.tvPassword);
                     TextView tvNgaySinh= rootView.findViewById(R.id.tvNgaySinh);
 
-                    tvTenDangNhap.setText(khachHang.getHoTen());
-                    tvPhone.setText(khachHang.getSDT());
-                    tvEmail.setText(khachHang.getEmail());
-                    tvDiaChi.setText(khachHang.getDiaChi());
-                    tvPassword.setText(khachHang.getPassword());
-                    tvNgaySinh.setText(khachHang.getNgaySinh());
+                    layDanhSachTinh();
+                    Spinner spinnerTinh= rootView.findViewById(R.id.spinnerTinh);
+                    SpinnerQuanAdapter adapter = new SpinnerQuanAdapter(getActivity(), R.layout.spinner_item, arrTinh);
+                    adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                    adapter.notifyDataSetChanged();
+                    spinnerTinh.setAdapter(adapter);
+
+                    spinnerTinh.setOnItemSelectedListener(this);
                 }
 
                 break;
@@ -216,5 +238,46 @@ public class CardFragment extends Fragment{
 
         }
         return kh;
+    }
+    public void layDanhSachTinh() {
+        String url= "http://"+ DataHelperConnnect.ipConnect+"/lara_cinema/CenimaProject/public/api/Tinh";
+        JsonArrayRequest jsonArrayRequest= new JsonArrayRequest(url, new Response.Listener<JSONArray>() {
+            @Override
+            public void onResponse(JSONArray response) {
+                for(int i=0; i<response.length(); i++){
+                    try {
+                        JSONObject jsonObject= response.getJSONObject(i);
+
+                        arrTinh.add(jsonObject.getString("Ten"));
+//                        Toast.makeText(getContext(), arrTinh.get(0), Toast.LENGTH_SHORT).show();
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(getContext(), error.toString(), Toast.LENGTH_SHORT).show();
+            }
+        });
+        RequestQueue requestQueue= Volley.newRequestQueue(getContext());
+        requestQueue.add(jsonArrayRequest);
+    }
+
+    @Override
+    public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+//            Toast.makeText(getContext(), " selected", Toast.LENGTH_SHORT).show();
+        switch (adapterView.getId()){
+            case 0:        Toast.makeText(getContext(), " selected", Toast.LENGTH_SHORT).show(); break;
+
+        }
+    }
+
+
+    @Override
+    public void onNothingSelected(AdapterView<?> adapterView) {
+
     }
 }

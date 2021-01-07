@@ -116,12 +116,12 @@
             android:text="Địa Chỉ "
             android:layout_column="1" />
 
-        <TextView
-            android:id="@+id/tvDiaChi"
+
+        <Spinner
+            android:id="@+id/spinnerTinh"
+
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="20dp"
-            android:text="Minh anh"
             android:layout_column="2" />
 
     </TableRow>

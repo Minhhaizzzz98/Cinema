@@ -14,11 +14,11 @@ import com.example.cinema.models.Rap;
 
 import java.util.LinkedList;
 
-public class SpinnerRapAdapter extends ArrayAdapter<Rap> {
+public class SpinnerQuanAdapter extends ArrayAdapter<String> {
     private Context context;
     // Your custom values for the spinner (User)
-    private LinkedList<Rap> mData;
-    public SpinnerRapAdapter(@NonNull Context context, int resource) {
+    private LinkedList<String> mData;
+    public SpinnerQuanAdapter(@NonNull Context context, int resource) {
         super(context, resource);
     }
 
@@ -29,13 +29,13 @@ public class SpinnerRapAdapter extends ArrayAdapter<Rap> {
 
     @Nullable
     @Override
-    public Rap getItem(int position) {
+    public String getItem(int position) {
         return mData.get(position);
     }
 
 
 
-    public SpinnerRapAdapter(@NonNull Context context, int resource, @NonNull LinkedList<Rap>objects) {
+    public SpinnerQuanAdapter(@NonNull Context context, int resource, @NonNull LinkedList<String>objects) {
         super(context, resource, objects);
         this.context=context;
         this.mData=objects;
@@ -54,7 +54,7 @@ public class SpinnerRapAdapter extends ArrayAdapter<Rap> {
         label.setTextColor(Color.BLACK);
         // Then you can get the current item using the values array (Users array) and the current position
         // You can NOW reference each method you has created in your bean object (User class)
-        label.setText(mData.get(position).getName());
+        label.setText(mData.get(position));
 
         // And finally return your dynamic (or custom) view for each spinner item
         return label;
@@ -64,7 +64,7 @@ public class SpinnerRapAdapter extends ArrayAdapter<Rap> {
     public View getDropDownView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
         TextView label = (TextView) super.getDropDownView(position, convertView, parent);
         label.setTextColor(Color.BLACK);
-        label.setText(mData.get(position).getName());
+        label.setText(mData.get(position));
         return label;
     }
 }

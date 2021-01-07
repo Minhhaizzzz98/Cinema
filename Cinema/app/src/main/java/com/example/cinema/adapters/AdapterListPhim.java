@@ -19,17 +19,21 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.cinema.R;
 import com.example.cinema.models.Movie;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 public class AdapterListPhim extends RecyclerView.Adapter<AdapterListPhim.HolderListPhim> {
     Context context ;
     List<Movie> mData;
+    ArrayList<Movie> arraylist=new ArrayList<Movie>();
     MovieItemClickListener movieItemClickListener;
 
     public AdapterListPhim(Context context, List<Movie> mData, MovieItemClickListener movieItemClickListener) {
         this.context = context;
         this.mData = mData;
         this.movieItemClickListener = movieItemClickListener;
+        arraylist.addAll(mData);
     }
 
     @NonNull
@@ -89,5 +93,20 @@ public class AdapterListPhim extends RecyclerView.Adapter<AdapterListPhim.Holder
                 }
             });
         }
+    }
+    // Filter Class
+    public void filter(String charText) {
+        charText = charText.toLowerCase(Locale.getDefault());
+        mData.clear();
+        if (charText.length() == 0) {
+            mData.addAll(arraylist);
+        } else {
+            for (Movie wp : arraylist) {
+                if (wp.getTitle().toLowerCase(Locale.getDefault()).contains(charText)) {
+                    mData.add(wp);
+                }
+            }
+        }
+        notifyDataSetChanged();
     }
 }
