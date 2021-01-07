@@ -44,6 +44,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
         <TextView
+            android:id="@+id/txtRap"
+            android:padding="10dp"
             android:layout_width="match_parent"
             android:textSize="15dp"
             android:text="Cinema Bình Thạnh"

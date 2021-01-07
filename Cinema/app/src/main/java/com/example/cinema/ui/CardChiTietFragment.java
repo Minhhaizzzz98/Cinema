@@ -1,12 +1,16 @@
 package com.example.cinema.ui;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.RelativeLayout;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -26,11 +30,13 @@ import com.example.cinema.adapters.ActorAdapter;
 import com.example.cinema.adapters.DienVien_DaoDienAdapter;
 import com.example.cinema.adapters.GioChieuAdapter;
 import com.example.cinema.adapters.LichChieuAdapter;
+import com.example.cinema.adapters.LichItemClick;
 import com.example.cinema.adapters.MovieItemClickListener;
 import com.example.cinema.adapters.RapAdapter;
 import com.example.cinema.adapters.SpinnerRapAdapter;
 import com.example.cinema.models.Actor;
 import com.example.cinema.models.DataHelperConnnect;
+import com.example.cinema.models.DatabaseHandler;
 import com.example.cinema.models.Lich;
 import com.example.cinema.models.Rap;
 
@@ -39,6 +45,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -47,11 +54,14 @@ public class CardChiTietFragment  extends Fragment {
     private static Integer counter;
     View rootView;
     private MovieItemClickListener movieItemClickListener;
+    private LichItemClick lichItemClick;
     RecyclerView rvDienVien, rvDaoDien;
     LinkedList<Rap> lstRap;
     LinkedList<Actor> actorlist= new LinkedList<Actor>();
     LinkedList<Actor> directorlist= new LinkedList<Actor>();
-
+    //Khoi tạo textView Rap;
+    TextView txtRap;
+    Button btnDat;
     public CardChiTietFragment() {
     }
     public static CardChiTietFragment newInstance(Integer counter){
@@ -76,20 +86,47 @@ public class CardChiTietFragment  extends Fragment {
         switch (getArguments().getInt(ARG_COUNT)){
             case 0:
                 rootView= inflater.inflate(R.layout.chitiet_datve, container, false);
+                //Text view show khi click
+                TextView txtNgayThang=rootView.findViewById(R.id.txtNgayChieu);
+                txtRap=rootView.findViewById(R.id.txtRap);
+                btnDat=rootView.findViewById(R.id.btnDatNgay);
                 SpinnerRapAdapter spinnerRapAdapter=new SpinnerRapAdapter(getContext(),android.R.layout.simple_spinner_item,lstRap);
                 Spinner spinner = (Spinner)rootView.findViewById(R.id.diadiem_spinner);
                 Spinner spinnerRap=(Spinner)rootView.findViewById(R.id.rap_spinner);
                 RecyclerView rvGio=(RecyclerView)rootView.findViewById(R.id.rv_giochieu);
+
                 // Create an ArrayAdapter using the string array and a default spinner layout
                 loadSpinDiaDiem(spinner,R.array.diadiem_array);
                 //loadSpinDiaDiem(spinnerRap,R.array.rap_array);
                 //spinnerRap.setAdapter(spinnerRapAdapter);
                 RecyclerView rvLich=(RecyclerView)rootView.findViewById(R.id.rv_lich);
-                LichChieuAdapter lichChieuAdapter=new LichChieuAdapter(getContext(),createLich(),movieItemClickListener);
+                LichChieuAdapter lichChieuAdapter=new LichChieuAdapter(getContext(),createLich(),lichItemClick=new LichItemClick() {
+                    @Override
+                    public void onLichClick(Lich movie, RelativeLayout relativeLayout) {
+                        Toast.makeText(getContext(), movie.getThu()+"", Toast.LENGTH_SHORT).show();
+                        String thu=movie.getThu();
+                        String[] ngay=movie.getNgay().split("/");
+                        thu=thu+","+"ngày "+ngay[0]+" tháng "+ngay[1]+" Năm " + Calendar.getInstance().get(Calendar.YEAR);
+                        txtNgayThang.setText(thu);
+                    }
+                });
                 rvLich.setLayoutManager(new LinearLayoutManager(getContext(),LinearLayoutManager.HORIZONTAL,false));
                 rvLich.setAdapter(lichChieuAdapter);
                 createAdapterGio(rvGio,createGio());
-                  viewdata(spinnerRapAdapter,spinnerRap);
+                viewdata(spinnerRapAdapter,spinnerRap);
+                btnDat.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent intent=new Intent(getActivity().getApplication(),ChonGheActivity.class);
+                       // DatabaseHandler databaseHandler=new DatabaseHandler(getContext());
+                        //int id_ve=(int) databaseHandler.addVeValue(1,0,1,0,0);
+                       // intent.putExtra("message",id_ve);
+                        startActivity(intent);
+
+
+
+                    }
+                });
                 break;
             case 1:
                 rootView= inflater.inflate(R.layout.chi_tiet_thongtin, container, false);
