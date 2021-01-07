@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".GiuGhe">
+    <TextView
+        android:id="@+id/counttime"
+        android:layout_width="match_parent"
+        android:gravity="center"
+        android:textColor="#F44336"
+        android:textSize="30sp"
+        android:layout_height="wrap_content" />
+    <TextView
+        android:id="@+id/txtRap"
+        android:layout_width="match_parent"
+        android:text="Tên Rạp: Galaxy Cinema"
+        android:layout_height="wrap_content">
+    </TextView>
+    <TextView
+        android:id="@+id/txtPhim"
+        android:gravity="center_horizontal"
+        android:layout_width="match_parent"
+        android:text="Chị Mười Ba"
+        android:layout_height="wrap_content">
+    </TextView>
+    <TextView
+        android:text="Giờ chiếu: 08"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+    </TextView>
+    <TextView
+        android:text="Phòng :001"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+    </TextView>
+    <TextView
+        android:text="Ghế đã đặt A1,A2,A3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+    </TextView>
+</LinearLayout>

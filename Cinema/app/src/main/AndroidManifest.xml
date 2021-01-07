@@ -14,7 +14,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Cinema">
-        <activity android:name=".ChiTietPhim"></activity>
+        <activity android:name=".GiuGhe"></activity>
+        <activity android:name=".Ghe" />
+        <activity android:name=".ChiTietPhim" />
         <activity android:name=".PhimAll" />
         <activity android:name=".ui.QuanLyThongTin" />
         <activity android:name=".XemTrailer" />

@@ -8,7 +8,7 @@
     android:id="@+id/layout_lich"
     android:layout_height="wrap_content">
     <RelativeLayout
-
+        android:id="@+id/layout_lich_bg"
         android:padding="10dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
