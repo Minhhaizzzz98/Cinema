@@ -91,7 +91,7 @@ public class ChonGheActivity extends AppCompatActivity {
 
             seatButtons[i] = ((Button) findViewById(resID));
             final int finalId = resID;
-            final int buttonNum = i;
+            final Integer buttonNum = i;
 
             //set listeners to all buttons
             if (seatButtons[i].isEnabled()) {
@@ -117,7 +117,7 @@ public class ChonGheActivity extends AppCompatActivity {
                             tongTien=tongTien-50000;
 
                             try {
-                                selectedButtons.remove(selectedButtons.get(buttonNum).intValue());
+                                selectedButtons.remove(buttonNum);
                             }
                             catch(Exception ex)
                             {
@@ -136,13 +136,17 @@ public class ChonGheActivity extends AppCompatActivity {
             btnProceed.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    if(selectedButtons.size()==0){
+                        Toast.makeText(getApplicationContext(),"Mời bạn chọn ghế!", Toast.LENGTH_SHORT).show();
+                    }
+                    else {
+                        Intent intent=new Intent(ChonGheActivity.this, GiuGhe.class);
+                        Bundle bun= new Bundle();
+                        bun.putIntegerArrayList("LIST_GHE", selectedButtons);
+                        intent.putExtras(bun);
+                        startActivity(intent);
+                    }
 
-                    for (int i = 0; i < selectedButtons.size(); i++) {
-                           Toast.makeText(getApplicationContext(),"Seat no "+selectedButtons.get(i), Toast.LENGTH_SHORT).show();
-                        }
-//                    selectedButtons.clear();
-                    Intent intent=new Intent(ChonGheActivity.this, GiuGhe.class);
-                    startActivity(intent);
                 }
             });
 //            btnProceed.setOnClickListener(new View.OnClickListener() {

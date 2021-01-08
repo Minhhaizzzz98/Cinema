@@ -357,6 +357,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="0.02"
+        android:background="@color/colorPrimary"
+        android:textColor="@color/white"
         android:text="@string/btnConfirmSeats" />
 
 </LinearLayout>
