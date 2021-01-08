@@ -146,7 +146,7 @@ public class ChiTietPhim extends AppCompatActivity {
         String trailer= getIntent().getExtras().getString("trailer");
         MovieThumbnailImg = findViewById(R.id.detail_movie_img);
        // Glide.with(this).load(imageResourceId).into(MovieThumbnailImg);
-        Picasso.get().load(imageResourceId).networkPolicy(NetworkPolicy.OFFLINE).into(MovieThumbnailImg);
+        Picasso.get().load(imageResourceId).placeholder(R.drawable.slide1).networkPolicy(NetworkPolicy.OFFLINE).into(MovieThumbnailImg);
         MovieCoverTrailer = findViewById(R.id.detail_movie_cover);
         MovieCoverTrailer.getSettings().setJavaScriptEnabled(true);
         MovieCoverTrailer.setWebChromeClient(new WebChromeClient());
