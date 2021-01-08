@@ -22,7 +22,8 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 
 public class ChonGheActivity extends AppCompatActivity {
-    Boolean[] btnSelected= new Boolean[40]; // array to store selected or not selected status of each seat
+    Boolean[] btnSelected= new Boolean[21]; // array to store selected or not selected status of each seat
+    final ArrayList<Integer> selectedButtons = new ArrayList<Integer>();
     int noOfSelectedSeats;
     Spinner spinner;
     private int tongTien=0;
@@ -57,7 +58,7 @@ public class ChonGheActivity extends AppCompatActivity {
         final int totalTickets=10;
 
         Button[] seatButtons = new Button[21];
-        final ArrayList<Integer> selectedButtons = new ArrayList<Integer>();
+
         final ArrayList<Integer> bookedButtons = new ArrayList<Integer>();
         bookedButtons.add(1);
         bookedButtons.add(2);
@@ -90,10 +91,10 @@ public class ChonGheActivity extends AppCompatActivity {
 
             seatButtons[i] = ((Button) findViewById(resID));
             final int finalId = resID;
-            final int buttonNum = i;
+            final Integer buttonNum = i;
 
             //set listeners to all buttons
-            if (seatButtons[i].isEnabled() && noOfSelectedSeats<=totalTickets) {
+            if (seatButtons[i].isEnabled()) {
 
                 seatButtons[i].setOnClickListener(new View.OnClickListener() {
 
@@ -105,14 +106,14 @@ public class ChonGheActivity extends AppCompatActivity {
                         if (!btnSelected[buttonNum]) {
                             btn.setBackground(getResources().getDrawable(R.drawable.selected));
                             btnSelected[buttonNum] = true;
-                            noOfSelectedSeats=noOfSelectedSeats+1;
+//                            noOfSelectedSeats=noOfSelectedSeats+1;
                             tongTien=tongTien+50000;
                             selectedButtons.add(buttonNum);
 
                         } else {
                             btn.setBackground(getResources().getDrawable(R.drawable.available));
                             btnSelected[buttonNum] = false;
-                            noOfSelectedSeats=noOfSelectedSeats-1;
+//                            noOfSelectedSeats=noOfSelectedSeats-1;
                             tongTien=tongTien-50000;
 
                             try {
@@ -135,8 +136,17 @@ public class ChonGheActivity extends AppCompatActivity {
             btnProceed.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent intent=new Intent(ChonGheActivity.this, GiuGhe.class);
-                    startActivity(intent);
+                    if(selectedButtons.size()==0){
+                        Toast.makeText(getApplicationContext(),"Mời bạn chọn ghế!", Toast.LENGTH_SHORT).show();
+                    }
+                    else {
+                        Intent intent=new Intent(ChonGheActivity.this, GiuGhe.class);
+                        Bundle bun= new Bundle();
+                        bun.putIntegerArrayList("LIST_GHE", selectedButtons);
+                        intent.putExtras(bun);
+                        startActivity(intent);
+                    }
+
                 }
             });
 //            btnProceed.setOnClickListener(new View.OnClickListener() {
@@ -151,9 +161,7 @@ public class ChonGheActivity extends AppCompatActivity {
 //                    }
 //                    else  {
 //
-//                        for (int i = 0; i < selectedButtons.size(); i++) {
-//                           Toast.makeText(getApplicationContext(),"Seat no "+selectedButtons.get(i), Toast.LENGTH_SHORT).show();
-//                        }
+//
 //
 //                        Intent myintent = new Intent(getApplicationContext(), PaymentActivity.class);
 //                        myintent.putExtra("selectedSeatsList",selectedButtons);

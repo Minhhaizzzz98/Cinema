@@ -1,8 +1,7 @@
 package com.example.cinema.ui;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.icu.text.SimpleDateFormat;
+
 import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -52,6 +51,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.UnsupportedEncodingException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -90,6 +90,7 @@ public class CardChiTietFragment  extends Fragment {
         lstRap=new LinkedList<>();
         //createListRap();
     }
+    @RequiresApi(api = Build.VERSION_CODES.N)
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -185,6 +186,7 @@ public class CardChiTietFragment  extends Fragment {
         // Apply the adapter to the spinner
         spin.setAdapter(adapter);
     }
+
     @RequiresApi(api = Build.VERSION_CODES.N)
     public List<Lich> createLich()
     {

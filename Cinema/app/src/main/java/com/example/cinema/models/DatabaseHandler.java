@@ -125,7 +125,6 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     public void addRapObj(Rap rap)
     {
 
-
         // String create_students_table = String.format("CREATE TABLE %s(%s INTEGER PRIMARY KEY,%s TEXT UNIQUE,%s TEXT,%s TEXT,%s INTEGER)",
         // TABLE_NAME_RAP, KEY_RAP_ID,KEY_RAP_NAME,KEY_RAP_DIA_CHI,KEY_RAP_SDT,KEY_RAP_TRANG_THAI);
         // Execute Script.

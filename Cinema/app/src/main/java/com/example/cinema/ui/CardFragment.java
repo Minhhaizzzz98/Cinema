@@ -95,6 +95,12 @@ public class CardFragment extends Fragment implements AdapterView.OnItemSelected
                     TextView tvPassword= rootView.findViewById(R.id.tvPassword);
                     TextView tvNgaySinh= rootView.findViewById(R.id.tvNgaySinh);
 
+                    tvTenDangNhap.setText(khachHang.getHoTen());
+                    tvPhone.setText(khachHang.getSDT());
+                    tvEmail.setText(khachHang.getEmail());
+                    tvPassword.setText(khachHang.getPassword());
+                    tvNgaySinh.setText(khachHang.getNgaySinh());
+
                     layDanhSachTinh();
                     Spinner spinnerTinh= rootView.findViewById(R.id.spinnerTinh);
                     SpinnerQuanAdapter adapter = new SpinnerQuanAdapter(getActivity(), R.layout.spinner_item, arrTinh);
@@ -235,7 +241,6 @@ public class CardFragment extends Fragment implements AdapterView.OnItemSelected
             kh.setEmail(sharedPreferences.getString("email", null));
             kh.setHoTen(sharedPreferences.getString("fullName", null));
             kh.setNgaySinh(sharedPreferences.getString("birthday", null));
-
         }
         return kh;
     }
