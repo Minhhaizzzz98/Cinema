@@ -1,6 +1,9 @@
 package com.example.cinema.ui;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.icu.text.SimpleDateFormat;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,15 +18,19 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
+import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.cinema.R;
 import com.example.cinema.adapters.ActorAdapter;
@@ -44,8 +51,10 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -62,6 +71,7 @@ public class CardChiTietFragment  extends Fragment {
     //Khoi tạo textView Rap;
     TextView txtRap;
     Button btnDat;
+    RecyclerView rvGio;
     public CardChiTietFragment() {
     }
     public static CardChiTietFragment newInstance(Integer counter){
@@ -93,17 +103,20 @@ public class CardChiTietFragment  extends Fragment {
                 SpinnerRapAdapter spinnerRapAdapter=new SpinnerRapAdapter(getContext(),android.R.layout.simple_spinner_item,lstRap);
                 Spinner spinner = (Spinner)rootView.findViewById(R.id.diadiem_spinner);
                 Spinner spinnerRap=(Spinner)rootView.findViewById(R.id.rap_spinner);
-                RecyclerView rvGio=(RecyclerView)rootView.findViewById(R.id.rv_giochieu);
+                 rvGio=(RecyclerView)rootView.findViewById(R.id.rv_giochieu);
 
                 // Create an ArrayAdapter using the string array and a default spinner layout
                 loadSpinDiaDiem(spinner,R.array.diadiem_array);
                 //loadSpinDiaDiem(spinnerRap,R.array.rap_array);
                 //spinnerRap.setAdapter(spinnerRapAdapter);
+                createAdapterGio(rvGio,createGio());
+
                 RecyclerView rvLich=(RecyclerView)rootView.findViewById(R.id.rv_lich);
                 LichChieuAdapter lichChieuAdapter=new LichChieuAdapter(getContext(),createLich(),lichItemClick=new LichItemClick() {
                     @Override
                     public void onLichClick(Lich movie, RelativeLayout relativeLayout) {
-                        Toast.makeText(getContext(), movie.getThu()+"", Toast.LENGTH_SHORT).show();
+                        layDataKhachHangDN("1","1","2021-01-08");
+                        //Toast.makeText(getContext(), movie.getThu()+"", Toast.LENGTH_SHORT).show();
                         String thu=movie.getThu();
                         String[] ngay=movie.getNgay().split("/");
                         thu=thu+","+"ngày "+ngay[0]+" tháng "+ngay[1]+" Năm " + Calendar.getInstance().get(Calendar.YEAR);
@@ -112,7 +125,8 @@ public class CardChiTietFragment  extends Fragment {
                 });
                 rvLich.setLayoutManager(new LinearLayoutManager(getContext(),LinearLayoutManager.HORIZONTAL,false));
                 rvLich.setAdapter(lichChieuAdapter);
-                createAdapterGio(rvGio,createGio());
+
+
                 viewdata(spinnerRapAdapter,spinnerRap);
                 btnDat.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -171,19 +185,37 @@ public class CardChiTietFragment  extends Fragment {
         // Apply the adapter to the spinner
         spin.setAdapter(adapter);
     }
+    @RequiresApi(api = Build.VERSION_CODES.N)
     public List<Lich> createLich()
     {
+        Calendar calendar = Calendar.getInstance();
+        SimpleDateFormat mdformat = new SimpleDateFormat("dd/MM/yyyy");
+        String strDate = "" + mdformat.format(calendar.getTime());
+
+        String[] ngay=strDate.split("/");
         List<Lich> lstLich=new ArrayList<>();
-        lstLich.add(new Lich("Chủ Nhật","20/12"));
-        lstLich.add(new Lich("Thứ 2","20/12"));
-        lstLich.add(new Lich("Thứ 3","20/12"));
-        lstLich.add(new Lich("Thứ 4","20/12"));
-        lstLich.add(new Lich("Thứ 5","20/12"));
-        lstLich.add(new Lich("Thứ 6","20/12"));
+       // lstLich.add(new Lich("Chủ Nhật",strDate));
+        for(int i=0;i<6;i++)
+        {
+            Calendar c = Calendar.getInstance();
+            c.set(Integer.parseInt(ngay[2]), Integer.parseInt(ngay[1]), Integer.parseInt(ngay[0]+i), 0, 0);
+
+
+            lstLich.add(new Lich(c.DAY_OF_WEEK+"",(Integer.parseInt(ngay[0])+i)+"/"+ngay[1]+"/"+ngay[2]));
+        }
+
+
         return  lstLich;
+    }
+    public static int getDayNumberOld(Date date) {
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(date);
+        return cal.get(Calendar.DAY_OF_WEEK);
     }
     private List<String> createGio()
     {
+
+        //display(strDate);
         List<String> lstGio=new ArrayList<>();
         lstGio.add("20:00");
         lstGio.add("18:00");
@@ -199,6 +231,7 @@ public class CardChiTietFragment  extends Fragment {
     private  void createAdapterGio(RecyclerView rv,List<String> lst)
     {
         GioChieuAdapter gioChieuAdapter=new GioChieuAdapter(lst,getContext());
+        gioChieuAdapter.notifyDataSetChanged();
         rv.setLayoutManager(new GridLayoutManager(getContext(),4));
         rv.setAdapter(gioChieuAdapter);
     }
@@ -256,5 +289,80 @@ public class CardChiTietFragment  extends Fragment {
         });
         RequestQueue requestQueue= Volley.newRequestQueue(getContext());
         requestQueue.add(jsonArrayRequest);
+    }
+    public void sendData1(String data){
+        final String saveData= data;
+        String url= "http://"+ DataHelperConnnect.ipConnect+"/lara_cinema/CenimaProject/public/api/SuatChieu/getGioChieu";
+
+        RequestQueue requestQueue = Volley.newRequestQueue(getContext());
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                    JSONArray jsonArray=null;
+                    JSONObject jsonObject= null;
+
+                    try {
+                        jsonArray=new JSONArray(response);
+                        List<String> lstGio1=new ArrayList<>();
+                       for(int i=0;i<jsonArray.length();i++)
+                       {
+
+                           jsonObject = jsonArray.getJSONObject(i);
+                           //int id       = jsonObject.getInt("giochieu_id");
+                           String GioBatDau    = jsonObject.getString("GioBatDau");
+                           lstGio1.add(GioBatDau);
+                       }
+
+                        createAdapterGio(rvGio,lstGio1);
+                        Toast.makeText(getActivity(),jsonArray.toString(),Toast.LENGTH_LONG).show();
+                    } catch (JSONException e) {
+                        Toast.makeText(getContext(),e.getMessage(),Toast.LENGTH_LONG).show();
+                        e.printStackTrace();
+                    }
+
+                    //Log.i("VOLLEY", response);
+                }
+
+
+
+
+
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+                Toast.makeText(getContext(), error.getMessage(), Toast.LENGTH_SHORT).show();
+
+                //Log.v("VOLLEY", error.toString());
+            }
+        }) {
+            @Override
+            public String getBodyContentType() {
+                return "application/json; charset=utf-8";
+            }
+
+            @Override
+            public byte[] getBody() throws AuthFailureError {
+                try {
+                    return saveData == null ? null : saveData.getBytes("utf-8");
+                } catch (UnsupportedEncodingException uee) {
+                    //Log.v("Unsupported Encoding while trying to get the bytes", data);
+                    return null;
+                }
+            }
+
+        };
+        requestQueue.add(stringRequest);
+    }
+    public void layDataKhachHangDN(String id_rap,String id_phim,String Ngay){
+        JSONObject jsonObject= new JSONObject();
+        try {
+            jsonObject.put("rap_id", id_rap);
+            jsonObject.put("phim_id", id_phim);
+            jsonObject.put("NgayChieu",Ngay);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        sendData1(jsonObject.toString());
     }
 }
