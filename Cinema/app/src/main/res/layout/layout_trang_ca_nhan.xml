@@ -4,6 +4,7 @@
     android:padding="16dp"
     android:gravity="center_vertical"
     android:layout_gravity="center"
+    android:background="@color/white"
     android:layout_column="2">
 
     <TableRow

@@ -44,7 +44,7 @@
         android:textStyle="bold|italic"
         tools:layout_editor_absoluteX="3dp"
         tools:layout_editor_absoluteY="0dp"
-        android:layout_weight="0.02" />
+    android:layout_weight="0.02" />
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -119,35 +119,35 @@
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:background="@drawable/available"
-                android:text="A1"
+                android:text="B1"
                 />
             <Button
                 android:id="@+id/btn7"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:background="@drawable/available"
-                android:text="A2"
+                android:text="B2"
                 />
             <Button
                 android:id="@+id/btn8"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:background="@drawable/available"
-                android:text="A3"
+                android:text="B3"
                 />
             <Button
                 android:id="@+id/btn9"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:background="@drawable/available"
-                android:text="A4"
+                android:text="B4"
                 />
             <Button
                 android:id="@+id/btn10"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:background="@drawable/available"
-                android:text="A5"
+                android:text="B5"
                 />
         </LinearLayout>
         <LinearLayout
@@ -169,35 +169,35 @@
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:background="@drawable/available"
-                android:text="A1"
+                android:text="C1"
                 />
             <Button
                 android:id="@+id/btn12"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:background="@drawable/available"
-                android:text="A2"
+                android:text="C2"
                 />
             <Button
                 android:id="@+id/btn13"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:background="@drawable/available"
-                android:text="A3"
+                android:text="C3"
                 />
             <Button
                 android:id="@+id/btn14"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:background="@drawable/available"
-                android:text="A4"
+                android:text="C4"
                 />
             <Button
                 android:id="@+id/btn15"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:background="@drawable/available"
-                android:text="A5"
+                android:text="C5"
                 />
         </LinearLayout>
         <LinearLayout
@@ -219,35 +219,35 @@
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:background="@drawable/available"
-                android:text="A1"
+                android:text="D1"
                 />
             <Button
                 android:id="@+id/btn17"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:background="@drawable/available"
-                android:text="A2"
+                android:text="D2"
                 />
             <Button
                 android:id="@+id/btn18"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:background="@drawable/available"
-                android:text="A3"
+                android:text="D3"
                 />
             <Button
                 android:id="@+id/btn19"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:background="@drawable/available"
-                android:text="A4"
+                android:text="D4"
                 />
             <Button
                 android:id="@+id/btn20"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:background="@drawable/available"
-                android:text="A5"
+                android:text="D5"
                 />
         </LinearLayout>
 
@@ -256,7 +256,7 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="77dp"
+        android:layout_height="70dp"
         android:layout_weight="0.4">
 
         <Button
@@ -336,7 +336,7 @@
             android:layout_width="wrap_content"
             android:text="Tổng tiền: "
             android:textStyle="bold"
-            android:textSize="15dp"
+            android:textSize="20dp"
             android:textColor="#4CAF50"
             android:layout_height="wrap_content"
             android:layout_margin="10dp">
@@ -346,6 +346,7 @@
             android:layout_width="wrap_content"
             android:textColor="#F44336"
             android:text="0"
+            android:textSize="20dp"
             android:layout_height="wrap_content"
             android:layout_margin="10dp">
 
