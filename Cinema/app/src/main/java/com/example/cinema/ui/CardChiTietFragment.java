@@ -1,7 +1,9 @@
 package com.example.cinema.ui;
 
+import android.content.Context;
 import android.content.Intent;
 
+import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -35,6 +37,7 @@ import com.example.cinema.R;
 import com.example.cinema.adapters.ActorAdapter;
 import com.example.cinema.adapters.DienVien_DaoDienAdapter;
 import com.example.cinema.adapters.GioChieuAdapter;
+import com.example.cinema.adapters.GioItemClick;
 import com.example.cinema.adapters.LichChieuAdapter;
 import com.example.cinema.adapters.LichItemClick;
 import com.example.cinema.adapters.MovieItemClickListener;
@@ -43,6 +46,7 @@ import com.example.cinema.adapters.SpinnerRapAdapter;
 import com.example.cinema.models.Actor;
 import com.example.cinema.models.DataHelperConnnect;
 import com.example.cinema.models.DatabaseHandler;
+import com.example.cinema.models.GioChieu;
 import com.example.cinema.models.Lich;
 import com.example.cinema.models.Rap;
 
@@ -61,9 +65,13 @@ import java.util.List;
 public class CardChiTietFragment  extends Fragment {
     private static final String ARG_COUNT = "param1";
     private static Integer counter;
+    private int rap_chon=1;
+    SharedPreferences sharedpreferences;
+    public static final String MyPREFERENCES = "ChonGhePrefs" ;
     View rootView;
     private MovieItemClickListener movieItemClickListener;
     private LichItemClick lichItemClick;
+    private GioItemClick gioItemClick;
     RecyclerView rvDienVien, rvDaoDien;
     LinkedList<Rap> lstRap;
     LinkedList<Actor> actorlist= new LinkedList<Actor>();
@@ -98,6 +106,7 @@ public class CardChiTietFragment  extends Fragment {
             case 0:
                 rootView= inflater.inflate(R.layout.chitiet_datve, container, false);
                 //Text view show khi click
+                sharedpreferences = getActivity().getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
                 TextView txtNgayThang=rootView.findViewById(R.id.txtNgayChieu);
                 txtRap=rootView.findViewById(R.id.txtRap);
                 btnDat=rootView.findViewById(R.id.btnDatNgay);
@@ -110,18 +119,20 @@ public class CardChiTietFragment  extends Fragment {
                 loadSpinDiaDiem(spinner,R.array.diadiem_array);
                 //loadSpinDiaDiem(spinnerRap,R.array.rap_array);
                 //spinnerRap.setAdapter(spinnerRapAdapter);
-                createAdapterGio(rvGio,createGio());
+               // createAdapterGio(rvGio,createGio());
 
                 RecyclerView rvLich=(RecyclerView)rootView.findViewById(R.id.rv_lich);
                 LichChieuAdapter lichChieuAdapter=new LichChieuAdapter(getContext(),createLich(),lichItemClick=new LichItemClick() {
                     @Override
                     public void onLichClick(Lich movie, RelativeLayout relativeLayout) {
-                        layDataKhachHangDN("1","1","2021-01-08");
+
                         //Toast.makeText(getContext(), movie.getThu()+"", Toast.LENGTH_SHORT).show();
                         String thu=movie.getThu();
                         String[] ngay=movie.getNgay().split("/");
                         thu=thu+","+"ngày "+ngay[0]+" tháng "+ngay[1]+" Năm " + Calendar.getInstance().get(Calendar.YEAR);
                         txtNgayThang.setText(thu);
+                        layDataKhachHangDN(rap_chon+"","1",formatChuoi(movie.getNgay()));
+
                     }
                 });
                 rvLich.setLayoutManager(new LinearLayoutManager(getContext(),LinearLayoutManager.HORIZONTAL,false));
@@ -129,6 +140,7 @@ public class CardChiTietFragment  extends Fragment {
 
 
                 viewdata(spinnerRapAdapter,spinnerRap);
+                layDataKhachHangDN(rap_chon+"","1",formatNgay());
                 btnDat.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -230,9 +242,24 @@ public class CardChiTietFragment  extends Fragment {
         lstGio.add("04:00");
         return  lstGio;
     }
-    private  void createAdapterGio(RecyclerView rv,List<String> lst)
+    private  void createAdapterGio(RecyclerView rv,List<GioChieu> lst)
     {
-        GioChieuAdapter gioChieuAdapter=new GioChieuAdapter(lst,getContext());
+        GioChieuAdapter gioChieuAdapter=new GioChieuAdapter(lst,getContext(),gioItemClick=new GioItemClick() {
+            @Override
+            public void onGioClick(GioChieu movie, RelativeLayout relativeLayout) {
+                SharedPreferences.Editor editor = sharedpreferences.edit();
+                editor.putString("id", movie.getId_suat()+"");
+                editor.putString("gio",movie.getThoigian());
+                editor.putString("id_gio",movie.getId()+"");
+                editor.putString("id_phong",movie.getId_phong()+"");
+                editor.commit();
+                Intent mIntent = new Intent(getContext(), ChonGheActivity.class);
+                Bundle mBundle = new Bundle();
+                mBundle.putString("id_suat", movie.getId_suat()+"");
+                mIntent.putExtras(mBundle);
+                startActivity(mIntent);
+            }
+        });
         gioChieuAdapter.notifyDataSetChanged();
         rv.setLayoutManager(new GridLayoutManager(getContext(),4));
         rv.setAdapter(gioChieuAdapter);
@@ -274,6 +301,7 @@ public class CardChiTietFragment  extends Fragment {
                                                int position, long id) {
                         // Here you get the current item (a User object) that is selected by its position
                         Rap user = adapter.getItem(position);
+                        rap_chon=user.getId();
                         // Here you can do the action you want to...
                         Toast.makeText(getContext(), "ID: " + user.getId() + "\nName: " + user.getName(),
                                 Toast.LENGTH_SHORT).show();
@@ -305,14 +333,22 @@ public class CardChiTietFragment  extends Fragment {
 
                     try {
                         jsonArray=new JSONArray(response);
-                        List<String> lstGio1=new ArrayList<>();
+                        List<GioChieu> lstGio1=new ArrayList<>();
                        for(int i=0;i<jsonArray.length();i++)
                        {
 
                            jsonObject = jsonArray.getJSONObject(i);
                            //int id       = jsonObject.getInt("giochieu_id");
+                           int id_suat=jsonObject.getInt("id");
                            String GioBatDau    = jsonObject.getString("GioBatDau");
-                           lstGio1.add(GioBatDau);
+                           int id_phong=jsonObject.getInt("phong_id");
+                           int id=jsonObject.getInt("giochieu_id");
+                           GioChieu gc=new GioChieu();
+                           gc.setId(id);
+                           gc.setId_suat(id_suat);
+                           gc.setId_phong(id_phong);
+                           gc.setThoigian(GioBatDau);
+                           lstGio1.add(gc);
                        }
 
                         createAdapterGio(rvGio,lstGio1);
@@ -362,9 +398,24 @@ public class CardChiTietFragment  extends Fragment {
             jsonObject.put("rap_id", id_rap);
             jsonObject.put("phim_id", id_phim);
             jsonObject.put("NgayChieu",Ngay);
+
         } catch (JSONException e) {
             e.printStackTrace();
         }
         sendData1(jsonObject.toString());
+    }
+    private String formatNgay()
+    {
+        Calendar calendar = Calendar.getInstance();
+        SimpleDateFormat mdformat = new SimpleDateFormat("yyyy-MM-dd");
+        String strDate = "" + mdformat.format(calendar.getTime());
+        return  strDate;
+    }
+    private String formatChuoi(String chuoi)
+    {
+        String temp[]=chuoi.split("/");
+        String strTemp=temp[2]+"-"+temp[1]+"-"+temp[0];
+        return  strTemp;
+
     }
 }
