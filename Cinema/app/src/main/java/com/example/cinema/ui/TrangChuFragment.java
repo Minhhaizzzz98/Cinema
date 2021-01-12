@@ -2,7 +2,9 @@ package com.example.cinema.ui;
 
 import android.app.ActivityOptions;
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
@@ -68,6 +70,7 @@ public class TrangChuFragment extends Fragment  implements MovieItemClickListene
     private  RecyclerView rvSap;
     private ActionBar toolbar;
     MovieItemClickListener movieItemClickListener;
+    SharedPreferences sharedPreferences;
     private void loadFragment(Fragment fragment) {
         // load fragment
         FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
@@ -248,6 +251,10 @@ public class TrangChuFragment extends Fragment  implements MovieItemClickListene
                 MovieAdapter movieAdapter = new MovieAdapter(getActivity(),lstMovies,movieItemClickListener=new MovieItemClickListener() {
                     @Override
                     public void onMovieClick(Movie movie, ImageView movieImageView) {
+                        sharedPreferences= getActivity().getSharedPreferences("ChonGhePrefs", Context.MODE_PRIVATE);
+                        SharedPreferences.Editor editor= sharedPreferences.edit();
+                        editor.putInt("phim_id", movie.getId());
+                        editor.commit();
 
                         Intent intent=new Intent(getContext(), ChiTietPhim.class);
                         intent.putExtra("title",movie.getTitle());

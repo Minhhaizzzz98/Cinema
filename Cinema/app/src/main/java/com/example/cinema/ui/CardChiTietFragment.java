@@ -67,7 +67,10 @@ public class CardChiTietFragment  extends Fragment {
     private static Integer counter;
     private int rap_chon=1;
     SharedPreferences sharedpreferences;
+    SharedPreferences mypre;
     public static final String MyPREFERENCES = "ChonGhePrefs" ;
+    public static final String MYPRE = "MyPrefs" ;
+    private static final String KEY_IS_LOGGED_IN = "isLoggedIn";
     View rootView;
     private MovieItemClickListener movieItemClickListener;
     private LichItemClick lichItemClick;
@@ -107,6 +110,7 @@ public class CardChiTietFragment  extends Fragment {
                 rootView= inflater.inflate(R.layout.chitiet_datve, container, false);
                 //Text view show khi click
                 sharedpreferences = getActivity().getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
+                mypre = getActivity().getSharedPreferences(MYPRE, Context.MODE_PRIVATE);
                 TextView txtNgayThang=rootView.findViewById(R.id.txtNgayChieu);
                 txtRap=rootView.findViewById(R.id.txtRap);
                 btnDat=rootView.findViewById(R.id.btnDatNgay);
@@ -131,7 +135,7 @@ public class CardChiTietFragment  extends Fragment {
                         String[] ngay=movie.getNgay().split("/");
                         thu=thu+","+"ngày "+ngay[0]+" tháng "+ngay[1]+" Năm " + Calendar.getInstance().get(Calendar.YEAR);
                         txtNgayThang.setText(thu);
-                        layDataKhachHangDN(rap_chon+"","1",formatChuoi(movie.getNgay()));
+                        layDataKhachHangDN(rap_chon+"",sharedpreferences.getInt("phim_id", -1) + "",formatChuoi(movie.getNgay()));
 
                     }
                 });
@@ -140,7 +144,7 @@ public class CardChiTietFragment  extends Fragment {
 
 
                 viewdata(spinnerRapAdapter,spinnerRap);
-                layDataKhachHangDN(rap_chon+"","1",formatNgay());
+                layDataKhachHangDN(rap_chon+"",sharedpreferences.getInt("phim_id", -1) +"",formatNgay());
                 btnDat.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -247,17 +251,26 @@ public class CardChiTietFragment  extends Fragment {
         GioChieuAdapter gioChieuAdapter=new GioChieuAdapter(lst,getContext(),gioItemClick=new GioItemClick() {
             @Override
             public void onGioClick(GioChieu movie, RelativeLayout relativeLayout) {
-                SharedPreferences.Editor editor = sharedpreferences.edit();
-                editor.putString("id", movie.getId_suat()+"");
-                editor.putString("gio",movie.getThoigian());
-                editor.putString("id_gio",movie.getId()+"");
-                editor.putString("id_phong",movie.getId_phong()+"");
-                editor.commit();
-                Intent mIntent = new Intent(getContext(), ChonGheActivity.class);
-                Bundle mBundle = new Bundle();
-                mBundle.putString("id_suat", movie.getId_suat()+"");
-                mIntent.putExtras(mBundle);
-                startActivity(mIntent);
+                if (!isLoggedIn()) {
+                    //here, pref is the instance of your preference manager
+                    Intent intent = new Intent(getContext(), Login.class);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    startActivity(intent);
+                }
+                else{
+                    SharedPreferences.Editor editor = sharedpreferences.edit();
+                    editor.putString("id", movie.getId_suat()+"");
+                    editor.putString("gio",movie.getThoigian());
+                    editor.putString("id_gio",movie.getId()+"");
+                    editor.putString("id_phong",movie.getId_phong()+"");
+                    editor.commit();
+                    Intent mIntent = new Intent(getContext(), ChonGheActivity.class);
+                    Bundle mBundle = new Bundle();
+                    mBundle.putString("id_suat", movie.getId_suat()+"");
+                    mIntent.putExtras(mBundle);
+                    startActivity(mIntent);
+                }
+
             }
         });
         gioChieuAdapter.notifyDataSetChanged();
@@ -340,7 +353,7 @@ public class CardChiTietFragment  extends Fragment {
                            jsonObject = jsonArray.getJSONObject(i);
                            //int id       = jsonObject.getInt("giochieu_id");
                            int id_suat=jsonObject.getInt("id");
-                           String GioBatDau    = jsonObject.getString("GioBatDau");
+                           String GioBatDau= jsonObject.getString("GioBatDau");
                            int id_phong=jsonObject.getInt("phong_id");
                            int id=jsonObject.getInt("giochieu_id");
                            GioChieu gc=new GioChieu();
@@ -417,5 +430,8 @@ public class CardChiTietFragment  extends Fragment {
         String strTemp=temp[2]+"-"+temp[1]+"-"+temp[0];
         return  strTemp;
 
+    }
+    public boolean isLoggedIn() {
+        return mypre.getBoolean(KEY_IS_LOGGED_IN, false);//false is the default value in case there's nothing found with the key
     }
 }
