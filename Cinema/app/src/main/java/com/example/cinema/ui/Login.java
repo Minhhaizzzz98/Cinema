@@ -42,6 +42,7 @@ public class Login extends AppCompatActivity {
     static KhachHang khachHang = new KhachHang();
     private static final String KEY_IS_LOGGED_IN = "isLoggedIn";
     public static final String MyPREFERENCES = "MyPrefs" ;
+    public static final String Id = "id";
     public static final String Phone = "phoneKey";
     public static final String Password = "passwordKey";
     public static final String DiaChi = "address";
@@ -163,6 +164,7 @@ public class Login extends AppCompatActivity {
                         if (khachHang !=null) {
 
                             SharedPreferences.Editor editor = sharedpreferences.edit();
+                            editor.putInt(Id, khachHang.getId());
                             editor.putString(Phone, khachHang.getSDT());
                             editor.putString(Password, pass);
                             editor.putString(DiaChi, khachHang.getDiaChi());
