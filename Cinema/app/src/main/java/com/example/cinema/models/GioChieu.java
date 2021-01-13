@@ -2,11 +2,25 @@ package com.example.cinema.models;
 
 public class GioChieu {
     private int id_suat;
+    private int giaSuatChieu;
+    private int id;
+    private String thoigian;
+    private int id_phong;
 
-    public GioChieu(int id_suat, int id, String thoigian) {
+    public GioChieu(int id_suat, int id, String thoigian, int giaSuatChieu, int id_phong) {
         this.id_suat = id_suat;
         this.id = id;
         this.thoigian = thoigian;
+        this.giaSuatChieu= giaSuatChieu;
+        this.id_phong= id_phong;
+    }
+
+    public int getGiaSuatChieu() {
+        return giaSuatChieu;
+    }
+
+    public void setGiaSuatChieu(int giaSuatChieu) {
+        this.giaSuatChieu = giaSuatChieu;
     }
 
     public int getId_suat() {
@@ -17,9 +31,7 @@ public class GioChieu {
         this.id_suat = id_suat;
     }
 
-    private int id;
-    private String thoigian;
-    private int id_phong;
+
 
     public GioChieu() {
     }

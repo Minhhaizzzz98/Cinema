@@ -242,6 +242,7 @@ public class CardChiTietFragment  extends Fragment {
                     editor.putString("gio",movie.getThoigian());
                     editor.putString("id_gio",movie.getId()+"");
                     editor.putString("id_phong",movie.getId_phong()+"");
+                    editor.putInt("gia_suat_chieu", movie.getGiaSuatChieu());
                     editor.putString("ten_rap", user.getName());
                     editor.putString("ngay_chieu", lich.getNgay());
                     editor.commit();
@@ -326,11 +327,14 @@ public class CardChiTietFragment  extends Fragment {
                            String GioBatDau= jsonObject.getString("GioBatDau");
                            int id_phong=jsonObject.getInt("phong_id");
                            int id=jsonObject.getInt("giochieu_id");
+                           int giaSuatChieu= jsonObject.getInt("GiaSuatChieu");
+
                            GioChieu gc=new GioChieu();
                            gc.setId(id);
                            gc.setId_suat(id_suat);
                            gc.setId_phong(id_phong);
                            gc.setThoigian(GioBatDau);
+                           gc.setGiaSuatChieu(giaSuatChieu);
                            lstGio1.add(gc);
                        }
 

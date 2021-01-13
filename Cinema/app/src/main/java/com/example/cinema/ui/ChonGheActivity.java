@@ -44,9 +44,9 @@ public class ChonGheActivity extends AppCompatActivity {
     final ArrayList<String> selectString=new ArrayList<>();
     Spinner spinner;
     private int tongTien=0;
-    private TextView txtTongTien;
+    private TextView txtTongTien, txtTenPhim,txtRap;
     LinkedList<Ghe> lstGhe=new LinkedList<>();
-    List<Ghe> lstGheDaDat=new LinkedList<>();
+//    List<Ghe> lstGheDaDat=new LinkedList<>();
     SharedPreferences sharedpreferences;
     public static final String MyPREFERENCES = "ChonGhePrefs" ;
     @Override
@@ -60,15 +60,20 @@ public class ChonGheActivity extends AppCompatActivity {
 
         sharedpreferences = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
         String suat=sharedpreferences.getString("id","-1");
-        String id_phong=sharedpreferences.getString("id_phong","-1");
-        String id_gio=sharedpreferences.getString("id_gio","-1");
-        String gio=sharedpreferences.getString("gio","-1");
+        String tenPhim=sharedpreferences.getString("ten_phim","-1");
+        String tenRap= sharedpreferences.getString("ten_rap","-1");
+//        String id_phong=sharedpreferences.getString("id_phong","-1");
+//        String id_gio=sharedpreferences.getString("id_gio","-1");
+//        String gio=sharedpreferences.getString("gio","-1");
+        int giaSuatChieu= sharedpreferences.getInt("gia_suat_chieu", 0);
 
         Bundle bundle = getIntent().getExtras();
         final String id_suat = bundle.getString("id_suat");
         // tạo spinner
         spinner = (Spinner) findViewById(R.id.thoigian_spinner);
         txtTongTien=findViewById(R.id.txtTongTien);
+        txtRap= findViewById(R.id.txtRap); txtRap.setText(tenRap);
+        txtTenPhim= findViewById(R.id.txtTenPhim); txtTenPhim.setText(tenPhim);
 
         createSpinner();
 
@@ -107,7 +112,7 @@ public class ChonGheActivity extends AppCompatActivity {
                         if (!btnSelected[buttonNum]) {
                             btn.setBackground(getResources().getDrawable(R.drawable.selected));
                             btnSelected[buttonNum] = true;
-                            tongTien=tongTien+50000;
+                            tongTien=tongTien+(30000+giaSuatChieu);
                             selectString.add(btn.getText().toString());
                             selectedButtons.add(buttonNum);
                             char a='b';
@@ -121,8 +126,7 @@ public class ChonGheActivity extends AppCompatActivity {
                         } else {
                             btn.setBackground(getResources().getDrawable(R.drawable.available));
                             btnSelected[buttonNum] = false;
-//                            noOfSelectedSeats=noOfSelectedSeats-1;
-                            tongTien=tongTien-50000;
+                            tongTien=tongTien-(30000+giaSuatChieu);
                             char a='b';
                             char b='a';
                             String day=a+"";
@@ -164,6 +168,7 @@ public class ChonGheActivity extends AppCompatActivity {
                         Bundle bun= new Bundle();
                         bun.putIntegerArrayList("LIST_GHE", selectedButtons);
                         bun.putStringArrayList("lst_str_ghe",selectString);
+                        bun.putInt("TONGTIEN", Integer.parseInt(txtTongTien.getText().toString()));
                         intent.putExtras(bun);
                         startActivity(intent);
                     }
@@ -237,9 +242,6 @@ public class ChonGheActivity extends AppCompatActivity {
                         }
                         int gheID= 5*soId+Integer.parseInt(ghe.getSort());
                         bookedButtons.add(gheID);
-
-
-//                        lstGheDaDat.add(ghe);
 
                     } catch (JSONException e) {
                         e.printStackTrace();
