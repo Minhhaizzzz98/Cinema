@@ -110,6 +110,7 @@
                     android:layout_column="1" />
 
                 <TextView
+                    android:id="@+id/txtGioChieu"
                     android:text="18:00"
                     android:textSize="20dp"
                     android:layout_width="match_parent"
@@ -133,6 +134,7 @@
                     android:layout_column="1" />
 
                 <TextView
+                    android:id="@+id/txtPhong"
                     android:text="1"
                     android:textSize="20dp"
                     android:layout_width="match_parent"
@@ -178,7 +180,7 @@
                     android:layout_column="1" />
 
                 <TextView
-                    android:id="@+id/tvPassword"
+                    android:id="@+id/txtTongTien"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="20dp"

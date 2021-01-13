@@ -9,6 +9,7 @@ import androidx.viewpager.widget.ViewPager;
 import androidx.viewpager2.widget.ViewPager2;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
 
@@ -42,6 +43,7 @@ public class ChiTietPhim extends AppCompatActivity {
     private TextView tv_title,tv_description;
     private FloatingActionButton play_fab;
 
+    SharedPreferences sharedPreferences;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -83,42 +85,6 @@ public class ChiTietPhim extends AppCompatActivity {
                 }
             }
         }).attach();
-//        tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
-//            @RequiresApi(api = Build.VERSION_CODES.O)
-//            @Override
-//            public void onTabSelected(TabLayout.Tab tab) {
-//                switch(tab.getPosition()) {
-//                    case 0:
-//                    {
-//                        // ini views
-//
-//                        break;
-//                    }
-//                    case 1:
-//                    {
-//
-//                        break;
-//                    }
-//                    case 2:
-//                    {
-////                        ViewGroup.LayoutParams params = constraintLayout.getLayoutParams();
-////                        params.height = 0;
-////                        constraintLayout.setLayoutParams(params);
-//                        break;
-//                    }
-//                }
-//            }
-
-//            @Override
-//            public void onTabUnselected(TabLayout.Tab tab) {
-//
-//            }
-//
-//            @Override
-//            public void onTabReselected(TabLayout.Tab tab) {
-//
-//            }
-//        });
     }
     private ViewPagerChiTietAdapter createCardAdapter() {
         ViewPagerChiTietAdapter adapter = new  ViewPagerChiTietAdapter(this);
@@ -157,6 +123,9 @@ public class ChiTietPhim extends AppCompatActivity {
         getSupportActionBar().setTitle(movieTitle);
         tv_description = findViewById(R.id.detail_movie_desc); // chưa có
 
-
+        sharedPreferences= getSharedPreferences("ChonGhePrefs", MODE_PRIVATE);
+        SharedPreferences.Editor editor= sharedPreferences.edit();
+        editor.putString("ten_phim", movieTitle);
+        editor.commit();
     }
 }

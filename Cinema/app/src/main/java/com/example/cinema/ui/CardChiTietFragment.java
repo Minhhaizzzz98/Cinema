@@ -48,6 +48,7 @@ import com.example.cinema.models.DataHelperConnnect;
 import com.example.cinema.models.DatabaseHandler;
 import com.example.cinema.models.GioChieu;
 import com.example.cinema.models.Lich;
+import com.example.cinema.models.Movie;
 import com.example.cinema.models.Rap;
 
 import org.json.JSONArray;
@@ -79,10 +80,12 @@ public class CardChiTietFragment  extends Fragment {
     LinkedList<Rap> lstRap;
     LinkedList<Actor> actorlist= new LinkedList<Actor>();
     LinkedList<Actor> directorlist= new LinkedList<Actor>();
+    Rap user;
     //Khoi tạo textView Rap;
     TextView txtRap;
     Button btnDat;
     RecyclerView rvGio;
+    Lich lich= new Lich();
     public CardChiTietFragment() {
     }
     public static CardChiTietFragment newInstance(Integer counter){
@@ -132,6 +135,8 @@ public class CardChiTietFragment  extends Fragment {
 
                         //Toast.makeText(getContext(), movie.getThu()+"", Toast.LENGTH_SHORT).show();
                         String thu=movie.getThu();
+                        lich.setNgay(movie.getNgay());
+//                        Toast.makeText(getContext(), lich.getNgay(), Toast.LENGTH_SHORT).show();
                         String[] ngay=movie.getNgay().split("/");
                         thu=thu+","+"ngày "+ngay[0]+" tháng "+ngay[1]+" Năm " + Calendar.getInstance().get(Calendar.YEAR);
                         txtNgayThang.setText(thu);
@@ -149,13 +154,7 @@ public class CardChiTietFragment  extends Fragment {
                     @Override
                     public void onClick(View v) {
                         Intent intent=new Intent(getActivity().getApplication(),ChonGheActivity.class);
-                       // DatabaseHandler databaseHandler=new DatabaseHandler(getContext());
-                        //int id_ve=(int) databaseHandler.addVeValue(1,0,1,0,0);
-                       // intent.putExtra("message",id_ve);
                         startActivity(intent);
-
-
-
                     }
                 });
                 break;
@@ -191,8 +190,8 @@ public class CardChiTietFragment  extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
     }
+
     public void loadSpinDiaDiem(Spinner spin, int n)
     {
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getContext(),
@@ -217,34 +216,14 @@ public class CardChiTietFragment  extends Fragment {
         {
             Calendar c = Calendar.getInstance();
             c.set(Integer.parseInt(ngay[2]), Integer.parseInt(ngay[1]), Integer.parseInt(ngay[0]+i), 0, 0);
-
-
             lstLich.add(new Lich(c.DAY_OF_WEEK+"",(Integer.parseInt(ngay[0])+i)+"/"+ngay[1]+"/"+ngay[2]));
         }
-
-
         return  lstLich;
     }
     public static int getDayNumberOld(Date date) {
         Calendar cal = Calendar.getInstance();
         cal.setTime(date);
         return cal.get(Calendar.DAY_OF_WEEK);
-    }
-    private List<String> createGio()
-    {
-
-        //display(strDate);
-        List<String> lstGio=new ArrayList<>();
-        lstGio.add("20:00");
-        lstGio.add("18:00");
-        lstGio.add("16:00");
-        lstGio.add("15:00");
-        lstGio.add("14:00");
-        lstGio.add("10:00");
-        lstGio.add("08:00");
-        lstGio.add("06:00");
-        lstGio.add("04:00");
-        return  lstGio;
     }
     private  void createAdapterGio(RecyclerView rv,List<GioChieu> lst)
     {
@@ -263,6 +242,8 @@ public class CardChiTietFragment  extends Fragment {
                     editor.putString("gio",movie.getThoigian());
                     editor.putString("id_gio",movie.getId()+"");
                     editor.putString("id_phong",movie.getId_phong()+"");
+                    editor.putString("ten_rap", user.getName());
+                    editor.putString("ngay_chieu", lich.getNgay());
                     editor.commit();
                     Intent mIntent = new Intent(getContext(), ChonGheActivity.class);
                     Bundle mBundle = new Bundle();
@@ -276,16 +257,6 @@ public class CardChiTietFragment  extends Fragment {
         gioChieuAdapter.notifyDataSetChanged();
         rv.setLayoutManager(new GridLayoutManager(getContext(),4));
         rv.setAdapter(gioChieuAdapter);
-    }
-    private void createListRap()
-    {
-        lstRap=new LinkedList<>();
-        lstRap.add(new Rap(1,"Cinema Tân Bình 1"));
-        lstRap.add(new Rap(2,"Cinema Tân Bình 2"));
-        lstRap.add(new Rap(3,"Cinema Tân Bình 3"));
-        lstRap.add(new Rap(4,"Cinema Tân Bình 4"));
-        lstRap.add(new Rap(5,"Cinema Tân Bình 5"));
-
     }
     public void viewdata(SpinnerRapAdapter adapter,Spinner spinner) {
         String url= "http://"+ DataHelperConnnect.ipConnect+"/lara_cinema/CenimaProject/public/api/Rap";
@@ -313,11 +284,10 @@ public class CardChiTietFragment  extends Fragment {
                     public void onItemSelected(AdapterView<?> adapterView, View view,
                                                int position, long id) {
                         // Here you get the current item (a User object) that is selected by its position
-                        Rap user = adapter.getItem(position);
+                        user = adapter.getItem(position);
                         rap_chon=user.getId();
                         // Here you can do the action you want to...
-                        Toast.makeText(getContext(), "ID: " + user.getId() + "\nName: " + user.getName(),
-                                Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getContext(), "ID: " + user.getId() + "\nName: " + user.getName(),Toast.LENGTH_SHORT).show();
                     }
                     @Override
                     public void onNothingSelected(AdapterView<?> adapter) {  }
@@ -365,7 +335,7 @@ public class CardChiTietFragment  extends Fragment {
                        }
 
                         createAdapterGio(rvGio,lstGio1);
-                        Toast.makeText(getActivity(),jsonArray.toString(),Toast.LENGTH_LONG).show();
+//                        Toast.makeText(getActivity(),jsonArray.toString(),Toast.LENGTH_LONG).show();
                     } catch (JSONException e) {
                         Toast.makeText(getContext(),e.getMessage(),Toast.LENGTH_LONG).show();
                         e.printStackTrace();

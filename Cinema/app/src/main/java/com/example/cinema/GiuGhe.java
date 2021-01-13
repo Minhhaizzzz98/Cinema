@@ -3,9 +3,12 @@ package com.example.cinema;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -23,6 +26,7 @@ import com.example.cinema.models.DataHelperConnnect;
 import com.example.cinema.models.Ghe;
 import com.example.cinema.models.GioChieu;
 import com.example.cinema.ui.ChonGheActivity;
+import com.example.cinema.ui.HomeActivity;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -34,24 +38,45 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class GiuGhe extends AppCompatActivity {
-    TextView counttime, txtGhe;
+    TextView counttime, txtGhe, txtRap, txtPhim, txtNgayChieu, txtGioChieu, txtPhong, txtTongTien;
     public int counter=10000;
     String ghe= new String();
     ArrayList<Integer> selectedButtons = new ArrayList<Integer>();
     ArrayList<String> selectedStr = new ArrayList<>();
     LinkedList<Ghe> lstGhe=new LinkedList<>();
+
     Button btnXacNhan;
-    SharedPreferences sharedpreferences;
+    SharedPreferences sharedpreferences, myPre;
     public static final String MyPREFERENCES = "ChonGhePrefs" ;
+    public static final String MyPRE = "MyPrefs" ;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_giu_ghe);
+        // Tao nut Back
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setHomeButtonEnabled(true);
+        getSupportActionBar().setTitle("Chọn ghế");
+
         sharedpreferences = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
+        myPre = getSharedPreferences(MyPRE, Context.MODE_PRIVATE);
         Bundle bun= getIntent().getExtras();
         selectedButtons= bun.getIntegerArrayList("LIST_GHE");
         selectedStr=bun.getStringArrayList("lst_str_ghe");
         txtGhe= findViewById(R.id.txtGhe);
+        txtRap= findViewById(R.id.txtRap);
+        txtPhim= findViewById(R.id.txtPhim);
+        txtNgayChieu= findViewById(R.id.txtNgayChieu);
+        txtGioChieu= findViewById(R.id.txtGioChieu);
+        txtPhong= findViewById(R.id.txtPhong);
+
+        txtRap.setText(sharedpreferences.getString("ten_rap", null));
+        txtPhim.setText(sharedpreferences.getString("ten_phim", null));
+        txtNgayChieu.setText(sharedpreferences.getString("ngay_chieu", null));
+        txtGioChieu.setText(sharedpreferences.getString("gio", null));
+        txtPhong.setText(sharedpreferences.getString("id_phong", null));
+//        txtRap.setText(sharedpreferences.getString("ten_rap", null));
+
         btnXacNhan=(Button)findViewById(R.id.btnXacNhan);
         counttime=findViewById(R.id.counttime);
         new CountDownTimer(600000,1000) {
@@ -84,10 +109,6 @@ public class GiuGhe extends AppCompatActivity {
                 chuoiGhe+=","+selectedStr.get(i);
             }
         }
-//        for(String str_ghe:selectedStr)
-//        {
-//            chuoiGhe+=str_ghe;
-//        }
 
         txtGhe.setText(chuoiGhe);
         btnXacNhan.setOnClickListener(new View.OnClickListener() {
@@ -95,6 +116,8 @@ public class GiuGhe extends AppCompatActivity {
             public void onClick(View v) {
                 String id=sharedpreferences.getString("id_phong","-1");
                 viewdata(id);
+                Intent intent= new Intent(getApplicationContext(), HomeActivity.class);
+                startActivity(intent);
             }
         });
     }
@@ -116,8 +139,6 @@ public class GiuGhe extends AppCompatActivity {
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
-
-
                 }
                 for (int i=0;i<lstGhe.size();i++)
                 {
@@ -126,15 +147,12 @@ public class GiuGhe extends AppCompatActivity {
                         String strArr[]=selectedStr.get(j).split("");
                         if(lstGhe.get(i).getDay().equals(strArr[1])&&lstGhe.get(i).getSort().equals(strArr[2]))
                         {
-                           // Toast.makeText(GiuGhe.this, "Thành công r nè", Toast.LENGTH_SHORT).show();
+                            int id_kh= myPre.getInt("id", -1);
                             String suat=sharedpreferences.getString("id","-1");
-                            layDataVe(suat,lstGhe.get(i).getId()+"",1+"");
+                            layDataVe(suat,lstGhe.get(i).getId()+"",id_kh+"");
                         }
-
                     }
                 }
-
-
             }
         }, new Response.ErrorListener() {
             @Override
@@ -155,26 +173,10 @@ public class GiuGhe extends AppCompatActivity {
             public void onResponse(String response) {
                 JSONArray jsonArray=null;
                 JSONObject jsonObject= null;
-                Toast.makeText(getApplicationContext(),response,Toast.LENGTH_LONG).show();
-//                try {
-//
-//
-//
-//
-//
-//
-//                } catch (JSONException e) {
-//                    Toast.makeText(getApplicationContext(),e.getMessage(),Toast.LENGTH_LONG).show();
-//                    e.printStackTrace();
-//                }
+                Toast.makeText(getApplicationContext(),"Đặt vé thành công",Toast.LENGTH_LONG).show();
 
                 //Log.i("VOLLEY", response);
             }
-
-
-
-
-
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
@@ -213,5 +215,20 @@ public class GiuGhe extends AppCompatActivity {
             e.printStackTrace();
         }
         sendDataVe(jsonObject.toString());
+    }
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        return super.onCreateOptionsMenu(menu);
+    }
+    // Xu ly tung item trong Context Menu
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                finish();
+                return true;
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 }
