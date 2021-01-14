@@ -209,6 +209,8 @@ public class TrangChuFragment extends Fragment  implements MovieItemClickListene
     public void viewDataPhim() {
         lstMovies=new ArrayList<>();
         String url= "http://"+ DataHelperConnnect.ipConnect+"/lara_cinema/CenimaProject/public/api/Phim";
+//        String url= "http://cinemacdth18c.byethost12.com/api/Phim";
+
         JsonArrayRequest jsonArrayRequest= new JsonArrayRequest(url, new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray response) {
@@ -226,6 +228,7 @@ public class TrangChuFragment extends Fragment  implements MovieItemClickListene
                         //
                         movie.setStreamingLink(teapArr[0]);
                         String hinh="http://"+ DataHelperConnnect.ipConnect+"/lara_cinema/CenimaProject/public/data/"+jsonObject.getString("HinhAnh");
+//                        String hinh = "http://cinemacdth18c.byethost12.com/api/Phim";
                        //
                         movie.setHinhanh(hinh);
                         //
