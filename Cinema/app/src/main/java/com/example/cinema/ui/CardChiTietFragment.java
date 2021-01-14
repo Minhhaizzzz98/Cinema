@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -35,6 +36,7 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.cinema.R;
 import com.example.cinema.adapters.ActorAdapter;
+import com.example.cinema.adapters.BinhLuanAdapter;
 import com.example.cinema.adapters.DienVien_DaoDienAdapter;
 import com.example.cinema.adapters.GioChieuAdapter;
 import com.example.cinema.adapters.GioItemClick;
@@ -44,6 +46,7 @@ import com.example.cinema.adapters.MovieItemClickListener;
 import com.example.cinema.adapters.RapAdapter;
 import com.example.cinema.adapters.SpinnerRapAdapter;
 import com.example.cinema.models.Actor;
+import com.example.cinema.models.BinhLuan;
 import com.example.cinema.models.DataHelperConnnect;
 import com.example.cinema.models.DatabaseHandler;
 import com.example.cinema.models.GioChieu;
@@ -64,6 +67,11 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class CardChiTietFragment  extends Fragment {
+    //khoi tao edit bint luan
+    EditText edBl;
+    Button btnGuiBL;
+    //Khoi tao recyler view BinhLuan
+    private RecyclerView rvBinhLuan;
     private static final String ARG_COUNT = "param1";
     private static Integer counter;
     private int rap_chon=1;
@@ -80,7 +88,9 @@ public class CardChiTietFragment  extends Fragment {
     LinkedList<Rap> lstRap;
     LinkedList<Actor> actorlist= new LinkedList<Actor>();
     LinkedList<Actor> directorlist= new LinkedList<Actor>();
+    LinkedList<BinhLuan> lstBinhLuan;
     Rap user;
+    BinhLuanAdapter binhLuanAdapter;
     //Khoi tạo textView Rap;
     TextView txtRap;
     Button btnDat;
@@ -182,7 +192,30 @@ public class CardChiTietFragment  extends Fragment {
 
                 break;
             case 2:
+                sharedpreferences = getActivity().getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
+               mypre=getActivity().getSharedPreferences(MYPRE,Context.MODE_PRIVATE);
                 rootView= inflater.inflate(R.layout.chitiet_tintuc, container, false);
+                rvBinhLuan=(RecyclerView)rootView.findViewById(R.id.rvBinhLuan);
+                layDataBinhLuan(1);
+                edBl=(EditText)rootView.findViewById(R.id.editBinhLuan);
+                btnGuiBL=(Button)rootView.findViewById(R.id.btnGuiBinhLuan);
+                btnGuiBL.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        String id_phim=sharedpreferences.getInt("phim_id", -1)+"";
+                        String id_kh=mypre.getInt("id",-1)+"";
+                        String fullName=mypre.getString("fulllName","Minh Hải");
+                        BinhLuan bl=new BinhLuan();
+                        bl.setTenkhachhang(fullName);
+                        bl.setNoidung(edBl.getText().toString());
+                        lstBinhLuan.addFirst(bl);
+
+                        binhLuanAdapter.notifyItemInserted(0);
+                        layDataBinhLuan(id_phim,id_kh,edBl.getText().toString());
+                        edBl.setText("");
+
+                    }
+                });
                 break;
         }
         return rootView;
@@ -379,6 +412,52 @@ public class CardChiTietFragment  extends Fragment {
         };
         requestQueue.add(stringRequest);
     }
+    public void sendDataBinhLuan(String data)
+    {
+        final String saveData= data;
+        String url= "http://"+ DataHelperConnnect.ipConnect+"/lara_cinema/CenimaProject/public/api/BinhLuan";
+
+        RequestQueue requestQueue = Volley.newRequestQueue(getContext());
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                Toast.makeText(getContext(), response, Toast.LENGTH_SHORT).show();
+
+
+                //Log.i("VOLLEY", response);
+            }
+
+
+
+
+
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+                Toast.makeText(getContext(), error.getMessage(), Toast.LENGTH_SHORT).show();
+
+                //Log.v("VOLLEY", error.toString());
+            }
+        }) {
+            @Override
+            public String getBodyContentType() {
+                return "application/json; charset=utf-8";
+            }
+
+            @Override
+            public byte[] getBody() throws AuthFailureError {
+                try {
+                    return saveData == null ? null : saveData.getBytes("utf-8");
+                } catch (UnsupportedEncodingException uee) {
+                    //Log.v("Unsupported Encoding while trying to get the bytes", data);
+                    return null;
+                }
+            }
+
+        };
+        requestQueue.add(stringRequest);
+    }
     public void layDataKhachHangDN(String id_rap,String id_phim,String Ngay){
         JSONObject jsonObject= new JSONObject();
         try {
@@ -390,6 +469,19 @@ public class CardChiTietFragment  extends Fragment {
             e.printStackTrace();
         }
         sendData1(jsonObject.toString());
+    }
+    public void layDataBinhLuan(String id_khach,String id_phim,String bl)
+    {
+        JSONObject jsonObject= new JSONObject();
+        try {
+            jsonObject.put("phim_id", id_phim);
+            jsonObject.put("khachhang_id", id_khach);
+            jsonObject.put("NoiDung",bl);
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        sendDataBinhLuan(jsonObject.toString());
     }
     private String formatNgay()
     {
@@ -407,5 +499,49 @@ public class CardChiTietFragment  extends Fragment {
     }
     public boolean isLoggedIn() {
         return mypre.getBoolean(KEY_IS_LOGGED_IN, false);//false is the default value in case there's nothing found with the key
+    }
+    public void layDataBinhLuan(int id_phim) {
+        lstBinhLuan=new LinkedList<>();
+        String url= "http://"+ DataHelperConnnect.ipConnect+"/lara_cinema/CenimaProject/public/api/BinhLuan/getFive/"+id_phim;
+        JsonArrayRequest jsonArrayRequest= new JsonArrayRequest(url, new Response.Listener<JSONArray>() {
+            @Override
+            public void onResponse(JSONArray response) {
+
+                //Toast.makeText(getContext(), response.toString(), Toast.LENGTH_SHORT).show();
+                for(int i=0; i<response.length(); i++){
+                    try {
+                        JSONObject jsonObject= response.getJSONObject(i);
+                        int id=jsonObject.getInt("id");
+                        String nd=jsonObject.getString("NoiDung");
+                        JSONObject jsonObjectKhachHang=jsonObject.getJSONObject("khachhang");
+                        String tenkh=jsonObjectKhachHang.getString("HoTen");
+                        BinhLuan binhLuan=new BinhLuan();
+                        binhLuan.setId(id);
+                        binhLuan.setNoidung(nd);
+                        binhLuan.setTenkhachhang(tenkh);
+                        lstBinhLuan.add(binhLuan);
+
+
+
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+
+                }
+                 binhLuanAdapter=new BinhLuanAdapter(lstBinhLuan,getContext());
+                rvBinhLuan.setLayoutManager(new GridLayoutManager(getContext(),1));
+                rvBinhLuan.setAdapter(binhLuanAdapter);
+                binhLuanAdapter.notifyDataSetChanged();
+
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(getContext(), error.toString(), Toast.LENGTH_SHORT).show();
+            }
+        });
+        RequestQueue requestQueue= Volley.newRequestQueue(getContext());
+        requestQueue.add(jsonArrayRequest);
     }
 }
