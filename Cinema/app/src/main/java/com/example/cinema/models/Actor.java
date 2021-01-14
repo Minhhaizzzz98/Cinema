@@ -8,6 +8,11 @@ public class Actor {
     public Actor() {
     }
 
+    public Actor(int img, String name) {
+        this.img = img;
+        this.name = name;
+    }
+
     public Actor(int img, String content, String name) {
         this.img = img;
         this.content = content;

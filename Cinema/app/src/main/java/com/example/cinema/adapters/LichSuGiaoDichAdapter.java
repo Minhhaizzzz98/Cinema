@@ -32,11 +32,11 @@ public class LichSuGiaoDichAdapter extends RecyclerView.Adapter<LichSuGiaoDichAd
 
     @Override
     public void onBindViewHolder(@NonNull LichSuGiaoDichAdapter.LichSuGiaoDichViewHolder holder, int position) {
-        GiaoDich giaoDich= new GiaoDich();
+        GiaoDich giaoDich= lstGiaoDich.get(position);
 
         holder.tvTenPhim.setText( giaoDich.getTenPhim());
         holder.tvNgayMua.setText( giaoDich.getNgayMua());
-        holder.tvSoTien.setText( giaoDich.getSoTien());
+        holder.tvSoTien.setText( String.valueOf(giaoDich.getSoTien()));
 
     }
 

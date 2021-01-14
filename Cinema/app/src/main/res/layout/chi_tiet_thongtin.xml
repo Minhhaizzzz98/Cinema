@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/darkGray"
+        android:text="Nội dung: "
+        android:layout_marginBottom="10dp"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textMultiLine"
+        android:maxLines="10"
+        android:textColor="@color/darkGray"
+        android:text="Moana is the titular protagonist of Disney's 2016 animated feature film of the same name. Born on the island village of Motunui, Moana is the daughter of Chief Tui and Sina, with an inherited love for the seas and voyaging. When her island becomes endangered by a life-killing darkness, Moana is chosen by the ocean to journey across the sea to save both her people and the world.
+        \n\nMoana is the twelfth official member of the Disney Princess line-up."/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:text="Diễn viên:"/>
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvDienVien"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:text="Đạo diễn: "/>
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvDaoDien"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"/>
+</LinearLayout>

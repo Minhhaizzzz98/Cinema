@@ -10,6 +10,11 @@ public class GiaoDich {
         SoTien = soTien;
     }
 
+    public GiaoDich(String ngayMua, int soTien) {
+        NgayMua = ngayMua;
+        SoTien = soTien;
+    }
+
     public GiaoDich() {
     }
 

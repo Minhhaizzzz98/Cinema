@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="125dp"
+    android:layout_width="300dp"
     android:layout_height="wrap_content"
-    android:layout_marginRight="8dp"
+    android:layout_marginLeft="8dp"
     android:clickable="true"
     android:focusable="true"
     android:orientation="vertical"
@@ -16,20 +16,29 @@
         android:scaleType="centerCrop"
         android:id="@+id/item_movie_img"
         android:layout_width="match_parent"
-        android:layout_height="175dp"
+        android:layout_height="350dp"
         app:srcCompat="@drawable/ic_launcher_background" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:background="#F44336"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentTop="true"
+        android:text="18+"
+        android:textColor="@color/white"
+        android:layout_height="wrap_content">
 
+    </TextView>
     <TextView
         android:id="@+id/item_movie_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_below="@+id/item_movie_img"
         android:text="TextView"
         />
     <TextView
-
         android:id="@+id/item_loai"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Loai"
-        />
-</LinearLayout>
+        android:layout_below="@id/item_movie_title"
+        android:text="Loai" />
+</RelativeLayout>

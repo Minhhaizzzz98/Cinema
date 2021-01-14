@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
     <LinearLayout
-    android:background="@color/white"
+
     android:orientation="vertical"
     android:layout_height="match_parent"
     android:layout_width="match_parent"
+    android:background="@color/white"
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android">
@@ -22,15 +23,34 @@
         android:id="@+id/view_pager"
         android:layout_weight="1"/>
 
-    <Button
-        android:background="@color/colorPrimary"
-        android:layout_height="wrap_content"
+    <RelativeLayout
         android:layout_width="wrap_content"
-        android:id="@+id/button2"
-        android:text="Logout"
-        android:textColor="@color/white"
-        android:onClick="logout"
-        android:layout_marginBottom="50dp"
-        android:layout_gravity="center"/>
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal">
+
+        <Button
+            android:background="@color/colorPrimary"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:id="@+id/btnChinhSua"
+            android:text="Chỉnh sửa"
+            android:textColor="@color/white"
+            android:onClick="ChinhSua"
+            android:layout_marginBottom="20dp"
+            android:layout_gravity="center"/>
+        <Button
+            android:background="@color/colorPrimary"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:id="@+id/button2"
+            android:text="Đăng xuất"
+            android:textColor="@color/white"
+            android:onClick="logout"
+            android:layout_marginBottom="20dp"
+            android:layout_marginLeft="20dp"
+            android:layout_gravity="center"
+            android:layout_toRightOf="@+id/btnChinhSua" />
+    </RelativeLayout>
+
 
 </LinearLayout>

@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:fillViewport="true"
+    android:layout_height="match_parent"
+    tools:context=".ChiTietPhim"
+    android:background="@color/white">
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout"
+        android:layout_width="match_parent"
+        android:layout_height="0dp">
+
+        <WebView
+            android:id="@+id/detail_movie_cover"
+            android:layout_width="wrap_content"
+            android:layout_height="245dp"
+            android:scaleType="centerCrop"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:srcCompat="@tools:sample/backgrounds/scenic" />
+
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:src="@drawable/gradient_bg"
+            app:layout_constraintBottom_toBottomOf="@+id/detail_movie_cover"
+            app:layout_constraintEnd_toEndOf="@+id/detail_movie_cover"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/detail_movie_cover" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/play_fab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            android:src="@drawable/ic_play_arrow_black_24dp"
+            app:layout_constraintBottom_toBottomOf="@+id/imageView"
+            app:layout_constraintEnd_toEndOf="@+id/imageView"
+            app:layout_constraintStart_toStartOf="@+id/imageView"
+            app:layout_constraintTop_toTopOf="@+id/imageView" />
+
+        <ImageView
+            android:id="@+id/detail_movie_img"
+            android:layout_width="125dp"
+            android:layout_height="210dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginLeft="16dp"
+            android:scaleType="centerCrop"
+            android:transitionName="sharedName"
+            app:layout_constraintBottom_toBottomOf="@+id/detail_movie_cover"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/detail_movie_cover"
+            app:srcCompat="@drawable/themartian" />
+
+        <TextView
+            android:id="@+id/detail_movie_title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginRight="16dp"
+            android:text="TextView"
+            android:textColor="@android:color/black"
+            android:textSize="20dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/detail_movie_img"
+            app:layout_constraintTop_toBottomOf="@+id/detail_movie_cover" />
+        <TextView
+            android:id="@+id/ratingBar"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginRight="16dp"
+            android:drawableLeft="@drawable/star"
+            android:text="4.5"
+            android:textColor="@android:color/black"
+            android:textSize="20dp"
+
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/detail_movie_img"
+            app:layout_constraintTop_toBottomOf="@+id/detail_movie_title"/>
+        <TextView
+            android:id="@+id/detail_movie_time"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginRight="16dp"
+            android:text="2h15m"
+            android:textColor="@android:color/darker_gray"
+            android:textSize="15dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/detail_movie_img"
+            app:layout_constraintTop_toBottomOf="@+id/ratingBar" />
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/tabChiTiet"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:tabMode="fixed"
+            app:tabIndicatorFullWidth="true"
+            app:tabIndicatorColor="@color/colorPrimaryDark"
+            android:background="@android:color/white"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/detail_movie_img"/>
+
+        <androidx.viewpager2.widget.ViewPager2
+            android:id="@+id/vpChiTiet"
+            android:layout_width="match_parent"
+            android:layout_height="516dp"
+            android:paddingLeft="23dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tabChiTiet" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.core.widget.NestedScrollView>

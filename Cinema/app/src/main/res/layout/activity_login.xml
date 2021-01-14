@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
+    android:background="@drawable/dangnhap"
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -20,6 +20,7 @@
             android:gravity="center_horizontal"
             android:text="@string/dang_nhap"
             android:textColor="@color/colorPrimary"
+            android:background="@color/white"
             android:textSize="30dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.498"
@@ -32,7 +33,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="80dp"
-            android:text="@string/so_dien_thoai"
+            android:text="Email"
             android:textColor="@color/darkGray"
             android:textSize="16dp"
             app:layout_constraintEnd_toEndOf="parent"
@@ -41,12 +42,12 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <EditText
-            android:id="@+id/txtsdt"
+            android:id="@+id/editEmail"
             android:layout_width="300dp"
             android:layout_height="50dp"
             android:layout_marginTop="5dp"
             android:textSize="20dp"
-            android:inputType="phone"
+            android:inputType="text"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.405"
             app:layout_constraintStart_toStartOf="parent"

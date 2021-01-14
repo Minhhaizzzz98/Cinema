@@ -1,6 +1,7 @@
 package com.example.cinema.adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,7 +16,12 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.cinema.R;
 import com.example.cinema.models.Notification;
+import com.example.cinema.ui.DatVeActivity;
 import com.example.cinema.ui.DienAnhFragment;
+import com.example.cinema.ui.MovieDetailActivity;
+import com.example.cinema.ui.PaymentActivity;
+import com.example.cinema.ui.QuanLyThongTin;
+import com.example.cinema.ui.ThongKeGiaoDichFragment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -38,7 +44,7 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
 
     @Override
     public void onBindViewHolder(@NonNull viewholder holder, int position) {
-        Notification notification= list.get(0);
+        Notification notification= list.get(position);
         holder.title.setText(notification.getTitle());
         holder.content.setText(notification.getContent());
         holder.imageView.setImageResource(notification.getImg());
@@ -55,6 +61,27 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
                             AppCompatActivity activity = (AppCompatActivity) view.getContext();
                              DienAnhFragment dienAnhFragment =new DienAnhFragment();
                             activity.getSupportFragmentManager().beginTransaction().replace(R.id.frame_container, dienAnhFragment).addToBackStack(null).commit();
+                            break;
+                        }
+                        case 2: {
+                            Intent intent = new Intent(view.getContext(), QuanLyThongTin.class);
+                            view.getContext().startActivity(intent);
+                            break;
+                        }
+                        case 3: {
+                            AppCompatActivity activity = (AppCompatActivity) view.getContext();
+                            ThongKeGiaoDichFragment thongKeGiaoDichFragment =new ThongKeGiaoDichFragment();
+                            activity.getSupportFragmentManager().beginTransaction().replace(R.id.frame_container, thongKeGiaoDichFragment).addToBackStack(null).commit();
+                            break;
+                        }
+                        case 4: {
+                            Intent intent = new Intent(view.getContext(), PaymentActivity.class);
+                            view.getContext().startActivity(intent);
+                            break;
+                        }
+                        case 5: {
+                            Intent intent = new Intent(view.getContext(), DatVeActivity.class);
+                            view.getContext().startActivity(intent);
                             break;
                         }
                     }

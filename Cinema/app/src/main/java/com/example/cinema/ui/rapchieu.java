@@ -6,15 +6,39 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonArrayRequest;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
 import com.example.cinema.R;
 import com.example.cinema.adapters.RapAdapter;
+import com.example.cinema.models.DataHelperConnnect;
 import com.example.cinema.models.Rap;
+import com.squareup.moshi.JsonAdapter;
+import com.squareup.moshi.Moshi;
+import com.squareup.moshi.Types;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
+import java.lang.reflect.Type;
 import java.util.LinkedList;
+import java.util.List;
+
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -64,13 +88,15 @@ public class rapchieu extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
-        lstRap=new LinkedList<>();
-        lstRap.add(new Rap(R.drawable.slide1,"Galaxy Tân Bình","123, Trường chinh, tân bình","123456789"));
-        lstRap.add(new Rap(R.drawable.slide2,"Galaxy Quận 1","123, Trường chinh, tân bình","123456789"));
-        lstRap.add(new Rap(R.drawable.slide1,"Galaxy Quận 3","123, Trường chinh, tân bình","123456789"));
-        lstRap.add(new Rap(R.drawable.slide2,"Galaxy Củ Chi","123, Trường chinh, tân bình","123456789"));
-        lstRap.add(new Rap(R.drawable.slide1,"Galaxy Bình Dương","123, Trường chinh, tân bình","123456789"));
-        lstRap.add(new Rap(R.drawable.slide2,"Galaxy Bình Thuận","123, Trường chinh, tân bình","123456789"));
+//        lstRap=new LinkedList<>();
+//        lstRap.add(new Rap(R.drawable.slide1,"Galaxy Tân Bình","123, Trường chinh, tân bình","123456789"));
+//        lstRap.add(new Rap(R.drawable.slide2,"Galaxy Quận 1","123, Trường chinh, tân bình","123456789"));
+//        lstRap.add(new Rap(R.drawable.slide1,"Galaxy Quận 3","123, Trường chinh, tân bình","123456789"));
+//        lstRap.add(new Rap(R.drawable.slide2,"Galaxy Củ Chi","123, Trường chinh, tân bình","123456789"));
+//        lstRap.add(new Rap(R.drawable.slide1,"Galaxy Bình Dương","123, Trường chinh, tân bình","123456789"));
+//        lstRap.add(new Rap(R.drawable.slide2,"Galaxy Bình Thuận","123, Trường chinh, tân bình","123456789"));
+
+
     }
 
     @Override
@@ -78,12 +104,46 @@ public class rapchieu extends Fragment {
                              Bundle savedInstanceState) {
         View view=inflater.inflate(R.layout.fragment_rapchieu, container, false);
         rvRap=(RecyclerView)view.findViewById(R.id.rvRap);
-        rapAdapter=new RapAdapter(getContext(),lstRap);
-        rapAdapter.notifyDataSetChanged();
         rvRap.setLayoutManager( new GridLayoutManager(getContext(),1));
-        rvRap.setAdapter(rapAdapter);
+        viewdata();
         rvRap.setHasFixedSize(true);
+
         // Inflate the layout for this fragment
         return view;
+    }
+
+    public void viewdata() {
+        String url= "http://"+ DataHelperConnnect.ipConnect+"/lara_cinema/CenimaProject/public/api/Rap";
+        JsonArrayRequest jsonArrayRequest= new JsonArrayRequest(url, new Response.Listener<JSONArray>() {
+            @Override
+            public void onResponse(JSONArray response) {
+                lstRap=new LinkedList<>();
+                for(int i=0; i<response.length(); i++){
+                    try {
+                        JSONObject jsonObject= response.getJSONObject(i);
+                        Rap rap= new Rap();
+                        rap.setName(jsonObject.getString("TenRap"));
+                        rap.setAddress(jsonObject.getString("DiaChi"));
+                        rap.setPhone(jsonObject.getString("SDT"));
+                        rap.setImg(R.drawable.rap);
+
+                        lstRap.add(rap);
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                    rapAdapter=new RapAdapter(getContext(),lstRap);
+                    rapAdapter.notifyDataSetChanged();
+                    rvRap.setAdapter(rapAdapter);
+                }
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(getContext(), error.toString(), Toast.LENGTH_SHORT).show();
+            }
+        });
+        RequestQueue requestQueue= Volley.newRequestQueue(getContext());
+        requestQueue.add(jsonArrayRequest);
     }
 }

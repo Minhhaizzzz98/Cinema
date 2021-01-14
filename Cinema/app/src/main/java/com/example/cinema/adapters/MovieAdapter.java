@@ -20,6 +20,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.cinema.R;
 import com.example.cinema.models.Movie;
+import com.squareup.picasso.NetworkPolicy;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -53,9 +55,13 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MyViewHolder
 
 
         myViewHolder.TvTitle.setText(mData.get(i).getTitle());
-        myViewHolder.ImgMovie.setImageResource(mData.get(i).getThumbnail());
+
+        //myViewHolder.ImgMovie.setImageResource(mData.get(i).getThumbnail());
         myViewHolder.Loai.setText(mData.get(i).getLoaiPhim());
         setScaleAnimation(myViewHolder.itemView);
+//        Picasso.get().load(mData.get(i).getHinhanh()).placeholder(R.drawable.slide1).networkPolicy(NetworkPolicy.OFFLINE).into(myViewHolder.ImgMovie);
+        Picasso.get().load(mData.get(i).getHinhanh()).into(myViewHolder.ImgMovie);
+
 //        setAnimation(myViewHolder.itemView,i);
 //        myViewHolder.Trailer.loadData(mData.get(i).getStreamingLink(), "text/html", "utf-8");
 
@@ -63,7 +69,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MyViewHolder
     private int lastPosition = -1;
     @Override
     public int getItemCount() {
-        return mData.size();
+        return 5;
     }
     private void setAnimation(View viewToAnimate, int position)
     {
