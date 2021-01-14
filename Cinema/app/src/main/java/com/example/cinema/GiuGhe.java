@@ -56,7 +56,7 @@ public class GiuGhe extends AppCompatActivity {
         // Tao nut Back
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
-        getSupportActionBar().setTitle("Chọn ghế");
+        getSupportActionBar().setTitle("Đặt ghế");
 
         sharedpreferences = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
         myPre = getSharedPreferences(MyPRE, Context.MODE_PRIVATE);
@@ -69,6 +69,8 @@ public class GiuGhe extends AppCompatActivity {
         txtNgayChieu= findViewById(R.id.txtNgayChieu);
         txtGioChieu= findViewById(R.id.txtGioChieu);
         txtPhong= findViewById(R.id.txtPhong);
+        txtTongTien= findViewById(R.id.txtTongTien);
+        txtTongTien.setText(bun.getInt("TONGTIEN")+"");
 
         txtRap.setText(sharedpreferences.getString("ten_rap", null));
         txtPhim.setText(sharedpreferences.getString("ten_phim", null));
