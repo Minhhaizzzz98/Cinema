@@ -81,7 +81,7 @@ public class GiuGhe extends AppCompatActivity {
 
         btnXacNhan=(Button)findViewById(R.id.btnXacNhan);
         counttime=findViewById(R.id.counttime);
-        new CountDownTimer(600000,1000) {
+        new CountDownTimer(60000,1000) {
             @Override
             public void onTick(long millisUntilFinished) {
                 int seconds = (int) (millisUntilFinished / 1000);

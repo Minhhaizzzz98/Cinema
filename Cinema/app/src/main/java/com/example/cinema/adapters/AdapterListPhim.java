@@ -18,6 +18,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.cinema.R;
 import com.example.cinema.models.Movie;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -46,7 +47,8 @@ public class AdapterListPhim extends RecyclerView.Adapter<AdapterListPhim.Holder
     @Override
     public void onBindViewHolder(@NonNull HolderListPhim holder, int position) {
         holder.TvTitle.setText(mData.get(position).getTitle());
-        holder.ImgMovie.setImageResource(mData.get(position).getThumbnail());
+//        holder.ImgMovie.setImageResource(mData.get(position).getThumbnail());
+        Picasso.get().load(mData.get(position).getHinhanh()).into(holder.ImgMovie);
         holder.Loai.setText(mData.get(position).getLoaiPhim());
        holder.ratingBar.setRating(5);
        // holder.ratingBar.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));

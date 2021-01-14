@@ -65,7 +65,7 @@ public class Login extends AppCompatActivity {
         editEmail= findViewById(R.id.editEmail);
         editPass= findViewById(R.id.txtmatkhau);
         btnDangNhap= findViewById(R.id.btnDangNhap);
-        sharedpreferences = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
+        sharedpreferences = getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
 
         btnDangNhap.setOnClickListener(new View.OnClickListener() {
             @Override
