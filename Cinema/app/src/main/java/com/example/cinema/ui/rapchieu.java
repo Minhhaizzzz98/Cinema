@@ -113,7 +113,7 @@ public class rapchieu extends Fragment {
     }
 
     public void viewdata() {
-        String url= "http://"+ DataHelperConnnect.ipConnect+"/lara_cinema/CenimaProject/public/api/Rap";
+        String url= "http://"+ DataHelperConnnect.ipConnect+"/api/Rap";
         JsonArrayRequest jsonArrayRequest= new JsonArrayRequest(url, new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray response) {

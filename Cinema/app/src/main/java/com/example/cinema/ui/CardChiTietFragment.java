@@ -126,7 +126,7 @@ public class CardChiTietFragment  extends Fragment {
                 mypre = getActivity().getSharedPreferences(MYPRE, Context.MODE_PRIVATE);
                 TextView txtNgayThang=rootView.findViewById(R.id.txtNgayChieu);
                 txtRap=rootView.findViewById(R.id.txtRap);
-                btnDat=rootView.findViewById(R.id.btnDatNgay);
+//                btnDat=rootView.findViewById(R.id.btnDatNgay);
                 SpinnerRapAdapter spinnerRapAdapter=new SpinnerRapAdapter(getContext(),android.R.layout.simple_spinner_item,lstRap);
                 Spinner spinner = (Spinner)rootView.findViewById(R.id.diadiem_spinner);
                 Spinner spinnerRap=(Spinner)rootView.findViewById(R.id.rap_spinner);
@@ -160,13 +160,13 @@ public class CardChiTietFragment  extends Fragment {
 
                 viewdata(spinnerRapAdapter,spinnerRap);
                 layDataKhachHangDN(rap_chon+"",sharedpreferences.getInt("phim_id", -1) +"",formatNgay());
-                btnDat.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Intent intent=new Intent(getActivity().getApplication(),ChonGheActivity.class);
-                        startActivity(intent);
-                    }
-                });
+//                btnDat.setOnClickListener(new View.OnClickListener() {
+//                    @Override
+//                    public void onClick(View v) {
+//                        Intent intent=new Intent(getActivity().getApplication(),ChonGheActivity.class);
+//                        startActivity(intent);
+//                    }
+//                });
                 break;
             case 1:
                 rootView= inflater.inflate(R.layout.chi_tiet_thongtin, container, false);
@@ -196,22 +196,23 @@ public class CardChiTietFragment  extends Fragment {
                mypre=getActivity().getSharedPreferences(MYPRE,Context.MODE_PRIVATE);
                 rootView= inflater.inflate(R.layout.chitiet_tintuc, container, false);
                 rvBinhLuan=(RecyclerView)rootView.findViewById(R.id.rvBinhLuan);
-                layDataBinhLuan(1);
+                String id_phim=sharedpreferences.getInt("phim_id", -1)+"";
+                layDataBinhLuan(Integer.parseInt(id_phim));
                 edBl=(EditText)rootView.findViewById(R.id.editBinhLuan);
                 btnGuiBL=(Button)rootView.findViewById(R.id.btnGuiBinhLuan);
                 btnGuiBL.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        String id_phim=sharedpreferences.getInt("phim_id", -1)+"";
+//                        String id_phim=sharedpreferences.getInt("phim_id", -1)+"";
                         String id_kh=mypre.getInt("id",-1)+"";
-                        String fullName=mypre.getString("fulllName","Minh Hải");
+                        String fullName=mypre.getString("fullName","Minh Hải");
                         BinhLuan bl=new BinhLuan();
                         bl.setTenkhachhang(fullName);
                         bl.setNoidung(edBl.getText().toString());
                         lstBinhLuan.addFirst(bl);
 
                         binhLuanAdapter.notifyItemInserted(0);
-                        layDataBinhLuan(id_phim,id_kh,edBl.getText().toString());
+                        layDataBinhLuan(id_kh,id_phim,edBl.getText().toString());
                         edBl.setText("");
 
                     }
@@ -293,7 +294,7 @@ public class CardChiTietFragment  extends Fragment {
         rv.setAdapter(gioChieuAdapter);
     }
     public void viewdata(SpinnerRapAdapter adapter,Spinner spinner) {
-        String url= "http://"+ DataHelperConnnect.ipConnect+"/lara_cinema/CenimaProject/public/api/Rap";
+        String url= "http://"+ DataHelperConnnect.ipConnect+"/api/Rap";
         JsonArrayRequest jsonArrayRequest= new JsonArrayRequest(url, new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray response) {
@@ -339,7 +340,7 @@ public class CardChiTietFragment  extends Fragment {
     }
     public void sendData1(String data){
         final String saveData= data;
-        String url= "http://"+ DataHelperConnnect.ipConnect+"/lara_cinema/CenimaProject/public/api/SuatChieu/getGioChieu";
+        String url= "http://"+ DataHelperConnnect.ipConnect+"/api/SuatChieu/getGioChieu";
 
         RequestQueue requestQueue = Volley.newRequestQueue(getContext());
         StringRequest stringRequest = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
@@ -415,7 +416,7 @@ public class CardChiTietFragment  extends Fragment {
     public void sendDataBinhLuan(String data)
     {
         final String saveData= data;
-        String url= "http://"+ DataHelperConnnect.ipConnect+"/lara_cinema/CenimaProject/public/api/BinhLuan";
+        String url= "http://"+ DataHelperConnnect.ipConnect+"/api/BinhLuan";
 
         RequestQueue requestQueue = Volley.newRequestQueue(getContext());
         StringRequest stringRequest = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
@@ -502,7 +503,7 @@ public class CardChiTietFragment  extends Fragment {
     }
     public void layDataBinhLuan(int id_phim) {
         lstBinhLuan=new LinkedList<>();
-        String url= "http://"+ DataHelperConnnect.ipConnect+"/lara_cinema/CenimaProject/public/api/BinhLuan/getFive/"+id_phim;
+        String url= "http://"+ DataHelperConnnect.ipConnect+"/api/BinhLuan/getFive/"+id_phim;
         JsonArrayRequest jsonArrayRequest= new JsonArrayRequest(url, new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray response) {
