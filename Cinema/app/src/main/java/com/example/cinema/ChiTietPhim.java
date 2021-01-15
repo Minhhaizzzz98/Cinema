@@ -43,6 +43,7 @@ public class ChiTietPhim extends AppCompatActivity {
     private TextView tv_title,tv_description;
     private FloatingActionButton play_fab;
 
+    String trailer;
     SharedPreferences sharedPreferences;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,6 +66,7 @@ public class ChiTietPhim extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent=new Intent(ChiTietPhim.this, XemTrailer.class);
+                intent.putExtra("TRAILER", trailer);
                 startActivity(intent);
             }
         });
@@ -109,7 +111,8 @@ public class ChiTietPhim extends AppCompatActivity {
     void iniViews() {
         String movieTitle = getIntent().getExtras().getString("title");
         String imageResourceId = getIntent().getExtras().getString("imgURL");
-        String trailer= getIntent().getExtras().getString("trailer");
+        trailer= getIntent().getExtras().getString("trailer");
+//        Toast.makeText(this, trailer, Toast.LENGTH_SHORT).show();
         MovieThumbnailImg = findViewById(R.id.detail_movie_img);
        // Glide.with(this).load(imageResourceId).into(MovieThumbnailImg);
         Picasso.get().load(imageResourceId).placeholder(R.drawable.slide1).networkPolicy(NetworkPolicy.OFFLINE).into(MovieThumbnailImg);
