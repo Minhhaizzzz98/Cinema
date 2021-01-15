@@ -29,11 +29,13 @@ import com.android.volley.toolbox.Volley;
 import com.example.cinema.ChiTietPhim;
 import com.example.cinema.R;
 import com.example.cinema.adapters.AdapterListPhim;
+
 import com.example.cinema.adapters.AdapterPhanTrang;
 import com.example.cinema.adapters.MovieAdapter;
 import com.example.cinema.adapters.MovieItemClickListener;
 import com.example.cinema.adapters.SearchAdapter;
 import com.example.cinema.api.ReadJSONE;
+
 import com.example.cinema.models.DataHelperConnnect;
 import com.example.cinema.models.Movie;
 import com.squareup.moshi.JsonAdapter;
@@ -125,6 +127,7 @@ public class SearchFragment extends Fragment implements SearchView.OnQueryTextLi
 
         // Locate the ListView in listview_main.xml
         list = view.findViewById(R.id.listview);
+
         phantrang = view.findViewById(R.id.rcv_phantrang);
         list.setLayoutManager(new GridLayoutManager(getContext(),2));
         list.setHasFixedSize(true);
