@@ -66,14 +66,14 @@
 
         </androidx.recyclerview.widget.RecyclerView>
     </LinearLayout>
-    <Button
-        android:id="@+id/btnDatNgay"
-        android:text="Đặt ngay"
-        android:textColor="@color/white"
-        android:background="@color/colorPrimary"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+<!--    <Button-->
+<!--        android:id="@+id/btnDatNgay"-->
+<!--        android:text="Đặt ngay"-->
+<!--        android:textColor="@color/white"-->
+<!--        android:background="@color/colorPrimary"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content">-->
 
-    </Button>
+<!--    </Button>-->
 
 </LinearLayout>
