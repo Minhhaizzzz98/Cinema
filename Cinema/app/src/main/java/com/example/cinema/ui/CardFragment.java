@@ -245,7 +245,7 @@ public class CardFragment extends Fragment implements AdapterView.OnItemSelected
         return kh;
     }
     public void layDanhSachTinh() {
-        String url= "http://"+ DataHelperConnnect.ipConnect+"/lara_cinema/CenimaProject/public/api/Tinh";
+        String url= "http://"+ DataHelperConnnect.ipConnect+"/api/Tinh";
         JsonArrayRequest jsonArrayRequest= new JsonArrayRequest(url, new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray response) {

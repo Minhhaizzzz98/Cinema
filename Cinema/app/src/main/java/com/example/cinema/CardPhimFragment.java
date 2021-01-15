@@ -110,7 +110,7 @@ public class CardPhimFragment extends Fragment implements MovieItemClickListener
     }
     public void viewDataPhim() {
         lstMovies=new ArrayList<>();
-        String url= "http://"+ DataHelperConnnect.ipConnect+"/lara_cinema/CenimaProject/public/api/Phim";
+        String url= "http://"+ DataHelperConnnect.ipConnect+"/api/Phim";
         JsonArrayRequest jsonArrayRequest= new JsonArrayRequest(url, new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray response) {
@@ -127,7 +127,7 @@ public class CardPhimFragment extends Fragment implements MovieItemClickListener
                         String []teapArr=temp.split("&");
                         //
                         movie.setStreamingLink(teapArr[0]);
-                        String hinh="http://"+ DataHelperConnnect.ipConnect+"/lara_cinema/CenimaProject/public/data/"+jsonObject.getString("HinhAnh");
+                        String hinh="http://"+ DataHelperConnnect.ipConnect+"/data/"+jsonObject.getString("HinhAnh");
                         //
                         movie.setHinhanh(hinh);
                         //
