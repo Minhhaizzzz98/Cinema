@@ -214,7 +214,7 @@ public class DangKy extends AppCompatActivity {
     }
     public void sendData(String data, String pass){
         final String saveData= data;
-        String url= "http://"+ DataHelperConnnect.ipConnect+"/lara_cinema/CenimaProject/public/api/KhachHang_Dk";
+        String url= "http://"+ DataHelperConnnect.ipConnect+"/api/KhachHang_Dk";
 
         RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
         StringRequest stringRequest = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {

@@ -124,7 +124,7 @@ public class GiuGhe extends AppCompatActivity {
         });
     }
     public void viewdata(String id) {
-        String url= "http://"+ DataHelperConnnect.ipConnect+"/lara_cinema/CenimaProject/public/api/Ghe/"+id;
+        String url= "http://"+ DataHelperConnnect.ipConnect+"/api/Ghe/"+id;
         JsonArrayRequest jsonArrayRequest= new JsonArrayRequest(url, new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray response) {
@@ -167,7 +167,7 @@ public class GiuGhe extends AppCompatActivity {
     }
     public void sendDataVe(String data){
         final String saveData= data;
-        String url= "http://"+ DataHelperConnnect.ipConnect+"/lara_cinema/CenimaProject/public/api/Ve";
+        String url= "http://"+ DataHelperConnnect.ipConnect+"/api/Ve";
 
         RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
         StringRequest stringRequest = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {

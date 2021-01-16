@@ -209,7 +209,7 @@ public class ChonGheActivity extends AppCompatActivity {
         spinner.setAdapter(spinnerThoiGianAdapter);
     }
     public void layDanhSachGheDaDat(int suatchieu_id) {
-        String url= "http://"+ DataHelperConnnect.ipConnect+"/lara_cinema/CenimaProject/public/api/Ve/"+suatchieu_id;
+        String url= "http://"+ DataHelperConnnect.ipConnect+"/api/Ve/"+suatchieu_id;
         JsonArrayRequest jsonArrayRequest= new JsonArrayRequest(url, new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray response) {

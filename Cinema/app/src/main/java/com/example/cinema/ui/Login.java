@@ -94,40 +94,6 @@ public class Login extends AppCompatActivity {
         return sharedpreferences.getBoolean(KEY_IS_LOGGED_IN, false);//false is the default value in case there's nothing found with the key
     }
 
-//    public void layDanhSachKH() {
-//        String url= "http://"+ DataHelperConnnect.ipConnect+"/lara_cinema/CenimaProject/public/api/KhachHang";
-//        JsonArrayRequest jsonArrayRequest= new JsonArrayRequest(url, new Response.Listener<JSONArray>() {
-//            @Override
-//            public void onResponse(JSONArray response) {
-//                for(int i=0; i<response.length(); i++){
-//                    try {
-//                        JSONObject jsonObject= response.getJSONObject(i);
-//                        KhachHang kh= new KhachHang();
-//                        kh.setSDT(jsonObject.getString("SDT"));
-//                        kh.setPassword(jsonObject.getString("password"));
-//                        kh.setId(jsonObject.getInt("id"));
-//                        kh.setHoTen(jsonObject.getString("HoTen"));
-//                        kh.setTenTK(jsonObject.getString("TenTK"));
-//                        kh.setEmail(jsonObject.getString("Email"));
-//                        kh.setDiaChi(jsonObject.getString("DiaChi"));
-//
-//                        lstKH.add(kh);
-//
-//                    } catch (JSONException e) {
-//                        e.printStackTrace();
-//                    }
-//                }
-//
-//            }
-//        }, new Response.ErrorListener() {
-//            @Override
-//            public void onErrorResponse(VolleyError error) {
-//                Toast.makeText(getApplicationContext(), error.toString(), Toast.LENGTH_SHORT).show();
-//            }
-//        });
-//        RequestQueue requestQueue= Volley.newRequestQueue(getApplicationContext());
-//        requestQueue.add(jsonArrayRequest);
-//    }
 
     public void layDataKhachHangDN(String email, String pass){
         JSONObject jsonObject= new JSONObject();
@@ -141,7 +107,7 @@ public class Login extends AppCompatActivity {
     }
     public void sendData(String data, String pass){
         final String saveData= data;
-        String url= "http://"+ DataHelperConnnect.ipConnect+"/lara_cinema/CenimaProject/public/api/KhachHang_Login";
+        String url= "http://"+ DataHelperConnnect.ipConnect+"/api/KhachHang_Login";
 
         RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
         StringRequest stringRequest = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {

@@ -239,7 +239,7 @@ public class SearchFragment extends Fragment implements SearchView.OnQueryTextLi
         adapter.filter(text);
         return false;
     }
-
+  
     public void ShowPosition(int position,List<Movie> lstMovies, MovieItemClickListener movieItemClickListener ){
         List<Movie> tmp = new ArrayList<>();
         for(int i = position; i <= lstMovies.size(); i++){
@@ -247,5 +247,6 @@ public class SearchFragment extends Fragment implements SearchView.OnQueryTextLi
         }
         adapter = new AdapterListPhim(getContext(),tmp,movieItemClickListener);
         list.setAdapter(adapter);
+
     }
 }
