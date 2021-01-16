@@ -95,10 +95,10 @@ public class CardDienAnhFragment extends Fragment {
 
         if(counter==0){
 
-            comments.add(new Comment("Lisa", R.drawable.mov2));
-            comments.add(new Comment("Lisa", R.drawable.mov2));
-            comments.add(new Comment("Lisa", R.drawable.mov2));
-            comments.add(new Comment("Lisa", R.drawable.mov2));
+            comments.add(new Comment("Bình luận: phim hay trong tháng", R.drawable.spidercover));
+            comments.add(new Comment("Bình luận: phim Khương Tử Nha diệt tận", R.drawable.slide2));
+            comments.add(new Comment("Bình luận: top 5 phim đáng xem nhất trong tháng", R.drawable.spidercover));
+            comments.add(new Comment("Bình luận: phim được xem nhiều nhất", R.drawable.slide2));
 
 
             commentAdapter= new CommentAdapter(getActivity(), comments);
@@ -111,10 +111,10 @@ public class CardDienAnhFragment extends Fragment {
             recyclerView.setAdapter(commentAdapter);
         }
         else if(counter==1){
-            news.add(new News("Lisa", R.drawable.mov2));
-            news.add(new News("Lisa", R.drawable.mov2));
-            news.add(new News("Lisa", R.drawable.mov2));
-            news.add(new News("Lisa", R.drawable.mov2));
+            news.add(new News("Tin tức: diễn viên mới nổi", R.drawable.slide1));
+            news.add(new News("Tin tức: phim Khương Tử Nha diệt tận sắp ra mắt phần 2", R.drawable.slide2));
+            news.add(new News("Tin tức: phim bị cấm chiếu tại VN", R.drawable.spidercover));
+            news.add(new News("Tin tức: Top 5 phim được đề xuất nhiều nhất", R.drawable.slide2));
 
 
             newsAdapter= new NewsAdapter(getActivity(), news);
@@ -128,11 +128,10 @@ public class CardDienAnhFragment extends Fragment {
         }
         else
         {
-            actors.add(new Actor(R.drawable.mov2,"", ""));
-            actors.add(new Actor(R.drawable.mov2,"", ""));
-            actors.add(new Actor(R.drawable.mov2,"", ""));
-            actors.add(new Actor(R.drawable.mov2,"", ""));
-
+            actors.add(new Actor(R.drawable.dienvien1,"diễn viên xuất sắc nhất trong năm 2020", "Helena Bonham Carter"));
+            actors.add(new Actor(R.drawable.dienvien1,"diễn viên đạt giải oscar", "Jim Broadbent"));
+            actors.add(new Actor(R.drawable.dienvien1,"diễn viên được yêu thích nhất phim Harry Potter", "John Cleese"));
+            actors.add(new Actor(R.drawable.dienvien1,"Top 10 diễn viên xuất sắc nhất", "Robbie Coltrane"));
 
             actorAdapter= new ActorAdapter(getActivity(), actors);
             recyclerView.setHasFixedSize(true);

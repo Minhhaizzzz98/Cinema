@@ -19,7 +19,9 @@
         <ImageView
             android:id="@+id/iv_news"
             android:paddingLeft="8dp"
-            android:layout_width="match_parent"
+            android:background="@color/colorDefault"
+            android:layout_width="300dp"
+            android:layout_gravity="center"
             android:layout_height="100dp"
             android:src="@drawable/slide1">
         </ImageView>

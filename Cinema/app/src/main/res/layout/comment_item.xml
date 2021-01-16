@@ -17,9 +17,11 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <ImageView
+            android:layout_gravity="center"
             android:id="@+id/iv_comment"
+            android:background="@color/colorDefault"
             android:paddingLeft="8dp"
-            android:layout_width="match_parent"
+            android:layout_width="300dp"
             android:layout_height="100dp"
             android:src="@drawable/slide1">
         </ImageView>

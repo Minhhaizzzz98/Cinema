@@ -74,7 +74,11 @@ public class NotificationFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_notification, container, false);
-        viewData();
+        notifications.add(new Notification(R.drawable.available,"thong bao 1","noi dung thong bao",1));
+        notifications.add(new Notification(R.drawable.available,"thong bao 2","noi dung thong bao",2));
+        notifications.add(new Notification(R.drawable.available,"thong bao 3","noi dung thong bao",3));
+        notifications.add(new Notification(R.drawable.available,"thong bao 4","noi dung thong bao",4));
+        notifications.add(new Notification(R.drawable.available,"thong bao 5","noi dung thong bao",5));
         recyclerView = view.findViewById(R.id.rcv_thongbao);
         recyclerView.hasFixedSize();
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -83,11 +87,11 @@ public class NotificationFragment extends Fragment {
         return view;
     }
     public void viewData(){
-        notifications.add(new Notification(R.drawable.available,"thong bao","noi dung thong bao",1));
-        notifications.add(new Notification(R.drawable.available,"thong bao","noi dung thong bao",1));
-        notifications.add(new Notification(R.drawable.available,"thong bao","noi dung thong bao",1));
-        notifications.add(new Notification(R.drawable.available,"thong bao","noi dung thong bao",1));
-        notifications.add(new Notification(R.drawable.available,"thong bao","noi dung thong bao",1));
+        notifications.add(new Notification(R.drawable.available,"thong bao 1","noi dung thong bao",1));
+        notifications.add(new Notification(R.drawable.available,"thong bao 2","noi dung thong bao",2));
+        notifications.add(new Notification(R.drawable.available,"thong bao 3","noi dung thong bao",3));
+        notifications.add(new Notification(R.drawable.available,"thong bao 4","noi dung thong bao",4));
+        notifications.add(new Notification(R.drawable.available,"thong bao 5","noi dung thong bao",5));
     }
 
     @Override
